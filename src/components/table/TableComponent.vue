@@ -280,6 +280,7 @@ export default {
             }
         },
         getValue(record, column) {
+            if (!record) return ''
             const value = record[column.key]
             if (column.formatter) {
                 return column.formatter(value)

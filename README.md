@@ -1,41 +1,149 @@
-# v-tail-v3
+# v-tail-vue3
+A component library for Vue 3 using Tailwind CSS.
+## Installation
 
-This template should help get you started developing with Vue 3 in Vite.
+Install the library via `npm install --save @s3_dse/v-tail-vue3`.
 
-## Recommended IDE Setup
+Add the following to your entry point (e.g. `main.js`):
+```js
+import VTail from '@s3_dse/v-tail-vue3'
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+import { createApp } from 'vue'
+import App from './App.vue'
+const app = createApp(App)
+app.use(VTail)
 
-## Customize configuration
+app.mount('#app')
+```
+# Components
+## Table Component
+A table that supports
+* filtering
+* pagination
+* custom column and cell rendering
+* fixed top row(s) (e.g. for comparisons)
+* fixed bottom row(s) (e.g. for summaries)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## Usage
+We will use the following lines to illustrate the usage of the table component:
+```html
+<template>
+    <table-component
+        title="A Table"
+        :items="data"
+        :top-rows="topRows"
+        :bottom-rows="summaryRows"
+        :fields="header"
+        :paginate="true"
+        :configurablePageSize="true"
+        :per-page="5"
+        @after-sort="afterSort"
+        @after-page-change="afterPageChange"
+        @after-filter="afterFilter"
+        :pagination-previous-label="'<'"
+        :pagination-next-label="'>'"
+    >
+        <template #cell(ip_address)="{ value }">
+            <p class="tw-text-navy-500">{{ value }}</p>
+        </template>
+        <template #pagination-label="{ perPage, currentPage, totalEntries }">
+            I am currently showing entries 
+            {{ perPage * currentPage - perPage + 1 }} to
+            {{ perPage * currentPage }} of {{ totalEntries }} entries.
+        </template>
+        <template #page-size-label="data">
+            Current Page Size: {{ data.pageSize }}
+        </template>
+    </table-component>
+</template>
+<script>
+export default {
+    name: 'App',
+    data() {
+        return {
+            data: [
+                { id: 1, name: 'John Doe', share: 0.51, ip_address: '111.222.47.186', last_login: '2023-01-31' },
+                { id: 2, name: 'Jane Doe', share: 0.08, ip_address: '71.190.227.13', last_login: '2023-04-10' }
+            ],
+            topRows: [
+                { id: 3, name: 'Patricia Smith', share: 0.89, ip_address: '25.7.58.72', last_login: '2023-04-10'},
+                { id: 4, name: 'Douglas Holland', share: 0.72, ip_address: '105.171.14.146', last_login: '2023-03-24'}
+            ],
+            bottomRows: [
+                {id: 5, name: 'Jordan Winsley', share: 0.81, ip_address: '141.147.221.67', last_login: '2023-04-28'}
+            ],
+            fields: [
+                { key: 'id' }, 
+                { key: 'name' },
+                { key: 'share',
+                  thClassList: 'tw-text-right tw-px-2',
+                  tdClassList: 'tw-text-right tw-px-2',
+                  tdTopRowClassList: 'tw-text-right tw-px-2 tw-italic',
+                  tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold',
+                  formatter: value =>
+                          value
+                              ? (parseFloat(value) * 100).toLocaleString(navigator.language, {
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 2
+                              }) + '%'
+                              : ''
+                }
+                { key: 'ip_address',
+                  thClassList: 'tw-text-center tw-px-2',
+                  tdClassList: 'tw-text-center tw-px-2',
+                  tdTopRowClassList: 'tw-text-center tw-px-2 tw-italic',
+                  tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+                }
+            ]
+        }
+    }
+}
+</script>
+<style>
+@import '@s3_dse/v-tail-vue3/dist/style.css';
+</style>
 ```
 
-### Compile and Hot-Reload for Development
+We pass the table data as an array of objects via the `:items` attribute. The same applies to the optional `:top-rows` and `:bottom-rows`. The entries of all three data arrays need to have the same structure. The `:fields` attribute takes an array of objects with details regarding the rendering of particular fields. Field entries have a `key` to refer to a data entry's property. The remaining field properties are metadata to customize the rendering of the column:
+ * `thClassList`: classes for styling the column's `<th>` content (only applied to `:items` records)
+ * `tdClassList`: classes for styling the column's `<td>` content (only applied to `:items` records)
+ * `tdTopRowClassList`: classes for styling the column's `<td>` content (only applied to `:top-rows` records)
+ * `tdBottomRowClassList`: classes for styling the column's `<td>` content (only applied to `:bottom-rows` records)
+ * `formatter`: a function defining a formatting logic for the values of that field/column
 
-```sh
-npm run dev
-```
+Only attributes present in the field array will be displayed in the resulting table, hence the `
 
-### Compile and Minify for Production
+### Pagination
+The page navigation can be enabled/disabled via the `:paginate` attribute. This will toggle pagination in general. The page size configurator can be enabled/disabled via the `:configurable-page-size` attribute. Both these attributes take boolean values and are `true` by default. They are part of the above example only for illustration.
 
-```sh
-npm run build
-```
+### Cell Rendering
+The above example shows how to use the `#cell()` slot to customize the rendering of individual cells. The slot is dynamic and takes a field key as argument. It provides an object holding the actual cell `value`, the `item` (or record) of the `:items` array, and the `field` of the `:fields` array.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Credits
+The component is heavily inspired by the Bootstrap Vue Table component. Have a look: https://github.com/bootstrap-vue/bootstrap-vue
 
-```sh
-npm run test:unit
-```
 
-### Lint with [ESLint](https://eslint.org/)
+## Pagination Component
+## Dropdown Component
+# License
+MIT License
 
-```sh
-npm run lint
-```
+Copyright (c) 2023 Sebastian Doerl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

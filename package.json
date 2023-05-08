@@ -1,31 +1,46 @@
 {
-  "name": "v-tail-v3",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.23",
-    "tailwindcss": "^3.3.2",
-    "vue": "^3.2.47"
-  },
-  "devDependencies": {
-    "@rushstack/eslint-patch": "^1.2.0",
-    "@vitejs/plugin-vue": "^4.2.1",
-    "@vue/eslint-config-prettier": "^7.1.0",
-    "@vue/test-utils": "^2.3.2",
-    "eslint": "^8.39.0",
-    "eslint-plugin-vue": "^9.11.0",
-    "jsdom": "^22.0.0",
-    "prettier": "^2.8.8",
-    "vite": "^4.3.4",
-    "vitest": "^0.31.0"
-  }
+    "name": "@s3_dse/v-tail-vue3",
+    "version": "0.1.0",
+    "author": {
+        "name": "Sebastian Doerl",
+        "email": "sebastian.doerl@gmail.com"
+    },
+    "license": "MIT",
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "dist/v-tail.umd.js",
+    "module": "dist/v-tail.es.js",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "serve": "vite --port 8081",
+        "build": "vite build",
+        "preview": "vite preview --port 8081",
+        "test:unit:watch": "vitest watch --environment jsdom",
+        "test:unit": "vitest run --environment jsdom",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+        "format": "prettier --write src/"
+    },
+    "dependencies": {
+      "vue": "^3.2.47"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.14",
+        "tailwindcss": "^3.3.2",
+        "postcss": "^8.4.23",
+        "@rushstack/eslint-patch": "^1.2.0",
+        "@vitejs/plugin-vue": "^4.2.1",
+        "@vue/eslint-config-prettier": "^7.1.0",
+        "@vue/test-utils": "^2.3.2",
+        "eslint": "^8.39.0",
+        "eslint-plugin-vue": "^9.11.0",
+        "jsdom": "^22.0.0",
+        "prettier": "^2.8.8",
+        "vite": "^4.3.4",
+        "vitest": "^0.31.0"
+    }
 }

@@ -172,9 +172,11 @@ function buildSearchIndex(acc, curr) {
 }
 
 function toSearchableRow(row) {
+    const normalized = Object.values(row).join('') + ' ' + Object.values(row).join(' ') 
     return {
         row,
-        normalized: Object.values(row).reduce(buildSearchIndex)
+        // normalized: Object.values(row).reduce(buildSearchIndex)
+        normalized
     }
 }
 export default {
@@ -334,7 +336,8 @@ export default {
         },
         filterData(event) {
             if (this.paginate) this.changePage(1)
-            const filteredData = this.items.map(toSearchableRow).filter(this.findItems)
+            const searchableData = this.items.map(toSearchableRow)
+            const filteredData = searchableData.filter(this.findItems)
             this.tableData = filteredData.map(e => (e ? e.row : []))
             this.$emit('after-filter', { searchTerm: event.target.value })
         },

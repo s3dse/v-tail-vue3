@@ -44,6 +44,7 @@
     </div>
 </template>
 <script>
+import '@/assets/index.css'
 const PAGE_CHANGED_EVENT = 'page-changed'
 const createIntermediateIndexRange = (currentPage, maxIntermediateButtons, totalPages) => {
     if (totalPages < maxIntermediateButtons) return [...Array(totalPages).keys()].map(i => i + 1)

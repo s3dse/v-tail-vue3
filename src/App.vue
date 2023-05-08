@@ -1,7 +1,7 @@
 <script setup>
 import data from './assets/MOCK_DATA-2.json'
 import { ref } from 'vue'
-import './assets/index.css'
+import './assets/main.css'
 import TableComponent from './components/table/TableComponent.vue'
 import CardComponent from './components/card/CardComponent.vue'
 import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
@@ -86,7 +86,6 @@ const tableStatus = ref({ busy: false})
 </template>
 
 <style scoped>
-@import './assets/index.css';
 /* header {
   line-height: 1.5;
 }

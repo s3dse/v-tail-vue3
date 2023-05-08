@@ -5,7 +5,14 @@ import PaginationComponent from '@/components/pagination/PaginationComponent.vue
 
 describe('PaginationComponent', () => {
     it('renders properly', () => {
-        const wrapper = shallowMount(PaginationComponent)
+        const wrapper = shallowMount(PaginationComponent, {
+            props: {
+                totalPages: 1,
+                totalEntries: 2,
+                perPage: 10,
+                currentPage: 1
+            }
+        })
         expect(wrapper.find('div[data-pagination-component]').toBeDefined)
         wrapper.unmount()
     })

@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+import '@/assets/index.css'
 export default {
     name: 'card-component'
 }

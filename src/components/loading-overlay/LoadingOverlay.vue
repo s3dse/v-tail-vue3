@@ -32,6 +32,7 @@
     </div>
 </template>
 <script>
+import '@/assets/index.css'
 export default {
     name: 'loading-overlay',
     props: {

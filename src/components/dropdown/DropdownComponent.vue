@@ -33,6 +33,7 @@
     </div>
 </template>
 <script>
+import '@/assets/index.css'
 import { clickOutside} from '@/directives/click-outside'
 export default {
     directives: {

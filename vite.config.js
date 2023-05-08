@@ -22,9 +22,6 @@ export default defineConfig({
         },
         minify: false
     },
-    optimizeDeps: {
-        exclude: ['vue-demi']
-    },
     plugins: [
         vue()
     ],

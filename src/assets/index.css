@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .tw-card {
+        @apply tw-border tw-border-solid tw-border-gray-200 tw-bg-white tw-rounded-sm
+    }
+}

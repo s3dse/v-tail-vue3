@@ -175,7 +175,6 @@ function toSearchableRow(row) {
     const normalized = Object.values(row).join('') + ' ' + Object.values(row).join(' ') 
     return {
         row,
-        // normalized: Object.values(row).reduce(buildSearchIndex)
         normalized
     }
 }

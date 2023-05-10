@@ -5,6 +5,9 @@
                 {{ title }}
             </div>
         </div>
+        <div v-if="hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
+            <slot name="title" />
+        </div>
         <div
             class="vt-table-header tw-flex tw-flex-wrap tw-align-baseline tw-mx-4 tw-my-3 tw-gap-2"
         >
@@ -261,6 +264,9 @@ export default {
         },
         underscoresToSpaces() {
             return v => v ? v.replaceAll('_', ' ') : v
+        },
+        hasTitleSlot() {
+            return !!this.$slots.title
         }
     },
     watch: {

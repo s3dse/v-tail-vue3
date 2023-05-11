@@ -242,7 +242,7 @@ export default {
                                 tw-px-2 
                                 tw-text-sm 
                                 tw-flex 
-                                tw-h-[100%]`)
+                                tw-h-auto`)
         },
         paginate: {
             type: Boolean,

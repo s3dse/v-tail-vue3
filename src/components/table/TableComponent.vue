@@ -24,7 +24,7 @@
                 v-model="pageSize"
                 :options="[5, 10, 25, 50, 100]"
                 :default-item="5"
-                button-class-list="tw-border tw-border-slate-500 tw-bg-slate-50 hover:tw-bg-slate-100 hover:tw-cursor-pointer tw-rounded-sm tw-text-sm tw-px-4 tw-inline-flex tw-items-center"
+                :button-class-list="pageSizeButtonClassList || 'tw-border tw-border-slate-200 hover:tw-border-slate-100 tw-bg-slate-50 hover:tw-bg-slate-100 hover:tw-cursor-pointer tw-rounded-sm tw-text-sm tw-px-4 tw-inline-flex tw-items-center'"
             >
                 <template #toggle-label="{ currentItem }">
                     <slot name="page-size-label" v-bind="{ pageSize: currentItem }"></slot>
@@ -155,6 +155,7 @@
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue'
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
 import '@/assets/index.css'
+import { joinLines } from '@/utils/string-join-lines.js'
 function numSort(a, b, ascending) {
     return ascending ? a - b : b - a
 }
@@ -218,6 +219,20 @@ export default {
         configurablePageSize: {
             type: Boolean,
             default: true
+        },
+        pageSizeButtonClassList: {
+            type: String,
+            default: joinLines(`tw-border 
+                                tw-border-slate-200 
+                                hover:tw-border-slate-100 
+                                tw-bg-slate-50 
+                                hover:tw-bg-slate-100 
+                                hover:tw-cursor-pointer 
+                                tw-rounded-sm 
+                                tw-text-sm 
+                                tw-px-4 
+                                tw-inline-flex 
+                                tw-items-center`)
         },
         paginate: {
             type: Boolean,

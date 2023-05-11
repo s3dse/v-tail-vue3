@@ -9,7 +9,7 @@
             <slot name="title" />
         </div>
         <div
-            class="vt-table-header tw-grid tw-grid-flow-col grid-auto-cols-[minmax(0, 1fr)] tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
+            class="vt-table-header tw-grid tw-grid-flow-col tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
         >
             <input
                 v-if="enableSearch"

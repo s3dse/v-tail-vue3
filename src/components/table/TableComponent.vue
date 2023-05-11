@@ -9,7 +9,7 @@
             <slot name="title" />
         </div>
         <div
-            class="vt-table-header tw-flex tw-flex-wrap tw-align-baseline tw-mx-4 tw-my-3 tw-gap-2"
+            class="vt-table-header tw-grid tw-grid-flow-col grid-auto-cols-[minmax(0, 1fr)] tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
         >
             <input
                 v-if="enableSearch"
@@ -17,17 +17,19 @@
                 :placeholder="searchPlaceholder"
                 :id="filterInputId"
                 @input="filterData"
-                class="tw-border tw-rounded-sm tw-px-2 tw-text-sm"
+                class="tw-border tw-rounded-sm tw-px-2 tw-text-sm tw-flex"
             />
             <dropdown-component
+                class="tw-flex"
                 v-model="pageSize"
                 :options="[5, 10, 25, 50, 100]"
                 :default-item="5"
-                button-class-list="tw-border tw-bg-slate-100 hover:tw-bg-slate-200 hover:tw-cursor-pointer tw-rounded-sm tw-px-2 tw-text-sm tw-text-center tw-align-baseline"
+                button-class-list="tw-border tw-border-slate-500 tw-bg-slate-50 hover:tw-bg-slate-100 hover:tw-cursor-pointer tw-rounded-sm tw-text-sm tw-px-4 tw-py-1 tw-inline-flex tw-items-center  "
             >
                 <template #toggle-label="{ currentItem }">
                     <slot name="page-size-label" v-bind="{ pageSize: currentItem }"></slot>
                 </template>
+
             </dropdown-component>
             <slot
                 name="table-top-controls"

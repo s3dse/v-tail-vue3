@@ -77,9 +77,16 @@ const tableStatus = ref({ busy: false})
     <TheWelcome />
   </main> -->
     <div>
-        <card-component>
+        <card-component class="tw-p-1">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields"></table-component>
+                <table-component :items="items" :fields="fields">
+                  <template #table-top-controls>
+                    <div class="tw-border tw-p-0 tw-min-w-[3rem]"></div>
+                  </template>
+                  <template #page-size-label="{pageSize}">
+                    Einträge pro Seite: {{ pageSize }}
+                  </template>
+                </table-component>
             </loading-overlay>
         </card-component>
     </div>

@@ -2,7 +2,7 @@
     <div v-click-outside="closeDropdown" class="tw-relative">
         <div
             @click="toggleDropdown"
-            :class="[buttonClassList ? buttonClassList : 'tw-bg-slate-200 hover:tw-bg-slate-300 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 tw-text-sm tw-px-4 tw-py-1 tw-text-center tw-inline-flex tw-items-center']"
+            :class="[buttonClassList ? buttonClassList : 'tw-bg-slate-50 hover:tw-bg-slate-100 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 tw-text-sm tw-px-4 tw-py-1 tw-text-center tw-inline-flex tw-items-center']"
             type="button"
         >
             <slot name="toggle-label" v-bind="{ currentItem }">

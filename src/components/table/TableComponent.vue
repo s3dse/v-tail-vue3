@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div v-if="title" class="vt-title-border tw-border-b tw-my-3">
+        <div v-if="title && !hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
             <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 tw-font-semibold tw-my-3">
                 {{ title }}
             </div>
         </div>
-        <div v-if="hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
+        <div v-if="!title && hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
             <slot name="title" />
         </div>
         <div
-            class="vt-table-header tw-grid tw-grid-flow-col tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
+            class="vt-table-header tw-flex tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
         >
             <input
                 v-if="enableSearch"

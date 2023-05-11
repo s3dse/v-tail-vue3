@@ -97,7 +97,7 @@ const logItem = item => {
             <loading-overlay :show="tableStatus.busy">
                 <table-component :items="items" :fields="fields" title="Test">
                   <template #table-top-controls>
-                    <div class="tw-border tw-px-4">some control</div>
+                    <div class="tw-border tw-px-4 tw-p-8 tw-ms-auto">some control</div>
                   </template>
                   <template #page-size-label="{pageSize}">
                     Einträge pro Seite: {{ pageSize }}

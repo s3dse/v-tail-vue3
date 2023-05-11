@@ -17,14 +17,14 @@
                 :placeholder="searchPlaceholder"
                 :id="filterInputId"
                 @input="filterData"
-                class="tw-border tw-rounded-sm tw-px-2 tw-text-sm tw-flex"
+                :class="searchInputClassList"
             />
             <dropdown-component
                 class="tw-flex"
                 v-model="pageSize"
                 :options="[5, 10, 25, 50, 100]"
                 :default-item="5"
-                :button-class-list="pageSizeButtonClassList || 'tw-border tw-border-slate-200 hover:tw-border-slate-100 tw-bg-slate-50 hover:tw-bg-slate-100 hover:tw-cursor-pointer tw-rounded-sm tw-text-sm tw-px-4 tw-inline-flex tw-items-center'"
+                :button-class-list="pageSizeButtonClassList"
             >
                 <template #toggle-label="{ currentItem }">
                     <slot name="page-size-label" v-bind="{ pageSize: currentItem }"></slot>
@@ -230,9 +230,19 @@ export default {
                                 hover:tw-cursor-pointer 
                                 tw-rounded-sm 
                                 tw-text-sm 
-                                tw-px-4 
+                                tw-px-4
+                                tw-h-[100%]
                                 tw-inline-flex 
                                 tw-items-center`)
+        },
+        searchInputClassList: {
+            type: String,
+            default: joinLines(`tw-border
+                                tw-rounded-sm
+                                tw-px-2 
+                                tw-text-sm 
+                                tw-flex 
+                                tw-h-[100%]`)
         },
         paginate: {
             type: Boolean,

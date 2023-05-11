@@ -5,6 +5,8 @@ import './assets/main.css'
 import TableComponent from './components/table/TableComponent.vue'
 import CardComponent from './components/card/CardComponent.vue'
 import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
+import DropdownComponent from './components/dropdown/DropdownComponent.vue'
+import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -62,6 +64,10 @@ const fields = ref([
       }
     ])
 const tableStatus = ref({ busy: false})
+
+const logItem = item => {
+  console.log(item)
+}
 </script>
 
 <template>
@@ -78,6 +84,16 @@ const tableStatus = ref({ busy: false})
   </main> -->
     <div>
         <card-component class="tw-p-1">
+          <action-dropdown-component :options="['a', 'b']" @on-select="logItem">
+            <template #toggle-label>
+              <div>select action</div>
+            </template>
+          </action-dropdown-component>
+          <dropdown-component :options="['a', 'b']">
+            <template #toggle-label>
+              <div>select</div>
+            </template>
+          </dropdown-component>
             <loading-overlay :show="tableStatus.busy">
                 <table-component :items="items" :fields="fields" title="Test">
                   <template #table-top-controls>

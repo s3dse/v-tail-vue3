@@ -12,7 +12,7 @@
         </div>
         <div
             v-show="show"
-            class="tw-absolute tw-w-fit tw-z-10 tw-bg-white tw-divide-y tw-divide-gray-100 tw-rounded-sm tw-shadow w-44"
+            class="tw-absolute tw-top-[100%] tw-w-fit tw-z-10 tw-bg-white tw-divide-y tw-divide-gray-100 tw-rounded-sm tw-shadow w-44"
         >
             <ul class="text-sm text-gray-700 dark:text-gray-200">
                 <li

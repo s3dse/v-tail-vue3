@@ -226,7 +226,7 @@ export default {
                                 tw-border-slate-200 
                                 hover:tw-border-slate-100 
                                 tw-bg-slate-50 
-                                hover:tw-bg-slate-100 
+                                hover:tw-bg-gray-200 
                                 hover:tw-cursor-pointer 
                                 tw-rounded-sm 
                                 tw-text-sm 

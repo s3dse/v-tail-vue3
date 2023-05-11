@@ -79,7 +79,7 @@ const tableStatus = ref({ busy: false})
     <div>
         <card-component class="tw-p-1">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields" title="Test" :page-size-button-class-list="'tw-border tw-border-pink-900'">
+                <table-component :items="items" :fields="fields" title="Test">
                   <template #table-top-controls>
                     <div class="tw-border tw-px-4">some control</div>
                   </template>

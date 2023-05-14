@@ -8,9 +8,7 @@
         <div v-if="!title && hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
             <slot name="title" />
         </div>
-        <div
-            class="vt-table-header tw-flex tw-flex-wrap tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start"
-        >
+        <div class="vt-table-header tw-flex tw-flex-wrap tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start">
             <input
                 v-if="enableSearch"
                 name="search"
@@ -29,7 +27,6 @@
                 <template #toggle-label="{ currentItem }">
                     <slot name="page-size-label" v-bind="{ pageSize: currentItem }"></slot>
                 </template>
-
             </dropdown-component>
             <slot
                 name="table-top-controls"
@@ -38,10 +35,10 @@
                 :fields="fields"
             ></slot>
         </div>
-        <div class="tw-mt-2 tw-pb-2 tw-border-b tw-border-1 tw-overflow-x-auto">
+        <div class="tw-mt-2 tw-pb-2 tw-border-t tw-overflow-x-auto">
             <table class="tw-w-[100%]">
                 <thead
-                    class="tw-border-t tw-border-solid tw-border-1 tw-bg-slate-100 tw-uppercase tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
+                    class="tw-bg-slate-100 tw-uppercase tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
                     v-if="tableData.length || topRows.length"
                 >
                     <th
@@ -53,9 +50,12 @@
                     >
                         {{ underscoresToSpaces(col.key) }}
                         <div
-                            class="arrow tw-ms-2"
-                            v-if="col.key === sortColumnKey"
-                            :class="ascending ? 'chevron_up' : 'chevron_down'"
+                            class="tw-inline-block"
+                            :class="{
+                                'i-tabler-arrows-sort': col.key !== sortColumnKey,
+                                'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
+                                'i-tabler-sort-descending': col.key === sortColumnKey && !ascending
+                            }"
                         ></div>
                     </th>
                 </thead>
@@ -64,7 +64,7 @@
                         :data-top-row="rowIndex"
                         v-for="(item, rowIndex) in getRows(topRows, false)"
                         :key="`top_row_${rowIndex}`"
-                        class="tw-border-y"
+                        class=""
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
@@ -154,8 +154,8 @@
 <script>
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue'
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
-import '@/assets/index.css'
 import { joinLines } from '@/utils/string-join-lines.js'
+import 'virtual:uno.css'
 function numSort(a, b, ascending) {
     return ascending ? a - b : b - a
 }
@@ -173,12 +173,8 @@ function textMatch(needle, haystack) {
     return haystack.toLowerCase().indexOf(lowerCasedNeedle) !== -1
 }
 
-function buildSearchIndex(acc, curr) {
-    return acc + curr + (acc + ' ' + curr)
-}
-
 function toSearchableRow(row) {
-    const normalized = Object.values(row).join('') + ' ' + Object.values(row).join(' ') 
+    const normalized = Object.values(row).join('') + ' ' + Object.values(row).join(' ')
     return {
         row,
         normalized
@@ -290,7 +286,7 @@ export default {
             return this.pageSize - this.topRows.length
         },
         underscoresToSpaces() {
-            return v => v ? v.replaceAll('_', ' ') : v
+            return v => (v ? v.replaceAll('_', ' ') : v)
         },
         hasTitleSlot() {
             return !!this.$slots.title
@@ -305,7 +301,7 @@ export default {
         validateProps() {
             if (this.pageSize <= this.topRows.length) {
                 this.componentValidation = false
-                console.error('\'pageSize\' must be higher than length of \'topRows\'.')
+                console.error("'pageSize' must be higher than length of 'topRows'.")
                 return false
             } else {
                 this.componentValidation = true

@@ -30,7 +30,9 @@
     </div>
 </template>
 <script>
-import '@/assets/index.css'
+import '@unocss/reset/tailwind.css'
+// import '@unocss/reset/tailwind.css'
+import 'virtual:uno.css'
 import { clickOutside} from '@/directives/click-outside'
 export default {
     directives: {

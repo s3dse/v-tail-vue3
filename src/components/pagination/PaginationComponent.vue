@@ -44,7 +44,8 @@
     </div>
 </template>
 <script>
-import '@/assets/index.css'
+import '@unocss/reset/tailwind.css'
+import 'virtual:uno.css'
 const PAGE_CHANGED_EVENT = 'page-changed'
 const createIntermediateIndexRange = (currentPage, maxIntermediateButtons, totalPages) => {
     if (totalPages < maxIntermediateButtons) return [...Array(totalPages).keys()].map(i => i + 1)
@@ -136,12 +137,14 @@ export default {
             this.$emit(PAGE_CHANGED_EVENT, 1)
         },
         onClickPreviousPage() {
+            if (this.currentPage === 1) return
             this.$emit(PAGE_CHANGED_EVENT, this.currentPage - 1)
         },
         onClickPage(page) {
             this.$emit(PAGE_CHANGED_EVENT, page)
         },
         onClickNextPage() {
+            if (this.currentPage === this.totalPages) return
             this.$emit(PAGE_CHANGED_EVENT, this.currentPage + 1)
         },
         onClickLastPage() {

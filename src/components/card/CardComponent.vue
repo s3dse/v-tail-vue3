@@ -4,7 +4,8 @@
     </div>
 </template>
 <script>
-import '@/assets/index.css'
+import '@unocss/reset/tailwind.css'
+import 'virtual:uno.css'
 export default {
     name: 'card-component'
 }

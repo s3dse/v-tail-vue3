@@ -6,6 +6,7 @@ import CardComponent from './components/card/CardComponent.vue'
 import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
 import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
+import ModalComponent from './components/modal/ModalComponent.vue'
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -71,6 +72,12 @@ const logItem = item => {
 
 <template>
     <div class="tw-p-5">
+        <modal-component title="A Dialog Title">
+            <template #content>
+                <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
+            </template>
+        </modal-component>
+        <div class="tw-p-[8rem]"></div>
         <action-dropdown-component :options="['a', 'b']" @on-select="logItem">
             <template #toggle-label>
                 <div>select action</div>

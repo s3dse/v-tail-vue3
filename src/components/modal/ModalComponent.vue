@@ -4,12 +4,10 @@
             {{ toggleText }}
         </component>
     </div>
-    <Dialog as="div" :open="isOpen" @close="cancel" :class="dialogClassList">
+    <Dialog as="div" :open="isOpen" @close="cancel" :class="dialogClassList" :unmount="unmount">
         <div name="backdrop" :class="backdropClassList" />
         <div class="tw-fixed tw-inset-0">
-            <div
-                class="tw-flex tw-min-h-full tw-items-center tw-justify-center tw-text-center"
-            >
+            <div class="tw-flex tw-min-h-full tw-items-center tw-justify-center tw-text-center">
                 <DialogPanel :class="dialogPanelClassList">
                     <div class="tw-border-b tw-bg-white">
                         <DialogTitle as="div" :class="dialogTitleClassList">
@@ -19,7 +17,9 @@
                     <div :class="bodyClassList">
                         <slot name="content">
                             <div class="tw-mt-2 tw-px-4">
-                                <p class="tw-text-sm tw-text-gray-500">Lorem Ipsum Something Something</p>
+                                <p class="tw-text-sm tw-text-gray-500">
+                                    Lorem Ipsum Something Something
+                                </p>
                             </div>
                         </slot>
 
@@ -34,9 +34,7 @@
                                 </button>
                             </slot>
                         </div>
-
                     </div>
-                    
                 </DialogPanel>
             </div>
         </div>
@@ -128,11 +126,15 @@ const props = defineProps({
     confirmButtonText: {
         type: String,
         default: 'OK'
+    },
+    unmount: {
+        type: Boolean,
+        default: false
     }
 })
 
 const isOpen = ref(false)
-const emit = defineEmits(['opened', 'confirmed', 'cancelled'])
+const emit = defineEmits(['opened', 'before-close', 'confirmed', 'cancelled'])
 
 function confirm() {
     closeModal()

@@ -37,14 +37,14 @@ const fields = ref([
     {
         key: 'email',
         thClassList: 'tw-text-left tw-px-1',
-        tdClassList: 'tw-text-left tw-px-1',
+        tdClassList: 'tw-text-left tw-px-1 tw-w-15',
         tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
         tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     },
     {
         key: 'share',
         thClassList: 'tw-text-right tw-px-1 tw-w-15',
-        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
+        tdClassList: 'tw-text-right tw-px-1 tw-font-mono tw-w-15',
         tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
         tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold',
         formatter: number =>
@@ -93,12 +93,17 @@ const opened = () => console.log('opened')
         </dropdown-component>
         <card-component class="tw-mt-5">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields" title="Test">
+                <table-component :items="items" :fields="fields" title="Test" class="tw-w-[100%]">
                     <template #table-top-controls>
                         <div class="tw-border tw-px-4 tw-ms-auto">some control</div>
                     </template>
                     <template #page-size-label="{ pageSize }">
                         Einträge pro Seite: {{ pageSize }}
+                    </template>
+                    <template #cell(share)="data">
+                        <div :title="data.unformatted">
+                            {{ data.value }}
+                        </div>
                     </template>
                 </table-component>
             </loading-overlay>

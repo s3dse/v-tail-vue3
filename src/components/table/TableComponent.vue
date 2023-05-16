@@ -75,6 +75,7 @@
                             <slot
                                 :name="`cell(${column.key})`"
                                 :value="getValue(item, column)"
+                                :unformatted="getUnformattedValue(item, column)"
                                 :item="item"
                                 :field="column"
                             >
@@ -94,6 +95,7 @@
                             <slot
                                 :name="`cell(${column.key})`"
                                 :value="getValue(item, column)"
+                                :unformatted="getUnformattedValue(item, column)"
                                 :item="item"
                                 :field="column"
                             >
@@ -117,6 +119,7 @@
                             <slot
                                 :name="`cell(${column.key})`"
                                 :value="getValue(item, column)"
+                                :unformatted="getUnformattedValue(item, column)"
                                 :item="item"
                                 :field="column"
                             >
@@ -320,6 +323,10 @@ export default {
             } else {
                 return value
             }
+        },
+        getUnformattedValue(record, column) {
+            if (!record) return ''
+            return record[column.key]
         },
         sortTable(col) {
             if (this.sortColumnKey === col.key) {

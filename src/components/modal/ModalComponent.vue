@@ -1,8 +1,8 @@
 <template>
     <div class="fixed inset-0 flex items-center justify-center">
-        <button type="button" @click="openModal" :class="toggleClassList">
+        <component :is="toggleType" @click="openModal" :class="toggleClassList">
             {{ toggleText }}
-        </button>
+        </component>
     </div>
     <Dialog as="div" :open="isOpen" @close="closeModal" :class="dialogClassList">
         <div name="backdrop" :class="backdropClassList" />
@@ -58,6 +58,10 @@ const props = defineProps({
                             tw-text-sm 
                             tw-gray-50 
                             hover:tw-bg-navy-400`)
+    },
+    toggleType: {
+        type: String,
+        default: 'button'
     },
     toggleText: {
         type: String,

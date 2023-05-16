@@ -72,7 +72,7 @@ const logItem = item => {
 
 <template>
     <div class="tw-p-5">
-        <modal-component title="A Dialog Title">
+        <modal-component title="A Dialog Title" toggle-type="button">
             <template #content>
                 <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
             </template>

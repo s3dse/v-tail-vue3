@@ -4,7 +4,7 @@
             {{ toggleText }}
         </component>
     </div>
-    <Dialog as="div" :open="isOpen" @close="closeModal" :class="dialogClassList">
+    <Dialog as="div" :open="isOpen" @close="cancel" :class="dialogClassList">
         <div name="backdrop" :class="backdropClassList" />
         <div class="tw-fixed tw-inset-0">
             <div
@@ -132,11 +132,16 @@ const props = defineProps({
 })
 
 const isOpen = ref(false)
-const emit = defineEmits(['confirmed'])
+const emit = defineEmits(['confirmed', 'cancelled'])
 
 function confirm() {
     closeModal()
     emit('confirmed')
+}
+
+function cancel() {
+    closeModal()
+    emit('cancelled')
 }
 
 function closeModal() {

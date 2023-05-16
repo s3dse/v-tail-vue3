@@ -15,38 +15,38 @@ const items = ref([...data])
 const fields = ref([
     {
         key: 'id',
-        thClassList: 'tw-text-right tw-px-2',
-        tdClassList: 'tw-text-right tw-px-2',
-        tdTopRowClassList: 'tw-text-right tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+        thClassList: 'tw-text-right tw-px-1 tw-w-18',
+        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
+        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     },
     {
         key: 'first_name',
-        thClassList: 'tw-text-left tw-px-2',
-        tdClassList: 'tw-text-left tw-px-2',
-        tdTopRowClassList: 'tw-text-left tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+        thClassList: 'tw-text-left tw-px-1',
+        tdClassList: 'tw-text-left tw-px-1',
+        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     },
     {
         key: 'last_name',
-        thClassList: 'tw-text-left tw-px-2',
-        tdClassList: 'tw-text-left tw-px-2',
-        tdTopRowClassList: 'tw-text-left tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+        thClassList: 'tw-text-left tw-px-1',
+        tdClassList: 'tw-text-left tw-px-1',
+        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     },
     {
         key: 'email',
-        thClassList: 'tw-text-left tw-px-2',
-        tdClassList: 'tw-text-left tw-px-2',
-        tdTopRowClassList: 'tw-text-left tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+        thClassList: 'tw-text-left tw-px-1',
+        tdClassList: 'tw-text-left tw-px-1',
+        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     },
     {
         key: 'share',
-        thClassList: 'tw-text-right tw-px-2',
-        tdClassList: 'tw-text-right tw-px-2',
-        tdTopRowClassList: 'tw-text-right tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold',
+        thClassList: 'tw-text-right tw-px-1 tw-w-15',
+        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
+        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold',
         formatter: number =>
             number
                 ? (parseFloat(number) * 100).toLocaleString(navigator.language, {
@@ -57,10 +57,10 @@ const fields = ref([
     },
     {
         key: 'ip_address',
-        thClassList: 'tw-text-center tw-px-2',
-        tdClassList: 'tw-text-center tw-px-2',
-        tdTopRowClassList: 'tw-text-center tw-px-2 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+        thClassList: 'tw-text-right tw-px-1 tw-w-45',
+        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
+        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
+        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
     }
 ])
 const tableStatus = ref({ busy: false })

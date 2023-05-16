@@ -28,7 +28,7 @@
                                 <button
                                     type="button"
                                     :class="confirmButtonClassList"
-                                    @click="closeModal"
+                                    @click="confirm"
                                 >
                                     {{ confirmButtonText }}
                                 </button>
@@ -132,6 +132,11 @@ const props = defineProps({
 })
 
 const isOpen = ref(false)
+
+function confirm() {
+    this.closeModal()
+    this.$emit('confirmed')
+}
 
 function closeModal() {
     isOpen.value = false

@@ -70,11 +70,12 @@ const logItem = item => {
 }
 const test = () => console.log('test')
 const stopped = () => console.log('stopped')
+const opened = () => console.log('opened')
 </script>
 
 <template>
     <div class="tw-p-5">
-        <modal-component title="A Dialog Title" toggle-type="button" @confirmed="test" @cancelled="stopped">
+        <modal-component title="A Dialog Title" toggle-type="button" @confirmed="test" @cancelled="stopped" @opened="opened">
             <template #content>
                 <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
             </template>

@@ -132,7 +132,7 @@ const props = defineProps({
 })
 
 const isOpen = ref(false)
-const emit = defineEmits(['confirmed', 'cancelled'])
+const emit = defineEmits(['opened', 'confirmed', 'cancelled'])
 
 function confirm() {
     closeModal()
@@ -149,5 +149,6 @@ function closeModal() {
 }
 function openModal() {
     isOpen.value = true
+    emit('opened')
 }
 </script>

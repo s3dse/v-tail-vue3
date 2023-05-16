@@ -132,10 +132,11 @@ const props = defineProps({
 })
 
 const isOpen = ref(false)
+const emit = defineEmits(['confirmed'])
 
 function confirm() {
-    this.closeModal()
-    this.$emit('confirmed')
+    closeModal()
+    emit('confirmed')
 }
 
 function closeModal() {

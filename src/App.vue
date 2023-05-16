@@ -68,11 +68,12 @@ const tableStatus = ref({ busy: false })
 const logItem = item => {
     console.log(item)
 }
+const test = () => console.log('test')
 </script>
 
 <template>
     <div class="tw-p-5">
-        <modal-component title="A Dialog Title" toggle-type="button">
+        <modal-component title="A Dialog Title" toggle-type="button" @confirmed="test">
             <template #content>
                 <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
             </template>

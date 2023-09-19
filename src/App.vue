@@ -7,6 +7,7 @@ import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
 import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 import ModalComponent from './components/modal/ModalComponent.vue'
+import { joinLines } from './utils/string-join-lines'
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -71,11 +72,27 @@ const logItem = item => {
 const test = () => console.log('test')
 const stopped = () => console.log('stopped')
 const opened = () => console.log('opened')
+
+const panelClassList = joinLines(`tw-w-full 
+                            tw-max-w-md 
+                            tw-overflow-hidden 
+                            tw-bg-white 
+                            tw-rounded-lg
+                            tw-text-left 
+                            tw-align-middle 
+                            tw-shadow-xl`)
 </script>
 
 <template>
     <div class="tw-p-5">
-        <modal-component title="A Dialog Title" toggle-type="button" @confirmed="test" @cancelled="stopped" @opened="opened">
+        <modal-component
+            title="A Dialog Title"
+            toggle-type="button"
+            @confirmed="test"
+            @cancelled="stopped"
+            @opened="opened"
+            :dialog-panel-class-list="panelClassList"
+        >
             <template #content>
                 <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
             </template>

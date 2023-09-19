@@ -81,7 +81,6 @@ const props = defineProps({
         default: joinLines(`tw-w-full 
                             tw-max-w-md 
                             tw-overflow-hidden 
-                            tw-rounded-md 
                             tw-bg-white 
                             
                             tw-text-left 

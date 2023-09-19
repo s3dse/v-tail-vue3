@@ -48,15 +48,23 @@
                         :class="[col.thClassList, leftPadFirstCol(index), rightPadLastCol(index)]"
                         class="hover:tw-cursor-pointer tw-p-2 first:tw-ps-6 last:tw-pe-6 tw-uppercase"
                     >
-                        {{ underscoresToSpaces(col.key) }}
-                        <div
-                            class="tw-inline-block"
-                            :class="{
-                                'i-tabler-arrows-sort': col.key !== sortColumnKey,
-                                'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
-                                'i-tabler-sort-descending': col.key === sortColumnKey && !ascending
-                            }"
-                        ></div>
+                    <slot 
+                        :name="`th(${col.key})`"
+                        :field="col">
+                        <div class="tw-flex tw-flex-nowrap tw-gap-1 tw-items-center">
+                            <div class="tw-whitespace-nowrap">
+                                {{ underscoresToSpaces(col.key) }}
+                            </div>
+                            <div
+                                class="tw-inline-block"
+                                :class="{
+                                    'i-tabler-arrows-sort': col.key !== sortColumnKey,
+                                    'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
+                                    'i-tabler-sort-descending': col.key === sortColumnKey && !ascending
+                                }"
+                            ></div>
+                        </div>
+                    </slot>
                     </th>
                 </thead>
                 <tbody v-if="topRows.length">

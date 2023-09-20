@@ -51,10 +51,8 @@
                     <slot 
                         :name="`th(${col.key})`"
                         :field="col">
-                        <div class="tw-flex tw-flex-nowrap tw-gap-1 tw-items-center">
-                            <div class="tw-whitespace-nowrap">
-                                {{ underscoresToSpaces(col.key) }}
-                            </div>
+                        <div class="tw-whitespace-nowrap">
+                            {{ underscoresToSpaces(col.key) }}
                             <div
                                 class="tw-inline-block"
                                 :class="{

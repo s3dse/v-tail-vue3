@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-flex tw-flex-wrap tw-justify-between tw-w-[100%]" data-pagination-component>
+    <div class="tw-flex tw-gap-4 tw-flex-wrap tw-justify-between tw-w-[100%]" data-pagination-component>
         <div class="pagination-label">
             <slot name="pagination-label" :data="{ perPage, currentPage, totalEntries }">
                 {{ paginationLabel }}
@@ -12,7 +12,7 @@
                         type="button"
                         :disabled="isInFirstPage"
                         @click="onClickPreviousPage"
-                        :class="[isInFirstPage ? 'tw-text-slate-300' : '']"
+                        :class="[isInFirstPage ? disabledClasses : inactiveClasses]"
                     >
                         {{ previousLabel }}
                     </button>
@@ -23,7 +23,7 @@
                         type="button"
                         :disabled="page === currentPage"
                         @click="onClickPage(page)"
-                        :class="[isPageActive(page) ? activeClasses : '']"
+                        :class="[isPageActive(page) ? activeClasses : inactiveClasses]"
                     >
                         {{ page }}
                     </button>
@@ -34,7 +34,7 @@
                         type="button"
                         :disabled="isInLastPage"
                         @click="onClickNextPage"
-                        :class="[isInLastPage ? 'tw-text-slate-300' : '']"
+                        :class="[isInLastPage ? disabledClasses : inactiveClasses]"
                     >
                         {{ nextLabel }}
                     </button>
@@ -102,7 +102,15 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'tw-bg-navy-500 tw-text-white tw-ring tw-ring-navy-200 tw-ring-2 tw-rounded-sm tw-px-2'
+                'tw-bg-navy-500 tw-text-white dark:tw-text-gray-100 tw-ring tw-ring-navy-200 dark:tw-ring-navy-700 tw-ring-2 tw-rounded-sm tw-px-2'
+        },
+        inactiveClasses: {
+            type: String,
+            default: 'hover:tw-text-navy-500 tw-transition-colors tw-ease'
+        },
+        disabledClasses: {
+            type: String,
+            default: 'tw-text-slate-300 dark:tw-text-moon-500'
         }
     },
     data() {

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-if="title && !hasTitleSlot" class="vt-title-border tw-border-b tw-my-3">
-            <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 tw-font-semibold tw-my-3">
+        <div v-if="title && !hasTitleSlot" class="vt-title-border tw-border-b dark:tw-border-moon-700 dark:tw-bg-moon-800 tw-my-3">
+            <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 dark:tw-text-gray-100 tw-font-semibold tw-my-3">
                 {{ title }}
             </div>
         </div>
@@ -35,10 +35,10 @@
                 :fields="fields"
             ></slot>
         </div>
-        <div class="tw-mt-2 tw-pb-2 tw-border-t tw-overflow-x-auto">
-            <table class="tw-w-[100%]" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
+        <div class="tw-mt-2 tw-pb-2 tw-border-t dark:tw-border-moon-700 tw-overflow-x-auto">
+            <table class="tw-w-full dark:tw-text-gray-100" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
                 <thead
-                    class="tw-bg-slate-100 tw-uppercase tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
+                    class="tw-bg-slate-100 dark:tw-bg-moon-900 tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
                     v-if="tableData.length || topRows.length"
                 >
                     <th
@@ -91,7 +91,7 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    <tr v-for="(item, rowIndex) in getRows()" :key="rowIndex" class="tw-border-y">
+                    <tr v-for="(item, rowIndex) in getRows()" :key="rowIndex" class="tw-border-y dark:tw-border-moon-700">
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
@@ -114,7 +114,7 @@
                     <tr
                         v-for="(item, rowIndex) in getRows(bottomRows, false)"
                         :key="rowIndex"
-                        class="tw-border-t"
+                        class="tw-border-t dark:tw-border-moon-700"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
@@ -146,6 +146,7 @@
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
                 @page-changed="changePage"
+                class="dark:tw-text-gray-400"
             >
                 <template #pagination-label="{ data }">
                     <slot name="pagination-label" v-bind="data"></slot>
@@ -229,9 +230,14 @@ export default {
             type: String,
             default: joinLines(`tw-border 
                                 tw-border-slate-200 
-                                hover:tw-border-slate-100 
+                                dark:tw-border-moon-700 
+                                hover:tw-border-slate-100
+                                dark:hover:tw-border-moon-600  
                                 tw-bg-slate-50 
-                                hover:tw-bg-gray-200 
+                                dark:tw-bg-moon-800 
+                                hover:tw-bg-gray-200
+                                dark:hover:tw-bg-moon-700
+                                dark:tw-text-gray-100   
                                 hover:tw-cursor-pointer 
                                 tw-rounded-sm 
                                 tw-text-sm 
@@ -242,8 +248,14 @@ export default {
         },
         searchInputClassList: {
             type: String,
-            default: joinLines(`tw-border
+            default: joinLines(`tw-border 
+                                dark:tw-border-moon-700
+                                dark:tw-bg-moon-900 
                                 tw-rounded-sm
+                                dark:focus:tw-outline-none
+                                dark:focus:tw-ring-1
+                                dark:focus:tw-ring-moon-500
+                                dark:focus:tw-border-moon-300
                                 tw-px-2 
                                 tw-text-sm 
                                 tw-flex 

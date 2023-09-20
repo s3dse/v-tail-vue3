@@ -1,8 +1,4 @@
-import {
-    defineConfig,
-    presetIcons,
-    presetUno
-} from 'unocss'
+import { defineConfig, presetIcons, presetUno } from 'unocss'
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -18,6 +14,9 @@ const valWithUnit = v => {
         return `${withoutBrackets}${defaultUnit}`
     }
 }
+
+const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="tw-w-6 tw-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
+const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="tw-w-6 tw-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
 
 export default defineConfig({
     rules: [
@@ -61,10 +60,17 @@ export default defineConfig({
         }
     },
     shortcuts: {
-        'tw-form-help': 'tw-inline-flex tw-ml-2 tw-items-center tw-justify-center tw-w-5 tw-h-5 tw-bg-slate-100 tw-text-slate-600 tw-rounded-full tw-cursor-pointer tw-transition tw-duration-100 hover:tw-text-slate-50 hover:tw-bg-slate-600 hover:tw-ease-linear',
+        'tw-form-help':
+            'tw-inline-flex tw-ml-2 tw-items-center tw-justify-center tw-w-5 tw-h-5 tw-bg-slate-100 tw-text-slate-600 tw-rounded-full tw-cursor-pointer tw-transition tw-duration-100 hover:tw-text-slate-50 hover:tw-bg-slate-600 hover:tw-ease-linear',
         'tw-page-header': 'tw-text-xl tw-font-semibold tw-my-3',
         'tw-card': 'tw-border tw-border-solid tw-border-gray-200 tw-bg-white tw-rounded-sm'
-        
     },
-    presets: [presetUno({ prefix: 'tw-' }), presetIcons()]
+    presets: [
+        presetUno({ prefix: 'tw-' }),
+        presetIcons({
+            collections: {
+                custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }
+            }
+        })
+    ]
 })

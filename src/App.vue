@@ -108,7 +108,7 @@ const panelClassList = joinLines(`tw-w-full
                 <div>select</div>
             </template>
         </dropdown-component>
-        <card-component class="tw-mt-5 dark:tw-bg-moon-800 dark:tw-border-moon-700">
+        <card-component class="tw-mt-5">
             <loading-overlay :show="tableStatus.busy">
                 <table-component :items="items" :fields="fields" title="Test" class="tw-w-[100%] dark:tw-bg-moon-800">
                     <template #table-top-controls>

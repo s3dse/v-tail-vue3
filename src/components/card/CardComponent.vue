@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-card">
+    <div class="tw-card" :class="classes">
         <slot></slot>
     </div>
 </template>
@@ -7,6 +7,12 @@
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
 export default {
+    props: {
+        classes: {
+            type: String,
+            default: 'dark:tw-bg-moon-800 dark:tw-border-moon-700'
+        }
+    },
     name: 'card-component'
 }
 </script>

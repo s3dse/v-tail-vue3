@@ -1,4 +1,5 @@
 import { defineConfig, presetIcons, presetUno } from 'unocss'
+import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -67,6 +68,7 @@ export default defineConfig({
     },
     presets: [
         presetUno({ prefix: 'tw-' }),
+        presetScrollbar(),
         presetIcons({
             collections: {
                 custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }

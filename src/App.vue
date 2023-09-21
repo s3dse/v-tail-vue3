@@ -58,6 +58,7 @@ const fields = ref([
     },
     {
         key: 'ip_address',
+        label: 'IP Address String Long Label',
         thClassList: 'tw-text-right tw-px-1 tw-w-45',
         tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
         tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',

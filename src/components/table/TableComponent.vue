@@ -51,10 +51,9 @@
                     <slot 
                         :name="`th(${col.key})`"
                         :field="col">
-                        <div class="">
-                            {{ underscoresToSpaces(col.key) }}
+                        <div class="tw-inline-flex tw-gap-1 tw-items-center" :class="wrapHeader ? '' : 'tw-whitespace-nowrap'" :title="col.label">
+                            <div>{{ underscoresToSpaces(col.key) }}</div>
                             <div
-                                class="tw-inline-block"
                                 :class="{
                                     'i-tabler-arrows-sort': col.key !== sortColumnKey,
                                     'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
@@ -284,6 +283,10 @@ export default {
         fixed: {
             type: Boolean,
             default: false
+        },
+        wrapHeader: {
+            type: Boolean,
+            default: true
         }
     },
     data() {

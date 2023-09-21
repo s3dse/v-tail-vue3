@@ -51,7 +51,7 @@
                     <slot 
                         :name="`th(${col.key})`"
                         :field="col">
-                        <div class="tw-whitespace-nowrap">
+                        <div class="">
                             {{ underscoresToSpaces(col.key) }}
                             <div
                                 class="tw-inline-block"

@@ -2,7 +2,7 @@
     <div v-click-outside="closeDropdown" class="dropdown-component tw-relative">
         <div
             @click="toggleDropdown"
-            :class="['dropdown-button', buttonClassList ? buttonClassList : 'tw-bg-slate-50 dark:tw-bg-moon-800 hover:tw-bg-slate-100 dark:hover:tw-bg-moon-700 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 dark:tw-border-moon-700 dark:hover:tw-border-moon-600 tw-text-sm dark:tw-text-gray-100 tw-px-4 tw-py-1 tw-text-center tw-inline-flex tw-items-center tw-w-full']"
+            :class="['dropdown-button', buttonClassList ? buttonClassList : 'tw-bg-slate-50 dark:tw-bg-moon-800 hover:tw-bg-slate-100 dark:hover:tw-bg-moon-700 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 dark:tw-border-moon-700 dark:hover:tw-border-moon-600 tw-text-sm dark:tw-text-gray-300 tw-px-4 tw-py-1 tw-text-center tw-inline-flex tw-items-center tw-w-full']"
             type="button"
         >
             <slot name="toggle-label" v-bind="{ currentItem }">
@@ -18,7 +18,7 @@
                 <li
                     v-for="(item, index) in options"
                     :key="index"
-                    class="tw-block tw-py-2 tw-text-right hover:tw-cursor-pointer dark:tw-text-gray-100 hover:tw-bg-gray-200 dark:hover:tw-bg-moon-600 hover:tw-bg-opacity-50"
+                    class="tw-block tw-py-2 tw-text-right hover:tw-cursor-pointer dark:tw-text-gray-300 hover:tw-bg-gray-200 dark:hover:tw-bg-moon-600 hover:tw-bg-opacity-50"
                 >
                     <p
                         class="tw-block tw-w-[100%] tw-px-8 tw-text-right hover:tw-cursor-pointer"
@@ -60,11 +60,11 @@ export default {
         },
         upIcon: {
             type: String,
-            default: 'i-custom-chevron-up dark:tw-text-gray-100'
+            default: 'i-custom-chevron-up dark:tw-text-gray-300'
         },
         downIcon: {
             type: String,
-            default: 'i-custom-chevron-down dark:tw-text-gray-100'
+            default: 'i-custom-chevron-down dark:tw-text-gray-300'
         }
     },
     data() {

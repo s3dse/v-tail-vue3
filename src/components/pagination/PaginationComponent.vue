@@ -102,7 +102,7 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'tw-bg-navy-500 tw-text-white dark:tw-text-gray-100 tw-ring tw-ring-navy-200 dark:tw-ring-navy-700 tw-ring-2 tw-rounded-sm tw-px-2'
+                'tw-bg-navy-500 tw-text-white dark:tw-text-gray-300 tw-ring tw-ring-navy-200 dark:tw-ring-navy-700 tw-ring-2 tw-rounded-sm tw-px-2'
         },
         inactiveClasses: {
             type: String,

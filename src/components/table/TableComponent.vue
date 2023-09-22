@@ -36,13 +36,13 @@
             ></slot>
         </div>
         <div class="tw-mt-2 tw-pb-2 tw-border-t dark:tw-border-moon-700 tw-overflow-x-auto 
-        scrollbar
-        scrollbar-rounded
-        scrollbar-track-radius-0
-        scrollbar-thumb-radius-2px 
-        scrollbar-thumb-color-slate-200 dark:scrollbar-thumb-color-moon-700
-        hover:scrollbar-thumb-color-slate-300 dark:hover:scrollbar-thumb-color-moon-600
-        scrollbar-track-color-inherit dark:scrollbar-track-color-inherit">
+        tw-scrollbar
+        tw-scrollbar-rounded
+        tw-scrollbar-track-radius-0
+        tw-scrollbar-thumb-radius-2px 
+        tw-scrollbar-thumb-color-slate-200 dark:tw-scrollbar-thumb-color-moon-700
+        hover:tw-scrollbar-thumb-color-slate-300 dark:hover:tw-scrollbar-thumb-color-moon-600
+        tw-scrollbar-track-color-inherit dark:tw-scrollbar-track-color-inherit">
             <table class="tw-w-full dark:tw-text-gray-100" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
                 <thead
                     class="tw-bg-slate-100 dark:tw-bg-moon-900 tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"

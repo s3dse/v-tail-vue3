@@ -68,7 +68,7 @@ export default defineConfig({
     },
     presets: [
         presetUno({ prefix: 'tw-' }),
-        presetScrollbar(),
+        presetScrollbar({ prefix: 'tw-'}),
         presetIcons({
             collections: {
                 custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }

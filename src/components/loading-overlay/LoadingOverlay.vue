@@ -47,7 +47,7 @@ export default {
         },
         classes: {
             type: String,
-            default: 'un-bg-slate-50 un-rounded-sm'
+            default: 'un-bg-slate-50 dark:un-bg-slate-900 un-rounded-sm'
         }
     }
 }

@@ -2,7 +2,7 @@
     <div v-click-outside="closeDropdown" class="dropdown-component tw-relative">
         <div
             @click="toggleDropdown"
-            :class="['dropdown-button', buttonClassList ? buttonClassList : 'tw-bg-slate-50 dark:tw-bg-moon-800 hover:tw-bg-slate-100 dark:hover:tw-bg-moon-700 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 dark:tw-border-moon-700 dark:hover:tw-border-moon-600 tw-text-sm tw-px-4 tw-py-1 tw-text-center dark:tw-text-gray-300 tw-inline-flex tw-items-center tw-w-full']"
+            :class="['dropdown-button', buttonClassList ? buttonClassList : 'tw-bg-slate-50 dark:tw-bg-moon-800 hover:tw-bg-slate-100 dark:hover:tw-bg-moon-700 hover:tw-cursor-pointer tw-rounded-sm tw-border tw-border-slate-500 dark:tw-border-moon-700 dark:hover:tw-border-moon-600 tw-text-sm tw-px-4 tw-py-1 tw-text-center dark:tw-text-gray-100 tw-inline-flex tw-items-center tw-w-full']"
             type="button"
         >
             <slot name="toggle-label" />
@@ -10,7 +10,7 @@
         </div>
         <div
             v-show="show"
-            class="tw-absolute tw-w-fit tw-z-10 tw-bg-white dark:tw-bg-moon-700 tw-divide-y tw-divide-gray-100 dark:tw-divide-moon-600 dark:tw-text-gray-300 tw-rounded-sm tw-shadow w-44"
+            class="tw-absolute tw-w-fit tw-z-10 tw-bg-white dark:tw-bg-moon-700 tw-divide-y tw-divide-gray-100 dark:tw-divide-moon-600 dark:tw-text-gray-100 tw-rounded-sm tw-shadow w-44"
         >
             <ul class="text-sm text-gray-700 dark:text-gray-200">
                 <li

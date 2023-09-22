@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="title && !hasTitleSlot" class="vt-title-border tw-border-b dark:tw-border-moon-700 dark:tw-bg-moon-800 tw-my-3">
-            <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 dark:tw-text-gray-300 tw-font-semibold tw-my-3">
+            <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 dark:tw-text-gray-100 tw-font-semibold tw-my-3">
                 {{ title }}
             </div>
         </div>
@@ -43,7 +43,7 @@
         scrollbar-thumb-color-slate-200 dark:scrollbar-thumb-color-moon-700
         hover:scrollbar-thumb-color-slate-300 dark:hover:scrollbar-thumb-color-moon-600
         scrollbar-track-color-inherit dark:scrollbar-track-color-inherit">
-            <table class="tw-w-full dark:tw-text-gray-300" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
+            <table class="tw-w-full dark:tw-text-gray-100" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
                 <thead
                     class="tw-bg-slate-100 dark:tw-bg-moon-900 tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
                     v-if="tableData.length || topRows.length"
@@ -244,7 +244,7 @@ export default {
                                 dark:tw-bg-moon-800 
                                 hover:tw-bg-gray-200
                                 dark:hover:tw-bg-moon-700
-                                dark:tw-text-gray-300   
+                                dark:tw-text-gray-100   
                                 hover:tw-cursor-pointer 
                                 tw-rounded-sm 
                                 tw-text-sm 
@@ -258,7 +258,7 @@ export default {
             default: joinLines(`tw-border 
                                 dark:tw-border-moon-700
                                 dark:tw-bg-moon-900 
-                                dark:tw-text-gray-300 
+                                dark:tw-text-gray-100 
                                 tw-rounded-sm 
                                 dark:focus:tw-outline-none
                                 dark:focus:tw-ring-1

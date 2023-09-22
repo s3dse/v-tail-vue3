@@ -112,7 +112,7 @@ const panelClassList = joinLines(`tw-w-full
             <loading-overlay :show="tableStatus.busy">
                 <table-component :items="items" :fields="fields" title="Test" class="tw-w-[100%] dark:tw-bg-moon-800">
                     <template #table-top-controls>
-                        <div class="tw-border dark:tw-border-moon-700 dark:tw-text-gray-300 tw-px-4 tw-ms-auto">some control</div>
+                        <div class="tw-border dark:tw-border-moon-700 dark:tw-text-gray-100 tw-px-4 tw-ms-auto">some control</div>
                     </template>
                     <template #page-size-label="{ pageSize }">
                         Einträge pro Seite: {{ pageSize }}

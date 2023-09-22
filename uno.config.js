@@ -16,19 +16,19 @@ const valWithUnit = v => {
     }
 }
 
-const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="tw-w-6 tw-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
-const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="tw-w-6 tw-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
+const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
+const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
 
 export default defineConfig({
     rules: [
         [
-            /^tw-grid-auto-fill-([[.\d\w\]]+)$/,
+            /^un-grid-auto-fill-([[.\d\w\]]+)$/,
             ([, d]) => ({
                 'grid-template-columns': `repeat(auto-fill, minmax(${valWithUnit(d)}, 1fr))`
             })
         ],
         [
-            /^tw-grid-auto-fit-([[.\d\w\]]+)$/,
+            /^un-grid-auto-fit-([[.\d\w\]]+)$/,
             ([, d]) => ({
                 'grid-template-columns': `repeat(auto-fit, minmax(${valWithUnit(d)}, 1fr))`
             })
@@ -61,14 +61,14 @@ export default defineConfig({
         }
     },
     shortcuts: {
-        'tw-form-help':
-            'tw-inline-flex tw-ml-2 tw-items-center tw-justify-center tw-w-5 tw-h-5 tw-bg-slate-100 tw-text-slate-600 tw-rounded-full tw-cursor-pointer tw-transition tw-duration-100 hover:tw-text-slate-50 hover:tw-bg-slate-600 hover:tw-ease-linear',
-        'tw-page-header': 'tw-text-xl tw-font-semibold tw-my-3',
-        'tw-card': 'tw-border tw-border-solid tw-border-gray-200 tw-bg-white tw-rounded-sm'
+        'un-form-help':
+            'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
+        'un-page-header': 'un-text-xl un-font-semibold un-my-3',
+        'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white un-rounded-sm'
     },
     presets: [
-        presetUno({ prefix: 'tw-' }),
-        presetScrollbar({ prefix: 'tw-'}),
+        presetUno({ prefix: 'un-' }),
+        presetScrollbar({ prefix: 'un-'}),
         presetIcons({
             collections: {
                 custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }

@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div :class="[show ? ['tw-relative', classes].join(' ') : 'tw-relative']">
+        <div :class="[show ? ['un-relative', classes].join(' ') : 'un-relative']">
             <div
                 v-if="show"
-                class="tw-absolute -tw-translate-x-1/2 -tw-translate-y-1/2 tw-top-2/4 tw-left-1/2"
+                class="un-absolute -un-translate-x-1/2 -un-translate-y-1/2 un-top-2/4 un-left-1/2"
                 role="status"
             >
                 {{ message }}
                 <svg
                     aria-hidden="true"
                     v-if="show"
-                    class="tw-w-8 tw-h-8 tw-mr-2 tw-text-gray-200 tw-animate-spin dark:tw-text-navy-200 tw-fill-navy-600"
+                    class="un-w-8 un-h-8 un-mr-2 un-text-gray-200 un-animate-spin dark:un-text-navy-200 un-fill-navy-600"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@
                     />
                 </svg>
             </div>
-            <div :class="[show ? 'tw-opacity-10' : '']">
+            <div :class="[show ? 'un-opacity-10' : '']">
                 <slot />
             </div>
         </div>
@@ -47,7 +47,7 @@ export default {
         },
         classes: {
             type: String,
-            default: 'tw-bg-slate-50 tw-rounded-sm'
+            default: 'un-bg-slate-50 dark:un-bg-slate-900 un-rounded-sm'
         }
     }
 }

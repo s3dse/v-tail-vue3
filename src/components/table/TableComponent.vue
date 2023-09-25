@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div v-if="title && !hasTitleSlot" class="vt-title-border tw-border-b dark:tw-border-moon-700 dark:tw-bg-moon-800 tw-my-3">
-            <div class="vt-title tw-text-lg tw-mx-4 tw-text-slate-600 dark:tw-text-gray-300 tw-font-semibold tw-my-3">
+        <div v-if="title && !hasTitleSlot" class="vt-title-border un-border-b dark:un-border-moon-700 dark:un-bg-moon-800 un-my-3">
+            <div class="vt-title un-text-lg un-mx-4 un-text-slate-600 dark:un-text-gray-100 un-font-semibold un-my-3">
                 {{ title }}
             </div>
         </div>
-        <div v-if="!title && hasTitleSlot" class="vt-title-border tw-border-b dark:tw-border-moon-700 tw-my-3">
+        <div v-if="!title && hasTitleSlot" class="vt-title-border un-border-b dark:un-border-moon-700 un-my-3">
             <slot name="title" />
         </div>
-        <div class="vt-table-header tw-flex tw-flex-wrap tw-mx-4 tw-my-3 tw-gap-2 tw-justify-start">
+        <div class="vt-table-header un-flex un-flex-wrap un-mx-4 un-my-3 un-gap-2 un-justify-start">
             <input
                 v-if="enableSearch"
                 name="search"
@@ -18,7 +18,7 @@
                 :class="searchInputClassList"
             />
             <dropdown-component
-                class="tw-flex"
+                class="un-flex"
                 v-model="pageSize"
                 :options="[5, 10, 25, 50, 100]"
                 :default-item="5"
@@ -35,17 +35,17 @@
                 :fields="fields"
             ></slot>
         </div>
-        <div class="tw-mt-2 tw-pb-2 tw-border-t dark:tw-border-moon-700 tw-overflow-x-auto 
-        scrollbar
-        scrollbar-rounded
-        scrollbar-track-radius-0
-        scrollbar-thumb-radius-2px 
-        scrollbar-thumb-color-slate-200 dark:scrollbar-thumb-color-moon-700
-        hover:scrollbar-thumb-color-slate-300 dark:hover:scrollbar-thumb-color-moon-600
-        scrollbar-track-color-inherit dark:scrollbar-track-color-inherit">
-            <table class="tw-w-full dark:tw-text-gray-300" :class="{ 'tw-table-fixed tw-whitespace-normal tw-break-words': fixed }">
+        <div class="un-mt-2 un-pb-2 un-border-t dark:un-border-moon-700 un-overflow-x-auto 
+        un-scrollbar
+        un-scrollbar-rounded
+        un-scrollbar-track-radius-0
+        un-scrollbar-thumb-radius-2px 
+        un-scrollbar-thumb-color-slate-200 dark:un-scrollbar-thumb-color-moon-700
+        hover:un-scrollbar-thumb-color-slate-300 dark:hover:un-scrollbar-thumb-color-moon-600
+        un-scrollbar-track-color-inherit dark:un-scrollbar-track-color-inherit">
+            <table class="un-w-full dark:un-text-gray-100" :class="{ 'un-table-fixed un-whitespace-normal un-break-words': fixed }">
                 <thead
-                    class="tw-bg-slate-100 dark:tw-bg-moon-900 tw-font-semibold tw-text-[0.625rem] tw-text-slate-500"
+                    class="un-bg-slate-100 dark:un-bg-moon-900 un-font-semibold un-text-[0.625rem] un-text-slate-500"
                     v-if="tableData.length || topRows.length"
                 >
                     <th
@@ -53,7 +53,7 @@
                         :key="index"
                         @click="sortTable(col)"
                         :class="[col.thClassList, leftPadFirstCol(index), rightPadLastCol(index)]"
-                        class="hover:tw-cursor-pointer tw-p-2 first:tw-ps-6 last:tw-pe-6 tw-uppercase"
+                        class="hover:un-cursor-pointer un-p-2 first:un-ps-6 last:un-pe-6 un-uppercase"
                     >
                     <slot 
                         :name="`th(${col.key})`"
@@ -61,7 +61,7 @@
                         <div class="">
                             {{ underscoresToSpaces(col.key) }}
                             <div
-                                class="tw-inline-block"
+                                class="un-inline-block"
                                 :class="{
                                     'i-tabler-arrows-sort': col.key !== sortColumnKey,
                                     'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
@@ -82,7 +82,7 @@
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="`top_row_column_${fieldIndex}`"
-                            class="tw-p-2 first:tw-ps-6 last:tw-pe-6"
+                            class="un-p-2 first:un-ps-6 last:un-pe-6"
                             :class="[getTopRowClassList(column)]"
                         >
                             <slot
@@ -98,11 +98,11 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    <tr v-for="(item, rowIndex) in getRows()" :key="rowIndex" class="tw-border-y dark:tw-border-moon-700">
+                    <tr v-for="(item, rowIndex) in getRows()" :key="rowIndex" class="un-border-y dark:un-border-moon-700">
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
-                            class="tw-p-2 first:tw-ps-6 last:tw-pe-6"
+                            class="un-p-2 first:un-ps-6 last:un-pe-6"
                             :class="[getClassList(column)]"
                         >
                             <slot
@@ -121,12 +121,12 @@
                     <tr
                         v-for="(item, rowIndex) in getRows(bottomRows, false)"
                         :key="rowIndex"
-                        class="tw-border-t dark:tw-border-moon-700"
+                        class="un-border-t dark:un-border-moon-700"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
-                            class="tw-p-2 first:tw-ps-6 last:tw-pe-6"
+                            class="un-p-2 first:un-ps-6 last:un-pe-6"
                             :class="[getBottomRowClassList(column)]"
                         >
                             <slot
@@ -143,7 +143,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="vt-table-footer tw-flex tw-flex-wrap tw-gap-2 tw-mx-4 tw-my-2">
+        <div class="vt-table-footer un-flex un-flex-wrap un-gap-2 un-mx-4 un-my-2">
             <pagination-component
                 v-if="paginate"
                 :per-page="itemsPerPage"
@@ -153,7 +153,7 @@
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
                 @page-changed="changePage"
-                class="dark:tw-text-gray-400"
+                class="dark:un-text-gray-400"
             >
                 <template #pagination-label="{ data }">
                     <slot name="pagination-label" v-bind="data"></slot>
@@ -235,39 +235,39 @@ export default {
         },
         pageSizeButtonClassList: {
             type: String,
-            default: joinLines(`tw-border 
-                                tw-border-slate-200 
-                                dark:tw-border-moon-700 
-                                hover:tw-border-slate-100
-                                dark:hover:tw-border-moon-600  
-                                tw-bg-slate-50 
-                                dark:tw-bg-moon-800 
-                                hover:tw-bg-gray-200
-                                dark:hover:tw-bg-moon-700
-                                dark:tw-text-gray-300   
-                                hover:tw-cursor-pointer 
-                                tw-rounded-sm 
-                                tw-text-sm 
-                                tw-px-4
-                                tw-h-[100%]
-                                tw-inline-flex 
-                                tw-items-center`)
+            default: joinLines(`un-border 
+                                un-border-slate-200 
+                                dark:un-border-moon-700 
+                                hover:un-border-slate-100
+                                dark:hover:un-border-moon-600  
+                                un-bg-slate-50 
+                                dark:un-bg-moon-800 
+                                hover:un-bg-gray-200
+                                dark:hover:un-bg-moon-700
+                                dark:un-text-gray-100   
+                                hover:un-cursor-pointer 
+                                un-rounded-sm 
+                                un-text-sm 
+                                un-px-4
+                                un-h-[100%]
+                                un-inline-flex 
+                                un-items-center`)
         },
         searchInputClassList: {
             type: String,
-            default: joinLines(`tw-border 
-                                dark:tw-border-moon-700
-                                dark:tw-bg-moon-900 
-                                dark:tw-text-gray-300 
-                                tw-rounded-sm 
-                                dark:focus:tw-outline-none
-                                dark:focus:tw-ring-1
-                                dark:focus:tw-ring-moon-500
-                                dark:focus:tw-border-moon-300
-                                tw-px-2 
-                                tw-text-sm 
-                                tw-flex 
-                                tw-h-auto`)
+            default: joinLines(`un-border 
+                                dark:un-border-moon-700
+                                dark:un-bg-moon-900 
+                                dark:un-text-gray-100 
+                                un-rounded-sm 
+                                dark:focus:un-outline-none
+                                dark:focus:un-ring-1
+                                dark:focus:un-ring-moon-500
+                                dark:focus:un-border-moon-300
+                                un-px-2 
+                                un-text-sm 
+                                un-flex 
+                                un-h-auto`)
         },
         paginate: {
             type: Boolean,
@@ -420,10 +420,10 @@ export default {
             this.pageSize = size
         },
         leftPadFirstCol(index) {
-            return index === 0 ? 'tw-pe-6' : ''
+            return index === 0 ? 'un-pe-6' : ''
         },
         rightPadLastCol(index) {
-            return index === this.visibleFields.length - 1 ? 'tw-pe-6' : ''
+            return index === this.visibleFields.length - 1 ? 'un-pe-6' : ''
         }
     },
     mounted() {

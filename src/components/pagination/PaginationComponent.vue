@@ -1,12 +1,12 @@
 <template>
-    <div class="tw-flex tw-gap-4 tw-flex-wrap tw-justify-between tw-w-[100%]" data-pagination-component>
+    <div class="un-flex un-gap-4 un-flex-wrap un-justify-between un-w-[100%]" data-pagination-component>
         <div class="pagination-label">
             <slot name="pagination-label" :data="{ perPage, currentPage, totalEntries }">
                 {{ paginationLabel }}
             </slot>
         </div>
         <div>
-            <ul class="pagination tw-flex tw-flex-wrap tw-justify-between tw-gap-8">
+            <ul class="pagination un-flex un-flex-wrap un-justify-between un-gap-8">
                 <li class="pagination-item">
                     <button
                         type="button"
@@ -102,15 +102,15 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'tw-bg-navy-500 tw-text-white dark:tw-text-gray-300 tw-ring tw-ring-navy-200 dark:tw-ring-navy-700 tw-ring-2 tw-rounded-sm tw-px-2'
+                'un-bg-navy-500 un-text-white dark:un-text-gray-100 un-ring un-ring-navy-200 dark:un-ring-navy-700 un-ring-2 un-rounded-sm un-px-2'
         },
         inactiveClasses: {
             type: String,
-            default: 'hover:tw-text-navy-500 tw-transition-colors tw-ease'
+            default: 'hover:un-text-navy-500 un-transition-colors un-ease'
         },
         disabledClasses: {
             type: String,
-            default: 'tw-text-slate-300 dark:tw-text-moon-500'
+            default: 'un-text-slate-300 dark:un-text-moon-500'
         }
     },
     data() {

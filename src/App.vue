@@ -16,38 +16,38 @@ const items = ref([...data])
 const fields = ref([
     {
         key: 'id',
-        thClassList: 'tw-text-right tw-px-1 tw-w-18',
-        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
-        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
+        thClassList: 'un-text-right un-px-1 un-w-18',
+        tdClassList: 'un-text-right un-px-1 un-font-mono',
+        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
     },
     {
         key: 'first_name',
-        thClassList: 'tw-text-left tw-px-1',
-        tdClassList: 'tw-text-left tw-px-1',
-        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
+        thClassList: 'un-text-left un-px-1',
+        tdClassList: 'un-text-left un-px-1',
+        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
     },
     {
         key: 'last_name',
-        thClassList: 'tw-text-left tw-px-1',
-        tdClassList: 'tw-text-left tw-px-1',
-        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
+        thClassList: 'un-text-left un-px-1',
+        tdClassList: 'un-text-left un-px-1',
+        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
     },
     {
         key: 'email',
-        thClassList: 'tw-text-left tw-px-1',
-        tdClassList: 'tw-text-left tw-px-1 tw-w-15',
-        tdTopRowClassList: 'tw-text-left tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
+        thClassList: 'un-text-left un-px-1',
+        tdClassList: 'un-text-left un-px-1 un-w-15',
+        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
     },
     {
         key: 'share',
-        thClassList: 'tw-text-right tw-px-1 tw-w-15',
-        tdClassList: 'tw-text-right tw-px-1 tw-font-mono tw-w-15',
-        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold',
+        thClassList: 'un-text-right un-px-1 un-w-15',
+        tdClassList: 'un-text-right un-px-1 un-font-mono un-w-15',
+        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold',
         formatter: number =>
             number
                 ? (parseFloat(number) * 100).toLocaleString(navigator.language, {
@@ -58,10 +58,10 @@ const fields = ref([
     },
     {
         key: 'ip_address',
-        thClassList: 'tw-text-right tw-px-1 tw-w-45',
-        tdClassList: 'tw-text-right tw-px-1 tw-font-mono',
-        tdTopRowClassList: 'tw-text-right tw-px-1 tw-italic',
-        tdBottomRowClassList: 'tw-text-right tw-px-1 tw-font-semibold'
+        thClassList: 'un-text-right un-px-1 un-w-45',
+        tdClassList: 'un-text-right un-px-1 un-font-mono',
+        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
+        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
     }
 ])
 const tableStatus = ref({ busy: false })
@@ -73,18 +73,18 @@ const test = () => console.log('test')
 const stopped = () => console.log('stopped')
 const opened = () => console.log('opened')
 
-const panelClassList = joinLines(`tw-w-full 
-                            tw-max-w-md 
-                            tw-overflow-hidden 
-                            tw-bg-white 
-                            tw-rounded-lg
-                            tw-text-left 
-                            tw-align-middle 
-                            tw-shadow-xl`)
+const panelClassList = joinLines(`un-w-full 
+                            un-max-w-md 
+                            un-overflow-hidden 
+                            un-bg-white 
+                            un-rounded-lg
+                            un-text-left 
+                            un-align-middle 
+                            un-shadow-xl`)
 </script>
 
 <template>
-    <div class="tw-p-5">
+    <div class="un-p-5">
         <modal-component
             title="A Dialog Title"
             toggle-type="button"
@@ -94,25 +94,25 @@ const panelClassList = joinLines(`tw-w-full
             :dialog-panel-class-list="panelClassList"
         >
             <template #content>
-                <p class="tw-pt-2 tw-text-gray-600 tw-px-4">...and some text to show</p>
+                <p class="un-pt-2 un-text-gray-600 un-px-4">...and some text to show</p>
             </template>
         </modal-component>
-        <div class="tw-p-[8rem]"></div>
-        <action-dropdown-component :options="['a', 'b']" @on-select="logItem" class="tw-w-fit">
+        <div class="un-p-[8rem]"></div>
+        <action-dropdown-component :options="['a', 'b']" @on-select="logItem" class="un-w-fit">
             <template #toggle-label>
                 <div>select action</div>
             </template>
         </action-dropdown-component>
-        <dropdown-component :options="['a', 'b']" class="tw-w-fit">
+        <dropdown-component :options="['a', 'b']" class="un-w-fit">
             <template #toggle-label>
                 <div>select</div>
             </template>
         </dropdown-component>
-        <card-component class="tw-mt-5">
+        <card-component class="un-mt-5">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields" title="Test" class="tw-w-[100%] dark:tw-bg-moon-800">
+                <table-component :items="items" :fields="fields" title="Test" class="un-w-[100%] dark:un-bg-moon-800">
                     <template #table-top-controls>
-                        <div class="tw-border dark:tw-border-moon-700 dark:tw-text-gray-300 tw-px-4 tw-ms-auto">some control</div>
+                        <div class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto">some control</div>
                     </template>
                     <template #page-size-label="{ pageSize }">
                         Einträge pro Seite: {{ pageSize }}

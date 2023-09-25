@@ -1,23 +1,23 @@
 <template>
-    <div class="fixed inset-0 flex items-center justify-center">
+    <div class="">
         <component :is="toggleType" @click="openModal" :class="toggleClassList">
             {{ toggleText }}
         </component>
     </div>
     <Dialog as="div" :open="isOpen" @close="cancel" :class="dialogClassList" :unmount="unmount">
         <div name="backdrop" :class="backdropClassList" />
-        <div class="tw-fixed tw-inset-0">
-            <div class="tw-flex tw-min-h-full tw-items-center tw-justify-center tw-text-center">
+        <div class="un-fixed un-inset-0">
+            <div class="un-flex un-min-h-full un-items-center un-justify-center un-text-center">
                 <DialogPanel :class="dialogPanelClassList">
-                    <div class="tw-border-b tw-bg-white">
+                    <div class="un-border-b un-bg-white dark:un-border-moon-700">
                         <DialogTitle as="div" :class="dialogTitleClassList">
                             {{ title }}
                         </DialogTitle>
                     </div>
                     <div :class="bodyClassList">
                         <slot name="content">
-                            <div class="tw-mt-2 tw-px-4">
-                                <p class="tw-text-sm tw-text-gray-500">
+                            <div class="un-mt-2 un-px-4">
+                                <p class="un-text-sm un-text-gray-500 dark:text-gray-100">
                                     Lorem Ipsum Something Something
                                 </p>
                             </div>
@@ -49,13 +49,13 @@ import { Dialog, DialogPanel, DialogTitle } from '@headlessui/vue'
 const props = defineProps({
     toggleClassList: {
         type: String,
-        default: joinLines(`tw-rounded 
-                            tw-bg-navy-500 
-                            tw-px-4 
-                            tw-py-2 
-                            tw-text-sm 
-                            tw-gray-50 
-                            hover:tw-bg-navy-400`)
+        default: joinLines(`un-rounded 
+                            un-bg-navy-500 
+                            un-px-4 
+                            un-py-2 
+                            un-text-sm 
+                            un-gray-50 
+                            hover:un-bg-navy-400`)
     },
     toggleType: {
         type: String,
@@ -67,33 +67,40 @@ const props = defineProps({
     },
     dialogClassList: {
         type: String,
-        default: 'tw-absolute tw-z-100'
+        default: 'un-absolute un-z-100'
     },
     backdropClassList: {
         type: String,
-        default: joinLines(`tw-fixed 
-                            tw-inset-0 
-                            tw-bg-black 
-                            tw-bg-opacity-25`)
+        default: joinLines(`un-fixed 
+                            un-inset-0 
+                            un-bg-black 
+                            dark:un-bg-moon-900
+                            un-bg-opacity-25
+                            dark:un-bg-opacity-85`)
     },
     dialogPanelClassList: {
         type: String,
-        default: joinLines(`tw-w-full 
-                            tw-max-w-md 
-                            tw-overflow-hidden 
-                            tw-bg-white 
-                            
-                            tw-text-left 
-                            tw-align-middle 
-                            tw-shadow-xl`)
+        default: joinLines(`un-w-full 
+                            un-max-w-md 
+                            un-overflow-hidden 
+                            un-bg-white
+                            dark:un-bg-moon-600
+                            un-rounded
+                            un-text-left 
+                            un-align-middle
+                            un-shadow-xl`)
     },
     dialogTitleClassList: {
         type: String,
-        default: joinLines(`tw-p-4
-                            tw-text-lg 
-                            tw-font-medium 
-                            tw-leading-6 
-                            tw-text-gray-900 
+        default: joinLines(`un-p-4
+                            un-text-lg 
+                            un-font-medium 
+                            un-leading-6 
+                            un-text-gray-900
+                            dark:un-bg-moon-700
+                            dark:un-border
+                            dark:un-border-moon-600
+                            dark:un-text-gray-100
                             `)
     },
     title: {
@@ -102,25 +109,33 @@ const props = defineProps({
     },
     bodyClassList: {
         type: String,
-        default: 'tw-bg-slate-50'
+        default: joinLines(`un-bg-slate-50 
+                            dark:un-bg-moon-800 
+                            dark:un-text-gray-100 
+                            un-border-b 
+                            un-border-l 
+                            un-border-r 
+                            dark:un-border-b-moon-600 
+                            dark:un-border-l-moon-600 
+                            dark:un-border-r-moon-600`)
     },
     controlSectionClassList: {
         type: String,
-        default: joinLines(`tw-flex 
-                            tw-justify-end 
-                            tw-mt-12 
-                            tw-pb-4 
-                            tw-px-4`)
+        default: joinLines(`un-flex 
+                            un-justify-end 
+                            un-mt-12 
+                            un-pb-4 
+                            un-px-4`)
     },
     confirmButtonClassList: {
         type: String,
-        default: joinLines(`tw-rounded 
-                            tw-bg-navy-500 
-                            tw-px-4 
-                            tw-py-2 
-                            tw-text-sm 
-                            tw-text-gray-50 
-                            hover:tw-bg-navy-400`)
+        default: joinLines(`un-rounded 
+                            un-bg-navy-500 
+                            un-px-4 
+                            un-py-2 
+                            un-text-sm 
+                            un-text-gray-50 
+                            hover:un-bg-navy-400`)
     },
     confirmButtonText: {
         type: String,

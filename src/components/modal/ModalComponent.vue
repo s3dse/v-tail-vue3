@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed inset-0 flex items-center justify-center">
+    <div class="">
         <component :is="toggleType" @click="openModal" :class="toggleClassList">
             {{ toggleText }}
         </component>
@@ -9,7 +9,7 @@
         <div class="un-fixed un-inset-0">
             <div class="un-flex un-min-h-full un-items-center un-justify-center un-text-center">
                 <DialogPanel :class="dialogPanelClassList">
-                    <div class="un-border-b un-bg-white">
+                    <div class="un-border-b un-bg-white dark:un-border-moon-700">
                         <DialogTitle as="div" :class="dialogTitleClassList">
                             {{ title }}
                         </DialogTitle>
@@ -17,7 +17,7 @@
                     <div :class="bodyClassList">
                         <slot name="content">
                             <div class="un-mt-2 un-px-4">
-                                <p class="un-text-sm un-text-gray-500">
+                                <p class="un-text-sm un-text-gray-500 dark:text-gray-100">
                                     Lorem Ipsum Something Something
                                 </p>
                             </div>
@@ -74,17 +74,20 @@ const props = defineProps({
         default: joinLines(`un-fixed 
                             un-inset-0 
                             un-bg-black 
-                            un-bg-opacity-25`)
+                            dark:un-bg-moon-900
+                            un-bg-opacity-25
+                            dark:un-bg-opacity-85`)
     },
     dialogPanelClassList: {
         type: String,
         default: joinLines(`un-w-full 
                             un-max-w-md 
                             un-overflow-hidden 
-                            un-bg-white 
-                            
+                            un-bg-white
+                            dark:un-bg-moon-600
+                            un-rounded
                             un-text-left 
-                            un-align-middle 
+                            un-align-middle
                             un-shadow-xl`)
     },
     dialogTitleClassList: {
@@ -93,7 +96,11 @@ const props = defineProps({
                             un-text-lg 
                             un-font-medium 
                             un-leading-6 
-                            un-text-gray-900 
+                            un-text-gray-900
+                            dark:un-bg-moon-700
+                            dark:un-border
+                            dark:un-border-moon-600
+                            dark:un-text-gray-100
                             `)
     },
     title: {
@@ -102,7 +109,15 @@ const props = defineProps({
     },
     bodyClassList: {
         type: String,
-        default: 'un-bg-slate-50'
+        default: joinLines(`un-bg-slate-50 
+                            dark:un-bg-moon-800 
+                            dark:un-text-gray-100 
+                            un-border-b 
+                            un-border-l 
+                            un-border-r 
+                            dark:un-border-b-moon-600 
+                            dark:un-border-l-moon-600 
+                            dark:un-border-r-moon-600`)
     },
     controlSectionClassList: {
         type: String,

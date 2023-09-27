@@ -20,7 +20,7 @@
             <dropdown-component
                 class="un-flex"
                 v-model="pageSize"
-                :options="[5, 10, 25, 50, 100]"
+                :options="pageSizes.filter(e => e > topRows.length)"
                 :default-item="5"
                 :button-class-list="pageSizeButtonClassList"
             >
@@ -233,6 +233,10 @@ export default {
             type: Boolean,
             default: true
         },
+        pageSizes: {
+            type: Array,
+            default: () => [5, 10, 25, 50]
+        },
         pageSizeButtonClassList: {
             type: String,
             default: joinLines(`un-border 
@@ -302,7 +306,7 @@ export default {
             currentPage: 1,
             filterInputId: `filter_input_${this._uid}`,
             filterInputSelector: `#filter_input_${this._uid}`,
-            pageSize: this.perPage,
+            thePageSize: this.perPage,
             componentValidation: false
         }
     },
@@ -313,6 +317,19 @@ export default {
             },
             set(value) {
                 return value
+            }
+        },
+        pageSize: {
+            get() {
+                return this.thePageSize > this.topRows.length 
+                    ? this.thePageSize 
+                    : this.pageSizes.find(e => e > this.topRows.length)
+            },
+            set(v) {
+                const alternative = v > this.topRows.length 
+                    ? v 
+                    : this.pageSizes.find(e => e > this.topRows.length)
+                this.thePageSize = alternative
             }
         },
         itemsPerPage() {

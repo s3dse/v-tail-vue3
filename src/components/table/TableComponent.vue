@@ -306,7 +306,7 @@ export default {
             currentPage: 1,
             filterInputId: `filter_input_${this._uid}`,
             filterInputSelector: `#filter_input_${this._uid}`,
-            thePageSize: this.perPage,
+            thePageSize: this.perPage > this.topRows.length ? this.perPage : this.pageSizes.find(e => e > this.topRows.length),
             componentValidation: false
         }
     },

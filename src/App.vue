@@ -13,6 +13,7 @@ function delay(ms) {
 }
 // const items = await delay(2000).tehn(() => ref([...data]))
 const items = ref([...data])
+const topRows = ref([...data].slice(0,5))
 const fields = ref([
     {
         key: 'id',
@@ -110,7 +111,7 @@ const panelClassList = joinLines(`un-w-full
         </dropdown-component>
         <card-component class="un-mt-5">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields" title="Test" class="un-w-[100%] dark:un-bg-moon-800">
+                <table-component :items="items" :fields="fields" :top-rows="topRows" title="Test" class="un-w-[100%] dark:un-bg-moon-800">
                     <template #table-top-controls>
                         <div class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto">some control</div>
                     </template>

@@ -25,7 +25,7 @@
                         @click="onClickPage(page)"
                         :class="[isPageActive(page) ? activeClasses : inactiveClasses]"
                     >
-                        {{ page }}
+                        {{ page > Number.MAX_SAFE_INTEGER ? '...': page }}
                     </button>
                 </li>
 

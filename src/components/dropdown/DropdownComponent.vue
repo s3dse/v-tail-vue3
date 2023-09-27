@@ -70,7 +70,17 @@ export default {
     data() {
         return {
             show: false,
-            currentItem: this.modelValue || this.value || null
+            internalCurrentItem: this.modelValue || this.value || null
+        }
+    },
+    computed: {
+        currentItem: {
+            get() {
+                return this.internalCurrentItem // this.modelValue || this.value || null
+            },
+            set(v) {
+                this.internalCurrentItem = v
+            }
         }
     },
     methods: {

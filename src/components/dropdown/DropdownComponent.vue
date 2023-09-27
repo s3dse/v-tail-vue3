@@ -76,7 +76,7 @@ export default {
     computed: {
         currentItem: {
             get() {
-                return this.internalCurrentItem // this.modelValue || this.value || null
+                return this.modelValue || this.value || null // this.modelValue || this.value || null
             },
             set(v) {
                 this.internalCurrentItem = v

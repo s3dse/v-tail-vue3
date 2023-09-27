@@ -330,6 +330,7 @@ export default {
                     ? v 
                     : this.pageSizes.find(e => e > this.topRows.length)
                 this.thePageSize = alternative
+                return this.thePageSize
             }
         },
         itemsPerPage() {

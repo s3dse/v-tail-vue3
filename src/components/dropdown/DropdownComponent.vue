@@ -76,7 +76,7 @@ export default {
     computed: {
         currentItem: {
             get() {
-                return this.modelValue || this.value || null // this.modelValue || this.value || null
+                return this.modelValue || this.value // this.modelValue || this.value || null
             },
             set(v) {
                 this.internalCurrentItem = v
@@ -91,9 +91,9 @@ export default {
             this.show = !this.show
         },
         setCurrentItem(item) {
-            this.currentItem = item
-            this.$emit('update:modelValue', this.currentItem)
-            this.$emit('input', this.currentItem)
+            this.internalCurrentItem = item
+            this.$emit('update:modelValue', this.internalCurrentItem)
+            this.$emit('input', this.internalCurrentItem)
         },
         getActiveClassList(item) {
             return this.currentItem === item ? 'un-font-bold' : ''

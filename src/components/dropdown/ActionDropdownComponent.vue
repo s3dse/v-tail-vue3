@@ -12,7 +12,7 @@
             v-show="show"
             class="un-absolute un-w-fit un-z-10 un-bg-white dark:un-bg-moon-700 un-divide-y un-divide-gray-100 dark:un-divide-moon-600 dark:un-text-gray-100 un-rounded-sm un-shadow w-44"
         >
-            <ul class="text-sm text-gray-700 dark:text-gray-200">
+            <ul class="text-sm text-gray-700 dark:text-gray-100">
                 <li
                     v-for="(item, index) in options"
                     :key="index"

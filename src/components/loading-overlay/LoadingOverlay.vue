@@ -10,7 +10,7 @@
                 <svg
                     aria-hidden="true"
                     v-if="show"
-                    class="un-w-8 un-h-8 un-mr-2 un-text-gray-200 un-animate-spin dark:un-text-navy-200 un-fill-navy-600"
+                    class="un-w-8 un-h-8 un-mr-2 un-text-gray-100 un-animate-spin dark:un-text-navy-200 un-fill-navy-600"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"

@@ -51,7 +51,11 @@ const cancel = () => emit('cancel')
 
 <template>
   <DialogRoot>
-    <DialogTrigger :class="getClass('trigger')">title</DialogTrigger>
+    <DialogTrigger :class="getClass('trigger')">
+        <slot name="trigger">
+            <button class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]">Settings</button>
+        </slot>
+    </DialogTrigger>
     <DialogPortal>
       <DialogOverlay :class="getClass('overlay')" />
       <DialogContent :class="getClass('content')">
@@ -65,13 +69,21 @@ const cancel = () => emit('cancel')
                     <button @click="cancel" class="un-border un-border-slate-200 dark:un-border-moon-700 
                     hover:un-border-slate-100 dark:hover:un-border-moon-600 
                     un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-gray-200 dark:hover:un-bg-moon-700 dark:un-text-gray-100 
-                    un-rounded un-px-4 un-h-[2.375rem]">cancel</button>
+                    un-rounded un-px-4 un-h-[2.375rem]">
+                        <slot name="cancelLabel">
+                            <span>Cancel</span>
+                        </slot>
+                    </button>
                 </slot>
             </DialogClose>
             <DialogClose>
                 <slot name="confirmTrigger">
-                    <button @click="confirm" class="un-bg-navy-500 hover:un-bg-navy-600  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
-                    >ok</button>
+                    <button @click="confirm" class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
+                    >
+                        <slot name="confirmLabel">
+                            <span>OK</span>
+                        </slot>
+                    </button>
                 </slot>
             </DialogClose>
         </div>

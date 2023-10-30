@@ -7,6 +7,7 @@ import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
 import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 import ModalComponent from './components/modal/ModalComponent.vue'
+import DialogComponent from './components/dialog/DialogComponent.vue'
 import { joinLines } from './utils/string-join-lines'
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -86,6 +87,15 @@ const panelClassList = joinLines(`un-w-full
 
 <template>
     <div class="un-p-5">
+        <dialog-component title="test" description="A dialog..." @cancel="test" @confirm="stopped">
+            <template #content>
+                <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-3 un-pt-3 un-pb-5">
+                    <span>test</span>
+                    <span>another test</span>
+                    <span>and another test</span>
+                </div>
+            </template>
+        </dialog-component>
         <modal-component
             title="A Dialog Title"
             toggle-type="button"

@@ -15,12 +15,13 @@ import { toRefs } from 'vue';
 const defaultClasses = {
     trigger: 'un-text-gray-900 dark:un-text-gray-100',
     overlay: 'un-fixed un-inset-0 un-bg-black dark:un-bg-moon-900 un-bg-opacity-25 dark:un-bg-opacity-85 un-z-30 un-backdrop-filter un-backdrop-blur-sm',
-    title: 'un-bg-white dark:un-bg-moon-700 un-text-gray-900 dark:un-text-gray-100 un-text-2xl un-font-semibold un-leading-6 un-border-b un-border-b-gray-200 dark:un-border-b-moon-600 un-p-3 un-rounded-t',
+    title: `un-bg-white dark:un-bg-moon-700 un-text-gray-900 dark:un-text-gray-100 un-text-xl un-font-semibold un-leading-6 
+        un-border-b un-border-b-gray-200 dark:un-border-b-moon-600 un-p-4 un-rounded-t`,
     content: `un-fixed un-top-[50%] un-left-[50%] un-max-h-[85vh] un-w-[90vw] un-max-w-[28rem] un-translate-x-[-50%] un-translate-y-[-50%]
-          un-rounded un-bg-gray-50 dark:un-bg-moon-800
-          un-shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:un-outline-none un-z-100
-          un-border un-border-gray-200 dark:un-border-moon-600`,
-    description: 'un-text-gray-900 dark:un-text-gray-100 un-p-3'
+        un-rounded un-bg-gray-50 dark:un-bg-moon-800
+        un-shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:un-outline-none un-z-100
+        un-border un-border-gray-200 dark:un-border-moon-600`,
+    description: 'un-text-gray-900 dark:un-text-gray-100 un-p-4'
 }
 
 
@@ -70,7 +71,7 @@ const cancel = () => emit('cancel')
             <DialogClose>
                 <slot name="confirmTrigger">
                     <button @click="confirm" class="un-bg-navy-500 hover:un-bg-navy-600  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
-                >ok</button>
+                    >ok</button>
                 </slot>
             </DialogClose>
         </div>

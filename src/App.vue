@@ -87,9 +87,9 @@ const panelClassList = joinLines(`un-w-full
 
 <template>
     <div class="un-p-5">
-        <dialog-component title="test" description="A dialog..." @cancel="test" @confirm="stopped">
+        <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" @confirm="stopped">
             <template #content>
-                <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-3 un-pt-3 un-pb-5">
+                <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
                     <span>test</span>
                     <span>another test</span>
                     <span>and another test</span>

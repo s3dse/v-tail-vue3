@@ -122,6 +122,65 @@ The above example shows how to use the `#cell()` slot to customize the rendering
 ### Credits
 The component is heavily inspired by the Bootstrap Vue Table component. Have a look: https://github.com/bootstrap-vue/bootstrap-vue
 
+## Dialog Component (Radix Vue)
+
+A component for displaying modal dialogs. 
+### Usage
+
+```html
+<script setup>
+...
+const validateAndSubmit = () => {
+    const selection = document.querySelector('.custom-select').selectedOptions[0].innerText
+    if (selection === 'a') {
+        console.log('Error: Option "a" is not allowed!')
+        return false
+    } else {
+        console.log('success')
+        submitLogic()
+        return true
+
+    }
+
+}
+</script>
+<template>
+    ...
+    <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" :pre-confirm="validateAndSubmit">
+        <template #content>
+            <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
+                <div>Some content</div>
+            </div>
+            <select class="custom-select"><option>a</option><option>b</option></select>
+        </template>
+    </dialog-component>
+</template>
+```
+
+#### Props
+| Prop        | Description                                                                                                                                   |   |   |   |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|
+| classes     | Object with styles keyed by component part. Optional. See styles.                                                                             |   |   |   |
+| title       | The dialog title. Optional.                                                                                                                   |   |   |   |
+| description | The dialog description. Optional.                                                                                                             |   |   |   |
+| preConfirm  | The function to call before closing via confirmation (not cancellation). Returns `true` to continue confirmation, `false` to abort. Optional. |   |   |   |
+
+#### Styling
+The `classes` prop allows to modify the styling of the
+* Dialog-Trigger
+* Overlay
+* Title
+* Description
+* Content Container.
+
+E.g.
+```js
+<dialog-component :classes="{title: 'text-4xl text-green'}">
+    ...
+</dialog-component>
+```
+
+See the [default style map](/src/components/dialog/DialogComponent.vue#L15) for reference.
 
 ## Pagination Component
 ## Dropdown Component

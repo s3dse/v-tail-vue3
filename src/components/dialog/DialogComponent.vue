@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from 'radix-vue'
 import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
-import { toRefs } from 'vue';
+import { toRefs, ref } from 'vue';
 
 const defaultClasses = {
     trigger: 'un-text-gray-900 dark:un-text-gray-100',
@@ -37,20 +37,32 @@ const props = defineProps({
     description: {
         type: String,
         default: null
+    },
+    preConfirm: {
+        type: Function,
+        default() {
+            return true
+        }
     }
 })
 
-const { classes: propsClasses } = toRefs(props)
+const { classes: propsClasses, preConfirm } = toRefs(props)
 
 const getClass = dispatchClass(defaultClasses, propsClasses)
 const emit = defineEmits(['confirm', 'cancel'])
+const open = ref(false)
 
-const confirm = () => emit('confirm')
+const confirm = () => {
+    if (preConfirm.value()) {
+        emit('confirm')
+        open.value = false
+    }
+}
 const cancel = () => emit('cancel')
 </script>
 
 <template>
-  <DialogRoot>
+  <DialogRoot v-model:open="open">
     <DialogTrigger :class="getClass('trigger')">
         <slot name="trigger">
             <button class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]">Settings</button>
@@ -61,7 +73,7 @@ const cancel = () => emit('cancel')
       <DialogContent :class="getClass('content')">
         <DialogTitle :class="getClass('title')">{{ title }}</DialogTitle>
         <DialogDescription :class="getClass('description')">{{ description }}</DialogDescription>
-        <slot name="content">
+        <slot name="content" v-bind="{ open }">
         </slot>
         <div class="un-flex un-gap-4 un-justify-end un-p-3">
             <DialogClose>
@@ -76,16 +88,14 @@ const cancel = () => emit('cancel')
                     </button>
                 </slot>
             </DialogClose>
-            <DialogClose>
-                <slot name="confirmTrigger">
-                    <button @click="confirm" class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
-                    >
-                        <slot name="confirmLabel">
-                            <span>OK</span>
-                        </slot>
-                    </button>
-                </slot>
-            </DialogClose>
+            <slot name="confirmTrigger">
+                <button @click="confirm" class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
+                >
+                    <slot name="confirmLabel">
+                        <span>OK</span>
+                    </slot>
+                </button>
+            </slot>
         </div>
       </DialogContent>
     </DialogPortal>

@@ -74,7 +74,18 @@ const logItem = item => {
 const test = () => console.log('test')
 const stopped = () => console.log('stopped')
 const opened = () => console.log('opened')
+const validateAndSubmit = () => {
+    const selection = document.querySelector('.custom-select').selectedOptions[0].innerText
+    if (selection === 'a') {
+        console.log('error')
+        return false
+    } else {
+        console.log('success')
+        return true
 
+    }
+
+}
 const panelClassList = joinLines(`un-w-full 
                             un-max-w-md 
                             un-overflow-hidden 
@@ -87,13 +98,14 @@ const panelClassList = joinLines(`un-w-full
 
 <template>
     <div class="un-p-5">
-        <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" @confirm="stopped">
+        <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" :pre-confirm="validateAndSubmit">
             <template #content>
                 <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
                     <span>test</span>
                     <span>another test</span>
                     <span>and another test</span>
                 </div>
+                <select class="custom-select"><option>a</option><option>b</option></select>
             </template>
         </dialog-component>
         <modal-component

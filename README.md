@@ -158,12 +158,12 @@ const validateAndSubmit = () => {
 ```
 
 #### Props
-| Prop        | Description                                                                                                                                   |   |   |   |
-|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|
-| classes     | Object with styles keyed by component part. Optional. See styles.                                                                             |   |   |   |
-| title       | The dialog title. Optional.                                                                                                                   |   |   |   |
-| description | The dialog description. Optional.                                                                                                             |   |   |   |
-| preConfirm  | The function to call before closing via confirmation (not cancellation). Returns `true` to continue confirmation, `false` to abort. Optional. |   |   |   |
+| Prop        | Description                                                                                                                                   |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| classes     | Object with styles keyed by component part. Optional. See styles.                                                                             |
+| title       | The dialog title. Optional.                                                                                                                   |
+| description | The dialog description. Optional.                                                                                                             |
+| preConfirm  | The function to call before closing via confirmation (not cancellation). Returns `true` to continue confirmation, `false` to abort. Optional. |
 
 #### Styling
 The `classes` prop allows to modify the styling of the
@@ -181,6 +181,65 @@ E.g.
 ```
 
 See the [default style map](/src/components/dialog/DialogComponent.vue#L15) for reference.
+
+## Select Component (Radix Vue)
+A component wrapping an HTML `select`.
+### Usage
+```html
+<script setup>
+import { ref } from 'vue'
+import { SelectComponent } from '@/components'
+
+const options = [
+    { name: 'Record A', value: 'a' },
+    { name: 'Record B', value: 'b' },
+    { name: 'Record C', value: 'c' },
+    { name: 'Record D', value: 'd' },
+    { name: 'Record E', value: 'e' },
+    { name: 'Record F', value: 'f' }
+]
+
+const selection = ref(options[0])
+</script>
+<template>
+    <select-component
+        v-model="selection"
+        :options="options"
+        label-key="name"
+        aria-label="Select option"
+    ></select-component>
+    <div class="un-text-gray-900 dark:un-text-gray-100">{{ selection }}</div>
+</template>
+
+```
+
+#### Props
+| Prop        | Description                                                                                  |
+|-------------|----------------------------------------------------------------------------------------------|
+| classes     | Object with styles keyed by component part. Optional. See styles.                            |
+| options     | Array of options (complex or primitive). Required.                                           |
+| labelKey    | A key (String) to access the label property of an option. Optional.                          |
+| placeholder | A placeholder (String) when there is no default selection given. Default: 'Select option'.   |
+| modelValue  | The value (String\|Boolean\|Number\|Object) holding the currently selected option. Optional. |
+
+#### Styling
+The trigger widget is styled via plain HTML attributes on the component. Additionally, the `classes` prop allows to modify the styling of the
+* trigger
+* content container
+* item.
+
+E.g.
+
+```html
+<select-component
+        v-model="selection"
+        :options="options"
+        label-key="name"
+        aria-label="Select option"
+        class="un-w-full"
+        :classes="{trigger: 'un-bg-green-400'}"
+    ></select-component>
+```
 
 ## Pagination Component
 ## Dropdown Component

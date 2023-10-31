@@ -8,13 +8,14 @@ import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 import ModalComponent from './components/modal/ModalComponent.vue'
 import DialogComponent from './components/dialog/DialogComponent.vue'
+import SelectComponentExample from './components/select/SelectComponentExample.vue'
 import { joinLines } from './utils/string-join-lines'
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 // const items = await delay(2000).tehn(() => ref([...data]))
 const items = ref([...data])
-const topRows = ref([...data].slice(0,5))
+const topRows = ref([...data].slice(0, 5))
 const fields = ref([
     {
         key: 'id',
@@ -82,9 +83,7 @@ const validateAndSubmit = () => {
     } else {
         console.log('success')
         return true
-
     }
-
 }
 const panelClassList = joinLines(`un-w-full 
                             un-max-w-md 
@@ -94,18 +93,56 @@ const panelClassList = joinLines(`un-w-full
                             un-text-left 
                             un-align-middle 
                             un-shadow-xl`)
+
+const selectOptions = [
+    { name: 'Record A', value: 'a' },
+    { name: 'Record B', value: 'b' },
+    { name: 'Record C', value: 'c' },
+    { name: 'Record D', value: 'd' },
+    { name: 'Record E', value: 'e' },
+    { name: 'Record F', value: 'f' }
+]
+const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+const selected = ref(selectOptions[0])
 </script>
 
 <template>
     <div class="un-p-5">
-        <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" :pre-confirm="validateAndSubmit">
+        <select-component-example></select-component-example>
+        <!-- <select-component
+            :options="selectOptions"
+            label-key="name"
+            :default-index="0"
+            class="un-w-full"
+            :classes="{ trigger: 'un-bg-green-500' }"
+            v-model="selected"
+        >
+            <template #trigger>
+                <div class="un-flex un-gap-2 un-items-center un-px-2">
+                    <span class="i-tabler-chevron-down block text-base"></span>
+                </div>
+            </template>
+        </select-component>
+        <div>{{ selected }}</div> -->
+
+        <dialog-component
+            title="Testing Dialog"
+            description="A dialog..."
+            @cancel="test"
+            :pre-confirm="validateAndSubmit"
+        >
             <template #content>
-                <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
+                <div
+                    class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5"
+                >
                     <span>test</span>
                     <span>another test</span>
                     <span>and another test</span>
                 </div>
-                <select class="custom-select"><option>a</option><option>b</option></select>
+                <select class="custom-select">
+                    <option>a</option>
+                    <option>b</option>
+                </select>
             </template>
         </dialog-component>
         <modal-component
@@ -133,9 +170,19 @@ const panelClassList = joinLines(`un-w-full
         </dropdown-component>
         <card-component class="un-mt-5">
             <loading-overlay :show="tableStatus.busy">
-                <table-component :items="items" :fields="fields" :top-rows="topRows" title="Test" class="un-w-[100%] dark:un-bg-moon-800">
+                <table-component
+                    :items="items"
+                    :fields="fields"
+                    :top-rows="topRows"
+                    title="Test"
+                    class="un-w-[100%] dark:un-bg-moon-800"
+                >
                     <template #table-top-controls>
-                        <div class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto">some control</div>
+                        <div
+                            class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                        >
+                            some control
+                        </div>
                     </template>
                     <template #page-size-label="{ pageSize }">
                         Einträge pro Seite: {{ pageSize }}

@@ -21,7 +21,8 @@ import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
 const classes = {
     trigger:
         `un-inline-flex un-items-center un-justify-between un-gap-2 un-min-w-[10rem] 
-        un-bg-navy-500 un-h-[2.375rem] un-rounded un-text-gray-100 un-px-3`,
+        un-bg-white dark:un-bg-moon-800 un-border un-border-gray-200 dark:un-border-moon-700 
+        un-h-[2.375rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-px-3`,
     content: `un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[11.25rem] 
         un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-130`,
     item: `un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8

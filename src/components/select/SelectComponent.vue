@@ -71,7 +71,7 @@ const selected = computed({
                     <span>{{ selected }}</span>
                 </slot>
             </SelectValue>
-            <span class="i-tabler-chevron-down un-block"></span>
+            <span class="i-tabler-chevron-down un-text-2xl un-block"></span>
         </SelectTrigger>
 
         <SelectPortal>

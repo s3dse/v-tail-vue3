@@ -93,7 +93,12 @@ const cancel = () => emit('cancel')
                 </slot>
             </DialogClose>
             <slot name="confirmTrigger">
-                <button @click="confirm" :disabled="confirmDisabled" class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]"
+                <button 
+                    @click="confirm" 
+                    :disabled="confirmDisabled" 
+                    class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 
+                        disabled:un-bg-gray-400 disabled:active:un-text-gray-100
+                        un-rounded un-px-4 un-h-[2.375rem]"
                 >
                     <slot name="confirmLabel">
                         <span>OK</span>

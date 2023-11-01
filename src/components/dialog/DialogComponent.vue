@@ -21,7 +21,14 @@ const defaultClasses = {
         un-rounded un-bg-gray-50 dark:un-bg-moon-800
         un-shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:un-outline-none un-z-100
         un-border un-border-gray-200 dark:un-border-moon-600`,
-    description: 'un-text-gray-900 dark:un-text-gray-100 un-p-4'
+    description: 'un-text-gray-900 dark:un-text-gray-100 un-p-4',
+    confirmButton: `un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 
+                        disabled:un-bg-gray-400 disabled:active:un-text-gray-100 disabled:hover:un-bg-gray-400 disabled:hover:un-text-gray-100
+                        un-rounded un-px-4 un-h-[2.375rem]`,
+    cancelButton: `un-border un-border-slate-200 dark:un-border-moon-700 
+                    hover:un-border-slate-100 dark:hover:un-border-moon-600 
+                    un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-gray-200 dark:hover:un-bg-moon-700 dark:un-text-gray-100 
+                    un-rounded un-px-4 un-h-[2.375rem]`
 }
 
 
@@ -82,10 +89,7 @@ const cancel = () => emit('cancel')
         <div class="un-flex un-gap-4 un-justify-end un-p-3">
             <DialogClose>
                 <slot name="cancelTrigger">
-                    <button @click="cancel" class="un-border un-border-slate-200 dark:un-border-moon-700 
-                    hover:un-border-slate-100 dark:hover:un-border-moon-600 
-                    un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-gray-200 dark:hover:un-bg-moon-700 dark:un-text-gray-100 
-                    un-rounded un-px-4 un-h-[2.375rem]">
+                    <button @click="cancel" :class="getClass('cancelButton')">
                         <slot name="cancelLabel">
                             <span>Cancel</span>
                         </slot>
@@ -96,9 +100,7 @@ const cancel = () => emit('cancel')
                 <button 
                     @click="confirm" 
                     :disabled="confirmDisabled" 
-                    class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 
-                        disabled:un-bg-gray-400 disabled:active:un-text-gray-100
-                        un-rounded un-px-4 un-h-[2.375rem]"
+                    :class="getClass('confirmButton')"
                 >
                     <slot name="confirmLabel">
                         <span>OK</span>

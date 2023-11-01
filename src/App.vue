@@ -130,6 +130,7 @@ const selected = ref(selectOptions[0])
             description="A dialog..."
             @cancel="test"
             :pre-confirm="validateAndSubmit"
+            :confirm-disabled="true"
         >
             <template #content>
                 <div

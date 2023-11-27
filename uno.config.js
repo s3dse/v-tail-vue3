@@ -1,5 +1,6 @@
 import { defineConfig, presetIcons, presetUno } from 'unocss'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
+import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -60,12 +61,48 @@ export default defineConfig({
             }
         }
     },
-    shortcuts: {
-        'un-form-help':
-            'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
-        'un-page-header': 'un-text-xl un-font-semibold un-my-3',
-        'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white un-rounded-sm'
-    },
+    shortcuts: [
+        [
+            /^busy-text-(.*)$/, ([, c]) => `un-relative 
+        un-select-none un-overflow-hidden un-border-rounded 
+        before:un-animate-spin 
+        before:un-border-opacity-90 
+        before:un-border-t-transparent  
+        before:un-border-r-${c} 
+        before:un-border-b-${c} 
+        before:un-border-l-${c} 
+        before:un-border-rounded-full 
+        before:un-border-solid 
+        before:un-border-3 
+        before:un-content-empty 
+        before:un-h-1.5rem 
+        before:un-w-1.5rem 
+        before:un-left-50% 
+        before:un-absolute 
+        before:un-top-50% 
+        before:un-m-t-[-0.75rem] 
+        before:un-m-r-0 
+        before:un-m-b-0 
+        before:un-m-l-[-0.75rem]
+        before:un-z-500 
+        after:un-border-rounded-[3px] 
+        after:un-content-empty 
+        after:un-h-full 
+        after:un-left-0 
+        after:un-absolute 
+        after:un-top-0 
+        after:un-w-full 
+        after:un-z-499`],
+        [
+            /^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`
+        ],
+        {
+            'un-form-help':
+                'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
+            'un-page-header': 'un-text-xl un-font-semibold un-my-3',
+            'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white un-rounded-sm',
+        }
+        ],
     presets: [
         presetUno({ prefix: 'un-' }),
         presetScrollbar({ prefix: 'un-'}),
@@ -74,5 +111,6 @@ export default defineConfig({
                 custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }
             }
         })
-    ]
+    ],
+    transformers: [transformerVariantGroup()]
 })

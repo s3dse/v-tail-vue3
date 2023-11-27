@@ -10,6 +10,7 @@ import ModalComponent from './components/modal/ModalComponent.vue'
 import DialogComponent from './components/dialog/DialogComponent.vue'
 import SelectComponentExample from './components/select/SelectComponentExample.vue'
 import { joinLines } from './utils/string-join-lines'
+
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -93,8 +94,8 @@ const panelClassList = joinLines(`un-w-full
                             un-text-left 
                             un-align-middle 
                             un-shadow-xl`)
-
-const selectOptions = [
+                            
+                            const selectOptions = [
     { name: 'Record A', value: 'a' },
     { name: 'Record B', value: 'b' },
     { name: 'Record C', value: 'c' },
@@ -104,9 +105,14 @@ const selectOptions = [
 ]
 const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
+const isLoading = ref(true)
 </script>
 
 <template>
+    <button class="un-text-gray-900 dark:un-text-gray-100" @click="isLoading = !isLoading">Loading {{isLoading}}</button>
+    <div v-busy="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
+        <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
+    </div>
     <div class="un-p-5">
         <select-component-example></select-component-example>
         <!-- <select-component

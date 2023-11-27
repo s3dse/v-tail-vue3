@@ -33,6 +33,7 @@
         "@iconify-json/tabler": "^1.1.91",
         "@rushstack/eslint-patch": "^1.2.0",
         "@unocss/reset": "^0.51.12",
+        "@unocss/transformer-variant-group": "^0.57.7",
         "@vitejs/plugin-vue": "^4.2.1",
         "@vue/eslint-config-prettier": "^7.1.0",
         "@vue/test-utils": "^2.3.2",

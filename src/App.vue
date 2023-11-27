@@ -113,6 +113,9 @@ const isLoading = ref(true)
     <div v-busy="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
         <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
     </div>
+    <loading-overlay :show="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
+        <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
+    </loading-overlay>
     <div class="un-p-5">
         <select-component-example></select-component-example>
         <!-- <select-component

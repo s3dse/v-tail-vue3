@@ -59,7 +59,7 @@
                         :name="`th(${col.key})`"
                         :field="col">
                         <div class="">
-                            {{ underscoresToSpaces(col.key) }}
+                            {{ underscoresToSpaces(getColumnLabel(col)) }}
                             <div
                                 class="un-inline-block"
                                 :class="{
@@ -442,6 +442,9 @@ export default {
         },
         rightPadLastCol(index) {
             return index === this.visibleFields.length - 1 ? 'un-pe-6' : ''
+        },
+        getColumnLabel(column) {
+            return column.label ? column.label : column.key
         }
     },
     mounted() {

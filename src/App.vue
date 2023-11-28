@@ -27,6 +27,7 @@ const fields = ref([
     },
     {
         key: 'first_name',
+        label: 'the first name',
         thClassList: 'un-text-left un-px-1',
         tdClassList: 'un-text-left un-px-1',
         tdTopRowClassList: 'un-text-left un-px-1 un-italic',

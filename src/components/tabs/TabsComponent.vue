@@ -1,5 +1,5 @@
 <template>
-    <div class="un-border-b un-border-gray-200 dark:un-border-moon-700">
+    <!-- <div class="un-border-b un-border-gray-200 dark:un-border-moon-700"> -->
         <ul class="un-flex un-px-2">
             <tab-component 
                 class="data-[active=true]:un-bg-white 
@@ -21,7 +21,7 @@
                 dark:focus:un-outline-none dark:focus:un-ring-1 dark:focus:un-ring-gray-600"
                 v-for="(tab, index) in tabs" :key="tab" :title="`tab-${index}`" @click="selectTab(index)" :data-active="index===tabIndex"></tab-component>
         </ul>
-    </div>
+    <!-- </div> -->
 </template>
 <script setup>
 import { ref } from 'vue'

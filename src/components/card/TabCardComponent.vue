@@ -1,14 +1,14 @@
 <template>
-    <div class="un-card">
-        <div class="un-pt-3 dark:un-bg-moon-900 un-bg-gray-50">
+    <!-- <div class="un-card"> -->
+        <!-- <div class="un-pt-3 dark:un-bg-moon-900 un-bg-gray-50"> -->
             <tabs-component @update:current-tab-index="selectTab" :tabs="tabs">
             </tabs-component>
-        </div>
+        <!-- </div> -->
         <component :is="component" v-bind="componentProps"></component>
-    </div>
+    <!-- </div> -->
 </template>
 <script setup>
-import TabsComponent from './TabsComponent.vue'
+import TabsComponent from '../tabs/TabsComponent.vue'
 import { ref, computed } from 'vue'
 const props = defineProps({
     currentTabIndex: {

@@ -19,7 +19,7 @@
                 disabled:un-opacity-50 disabled:un-pointer-events-none 
                 dark:un-bg-moon-900 dark:un-border-moon-700 dark:un-text-gray-400 
                 dark:focus:un-outline-none dark:focus:un-ring-1 dark:focus:un-ring-gray-600"
-                v-for="(tab, index) in tabs" :key="tab" :title="`tab-${index}`" @click="selectTab(index)" :data-active="index===tabIndex"></tab-component>
+                v-for="(tab, index) in tabs" :key="tab" :title="tabLabel(tab)" @click="selectTab(index)" :data-active="index===tabIndex"></tab-component>
         </ul>
     <!-- </div> -->
 </template>
@@ -36,6 +36,7 @@ const props = defineProps({
         default: 0
     }
 })
+const tabLabel = tab => tab.label ? tab.label : `tab-${props.tabs.indexOf(tab)}`
 const tabIndex = ref(props.currentTabIndex)
 const emit = defineEmits(['update:currentTabIndex'])
 const selectTab = index => {

@@ -111,8 +111,8 @@ const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
 const isLoading = ref(true)
 
-const tab1 = { component: TestOne, props: { message: "testOne "}}
-const tab2 = { component: TestTwo, props: { message: "testTwo "}}
+const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message: "testOne "}}
+const tab2 = { id: 'b', label: 'Secontd Tab', component: TestTwo, props: { message: "testTwo "}}
 const tabs = [tab1, tab2]
 </script>
 

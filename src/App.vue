@@ -9,6 +9,9 @@ import ActionDropdownComponent from './components/dropdown/ActionDropdownCompone
 import ModalComponent from './components/modal/ModalComponent.vue'
 import DialogComponent from './components/dialog/DialogComponent.vue'
 import SelectComponentExample from './components/select/SelectComponentExample.vue'
+import TabCardComponent from './components/card/TabCardComponent.vue'
+import TestOne from './components/card/TestOne.vue'
+import TestTwo from './components/card/TestTwo.vue'
 import { joinLines } from './utils/string-join-lines'
 
 function delay(ms) {
@@ -107,6 +110,10 @@ const panelClassList = joinLines(`un-w-full
 const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
 const isLoading = ref(true)
+
+const tab1 = { component: TestOne, props: { message: "testOne "}}
+const tab2 = { component: TestTwo, props: { message: "testTwo "}}
+const tabs = [tab1, tab2]
 </script>
 
 <template>
@@ -117,23 +124,9 @@ const isLoading = ref(true)
     <loading-overlay :show="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
         <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
     </loading-overlay>
-    <div class="un-p-5">
+    <!-- <div class="un-p-5">
         <select-component-example></select-component-example>
-        <!-- <select-component
-            :options="selectOptions"
-            label-key="name"
-            :default-index="0"
-            class="un-w-full"
-            :classes="{ trigger: 'un-bg-green-500' }"
-            v-model="selected"
-        >
-            <template #trigger>
-                <div class="un-flex un-gap-2 un-items-center un-px-2">
-                    <span class="i-tabler-chevron-down block text-base"></span>
-                </div>
-            </template>
-        </select-component>
-        <div>{{ selected }}</div> -->
+      
 
         <dialog-component
             title="Testing Dialog"
@@ -206,5 +199,10 @@ const isLoading = ref(true)
                 </table-component>
             </loading-overlay>
         </card-component>
+    </div>  -->
+    <div class="un-py-12 un-text-gray-900 dark:un-text-gray-100">give me some space...</div>
+    <div class="un-p-3">
+        <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
+    
 </template>

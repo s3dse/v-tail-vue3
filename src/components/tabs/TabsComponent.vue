@@ -1,6 +1,6 @@
 <template>
     <!-- <div class="un-border-b un-border-gray-200 dark:un-border-moon-700"> -->
-        <ul class="un-flex un-px-2 un-border-b">
+        <ul class="un-flex un-px-2 un-border-b un-border-gray-200 dark:un-border-moon-700">
             <tab-component 
                 class="data-[active=true]:un-bg-white 
                 data-[active=true]:un-border-b-transparent 

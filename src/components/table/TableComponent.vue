@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="title && !hasTitleSlot" class="vt-title-border un-border-b dark:un-border-moon-700 dark:un-bg-moon-800 un-my-3">
-            <div class="vt-title un-text-lg un-mx-4 un-text-gray-900 dark:un-text-gray-100 un-font-semibold un-my-3">
+            <div class="vt-title un-card-title un-mx-4 un-my-3">
                 {{ title }}
             </div>
         </div>

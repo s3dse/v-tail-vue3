@@ -101,6 +101,7 @@ export default defineConfig({
                 'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
             'un-page-header': 'un-text-xl un-font-semibold un-my-3',
             'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
+            'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
         }
         ],
     presets: [

@@ -43,8 +43,7 @@ describe('TableComponent without top rows', () => {
 })
 
 describe('TableComponent', async () => {
-    const items = [...Array(100).keys()]
-        .map(k => ({ name: `item-${k}`, value: k }))
+    const items = [...Array(100).keys()].map(k => ({ name: `item-${k}`, value: k }))
     const shuffledItems = items.sort(() => 0.5 - Math.random())
     const props = {
         perPage: 10,
@@ -59,13 +58,30 @@ describe('TableComponent', async () => {
         await nextTick()
         expect(wrapper.vm.tableData.map(td => td.value)).toStrictEqual([...Array(100).keys()])
     })
-    it('should sort descendingly on second column-click', async() => {
+    it('should sort descendingly on second column-click', async () => {
         const wrapper = shallowMount(TableComponent, { props })
         const el = wrapper.findAll('th')[1]
         await el.find('.i-tabler-arrows-sort').trigger('click')
         await nextTick()
         await wrapper.findAll('th')[1].find('.i-tabler-sort-ascending').trigger('click')
         await nextTick()
-        expect(wrapper.vm.tableData.map(td => td.value)).toStrictEqual([...Array(100).keys()].reverse())
+        expect(wrapper.vm.tableData.map(td => td.value)).toStrictEqual(
+            [...Array(100).keys()].reverse()
+        )
+    })
+    it('should filter data', async () => {
+        const wrapper = shallowMount(TableComponent, { props })
+        const filterInput = wrapper.find('input')
+        await filterInput.setValue('1')
+        console.log(wrapper.vm.tableData)
+        expect(wrapper.vm.tableData.map(td => td.value).sort()).toStrictEqual([
+            1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 31, 41, 51, 61, 71, 81, 91
+        ])
+    })
+    it('should filter an empty result when no match', async() => {
+        const wrapper = shallowMount(TableComponent, { props })
+        const input = wrapper.find('input')
+        await input.setValue('test')
+        expect(wrapper.vm.tableData).toStrictEqual(new Array())
     })
 })

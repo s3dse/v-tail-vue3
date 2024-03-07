@@ -1,6 +1,4 @@
 import { describe, it, expect } from 'vitest'
-import { nextTick } from 'vue'
-
 import { shallowMount } from '@vue/test-utils'
 import TableComponent from '@/components/table/TableComponent.vue'
 describe('TableComponent with perPage setting', () => {

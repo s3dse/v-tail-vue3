@@ -173,6 +173,7 @@ import PaginationComponent from '@/components/pagination/PaginationComponent.vue
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
 import { joinLines } from '@/utils/string-join-lines.js'
 import 'virtual:uno.css'
+import { nanoid } from 'nanoid'
 function numSort(a, b, ascending) {
     return ascending ? a - b : b - a
 }
@@ -202,6 +203,12 @@ export default {
     components: {
         PaginationComponent,
         DropdownComponent
+    },
+    setup() {
+        const id = nanoid()
+        return {
+            id
+        }
     },
     props: {
         title: {
@@ -304,8 +311,8 @@ export default {
             sortColumnKey: '',
             tableData: [...this.items],
             currentPage: 1,
-            filterInputId: `filter_input_${this._uid}`,
-            filterInputSelector: `#filter_input_${this._uid}`,
+            filterInputId: `filter_input_${this.id}`,
+            filterInputSelector: `#filter_input_${this.id}`,
             thePageSize: this.perPage > this.topRows.length ? this.perPage : this.pageSizes.find(e => e > this.topRows.length),
             componentValidation: false
         }

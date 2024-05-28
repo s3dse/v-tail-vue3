@@ -148,7 +148,7 @@
                 v-if="paginate"
                 :per-page="itemsPerPage"
                 :current-page="currentPage"
-                :total-pages="Math.round(tableData.length / itemsPerPage)"
+                :total-pages="numberOfPages"
                 :total-entries="tableData.length"
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
@@ -343,6 +343,9 @@ export default {
         itemsPerPage() {
             return this.pageSize - this.topRows.length
         },
+        numberOfPages() {
+            return Math.ceil(this.tableData.length / this.itemsPerPage)
+        },
         underscoresToSpaces() {
             return v => (v ? v.replaceAll('_', ' ') : v)
         },
@@ -402,9 +405,6 @@ export default {
             if (this.paginate) {
                 this.changePage(1)
             }
-        },
-        numberOfPages() {
-            return Math.ceil(this.tableData.length / this.itemsPerPage)
         },
         changePage(page) {
             if (page === this.currentPage) return

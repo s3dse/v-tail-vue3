@@ -24,6 +24,16 @@ describe('TableComponent with perPage setting', () => {
         const wrapper = shallowMount(TableComponent, { props: { ...props, perPage: 0 } })
         expect(wrapper.vm.thePageSize).toBe(10)
     })
+    it('should render 11 entries over 3 pages with 5 per page', () => {
+        const wrapper = shallowMount(TableComponent, { props: {...props, perPage: 5, items: [...Array(11).keys()].map(k => ({ a: k })) } })
+        expect(wrapper.vm.tableData.length).toBe(11)
+        expect(wrapper.vm.numberOfPages).toBe(3)
+        expect(wrapper.vm.getRows().length).toBe(5)
+        wrapper.vm.changePage(2)
+        expect(wrapper.vm.getRows().length).toBe(5)
+        wrapper.vm.changePage(3)
+        expect(wrapper.vm.getRows().length).toBe(1)
+    })
 })
 
 describe('TableComponent without top rows', () => {

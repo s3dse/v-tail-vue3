@@ -98,8 +98,8 @@ const panelClassList = joinLines(`un-w-full
                             un-text-left 
                             un-align-middle 
                             un-shadow-xl`)
-                            
-                            const selectOptions = [
+
+const selectOptions = [
     { name: 'Record A', value: 'a' },
     { name: 'Record B', value: 'b' },
     { name: 'Record C', value: 'c' },
@@ -111,19 +111,38 @@ const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
 const isLoading = ref(true)
 
-const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message: "testOne "}}
-const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: "testTwo "}}
+const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message: 'testOne ' } }
+const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo ' } }
 const tabs = [tab1, tab2]
 </script>
 
 <template>
-    <button class="un-text-gray-900 dark:un-text-gray-100" @click="isLoading = !isLoading">Loading {{isLoading}}</button>
-    <div v-busy="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
-        <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
+    <button class="un-text-gray-900 dark:un-text-gray-100" @click="isLoading = !isLoading">
+        Loading {{ isLoading }}
+    </button>
+    <div
+        v-busy="isLoading"
+        class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700"
+    >
+        <p class="un-text-gray-900 dark:un-text-gray-100">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.
+        </p>
     </div>
-    <loading-overlay :show="isLoading" class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700">
-        <p class="un-text-gray-900 dark:un-text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.</p>
+    <loading-overlay
+        :show="isLoading"
+        class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700"
+    >
+        <p class="un-text-gray-900 dark:un-text-gray-100">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.
+        </p>
     </loading-overlay>
+    <div class="un-flex un-px-50">
+        <action-dropdown-component :options="['a', 'b']" up-icon="" down-icon="" @on-select="logItem" class="un-px-10 un-ms-auto un-me-2 un-h-full un-rounded-sm hover:un-cursor-pointer">
+            <template #toggle-label>
+                <div class="i-tabler-menu-2"></div>
+            </template>
+        </action-dropdown-component>
+    </div>
     <!-- <div class="un-p-5">
         <select-component-example></select-component-example>
       
@@ -204,5 +223,4 @@ const tabs = [tab1, tab2]
     <div class="un-p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
-    
 </template>

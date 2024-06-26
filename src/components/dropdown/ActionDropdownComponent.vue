@@ -2,7 +2,12 @@
     <div v-click-outside="closeDropdown" class="dropdown-component un-relative">
         <div
             @click="toggleDropdown"
-            :class="['dropdown-button', buttonClassList ? buttonClassList : 'un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-slate-100 dark:hover:un-bg-moon-700 hover:un-cursor-pointer un-rounded-sm un-border un-border-slate-500 dark:un-border-moon-700 dark:hover:un-border-moon-600 un-text-sm un-px-4 un-py-1 un-text-center dark:un-text-gray-100 un-inline-flex un-items-center un-w-full']"
+            :class="[
+                'dropdown-button',
+                buttonClassList
+                    ? buttonClassList
+                    : 'un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-slate-100 dark:hover:un-bg-moon-700 hover:un-cursor-pointer un-rounded-sm un-border un-border-slate-500 dark:un-border-moon-700 dark:hover:un-border-moon-600 un-text-sm un-px-4 un-py-1 un-text-center dark:un-text-gray-100 un-inline-flex un-items-center un-w-full'
+            ]"
             type="button"
         >
             <slot name="toggle-label" />
@@ -18,12 +23,14 @@
                     :key="index"
                     class="un-block un-py-2 un-text-right hover:un-cursor-pointer hover:un-bg-gray-200 dark:hover:un-bg-moon-600 hover:un-bg-opacity-50"
                 >
-                    <p
-                        class="un-block un-w-[100%] un-px-8 un-text-right hover:un-cursor-pointer"
-                        @click="onSelect(item)"
-                    >
-                        {{ item }}
-                    </p>
+                    <slot name="item" :item="item">
+                        <p
+                            class="un-block un-w-[100%] un-px-8 un-text-right hover:un-cursor-pointer"
+                            @click="onSelect(item)"
+                        >
+                            {{ item }}
+                        </p>
+                    </slot>
                 </li>
             </ul>
         </div>
@@ -31,9 +38,8 @@
 </template>
 <script>
 import '@unocss/reset/tailwind.css'
-// import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
-import { clickOutside} from '@/directives/click-outside'
+import { clickOutside } from '@/directives/click-outside'
 export default {
     directives: {
         clickOutside
@@ -59,7 +65,7 @@ export default {
     },
     data() {
         return {
-            show: false,
+            show: false
         }
     },
     methods: {

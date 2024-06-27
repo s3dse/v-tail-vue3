@@ -223,4 +223,31 @@ const tabs = [tab1, tab2]
     <div class="un-p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
+    <card-component class="un-mt-5">
+            <loading-overlay :show="tableStatus.busy">
+                <table-component
+                    :items="items"
+                    :fields="fields"
+                    :top-rows="topRows"
+                    title="Test"
+                    class="un-w-[100%] dark:un-bg-moon-800"
+                >
+                    <template #table-top-controls>
+                        <div
+                            class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                        >
+                            some control
+                        </div>
+                    </template>
+                    <template #page-size-label="{ pageSize }">
+                        Einträge pro Seite: {{ pageSize }}
+                    </template>
+                    <template #cell(share)="data">
+                        <div :title="data.unformatted">
+                            {{ data.value }}
+                        </div>
+                    </template>
+                </table-component>
+            </loading-overlay>
+        </card-component>
 </template>

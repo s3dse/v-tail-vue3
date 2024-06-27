@@ -25,7 +25,9 @@ describe('TableComponent with perPage setting', () => {
         expect(wrapper.vm.thePageSize).toBe(10)
     })
     it('should render 11 entries over 3 pages with 5 per page', () => {
-        const wrapper = shallowMount(TableComponent, { props: {...props, perPage: 5, items: [...Array(11).keys()].map(k => ({ a: k })) } })
+        const wrapper = shallowMount(TableComponent, {
+            props: { ...props, perPage: 5, items: [...Array(11).keys()].map(k => ({ a: k })) }
+        })
         expect(wrapper.vm.tableData.length).toBe(11)
         expect(wrapper.vm.numberOfPages).toBe(3)
         expect(wrapper.vm.getRows().length).toBe(5)
@@ -33,6 +35,15 @@ describe('TableComponent with perPage setting', () => {
         expect(wrapper.vm.getRows().length).toBe(5)
         wrapper.vm.changePage(3)
         expect(wrapper.vm.getRows().length).toBe(1)
+    })
+    it('should emit per-page-change when page size changes', async () => {
+        const wrapper = shallowMount(TableComponent, {
+            props: { ...props, topRows: [], perPage: 5 }
+        })
+        expect(wrapper.emitted()['per-page-change']).toBeFalsy()
+        await wrapper.setProps({ perPage: 7 })
+        expect(wrapper.emitted()['per-page-change']).toBeTruthy()
+        expect(wrapper.emitted()['per-page-change'][0]).toEqual([7])
     })
 })
 

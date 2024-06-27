@@ -356,7 +356,17 @@ export default {
     watch: {
         items: function (newItems) {
             this.tableData = newItems
-        }
+        },
+        itemsPerPage: function (newItemsPerPage) {
+            this.$emit('per-page-change', newItemsPerPage)
+        },
+        perPage: function (newPerPage) {
+            if (newPerPage > this.topRows.length) {
+                this.pageSize = newPerPage
+            } else {
+                this.pageSize = this.pageSizes.find(e => e > this.topRows.length)
+            }
+        },
     },
     methods: {
         validateProps() {

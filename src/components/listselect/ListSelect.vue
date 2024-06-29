@@ -5,7 +5,12 @@ import {
     ListboxFilter,
     ListboxItem,
     ListboxRoot,
-    ListboxVirtualizer
+    ListboxVirtualizer,
+    ScrollAreaCorner,
+    ScrollAreaRoot,
+    ScrollAreaScrollbar,
+    ScrollAreaThumb,
+    ScrollAreaViewport
 } from 'radix-vue'
 
 const props = defineProps({
@@ -14,6 +19,9 @@ const props = defineProps({
     labelFn: { type: Function, default: o => o.label },
     multiple: { type: Boolean, default: true },
     optionsLoading: { type: Boolean, default: false },
+    inputClasses: { type: String, default: 'focus:placeholder-transparent' },
+    dropdownClasses: { type: String, default: '' },
+    optionSize: { type: Number, default: 40 }
 })
 
 const selectedOptions = defineModel('selection', {
@@ -77,7 +85,7 @@ const $inputPlaceholder = computed(() => {
 
 <template>
     <ListboxRoot
-        class="un-flex un-flex-col un-text-nowrap un-w-fit"
+        class="un-flex un-flex-col un-text-nowrap"
         v-model="selectedOptions"
         selection-behavior="toggle"
         :multiple="props.multiple"
@@ -88,9 +96,10 @@ const $inputPlaceholder = computed(() => {
             >
                 <input
                     v-model="searchTerm"
-                    class="un-w-full un-h-[2.31rem] un-rounded un-text-sm un-outline-none un-pl-2 un-placeholder-transparent un-bg-[field] dark:un-bg-moon-900"
+                    class="un-w-full un-h-[2.5rem] un-rounded un-text-sm un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900"
+                    :class="props.inputClasses"
                     ref="searchInput"
-                    :placeholder="$inputPlaceholder"
+                    v-bind:placeholder="$inputPlaceholder"
                 />
                 <div
                     v-if="searchTerm"
@@ -107,29 +116,50 @@ const $inputPlaceholder = computed(() => {
                 </div>
             </label>
         </ListboxFilter>
-        <ListboxContent v-if="open" class="un-h-50 un-overflow-auto un-border un-border-gray-200 dark:un-border-moon-700">
-            <ListboxVirtualizer
-                v-slot="{ option }"
-                :options="filteredOptions"
-                :textContent="props.labelFn"
-                :estimateSize="40"
-                class=""
+        <!-- un-scrollbar un-scrollbar-rounded un-scrollbar-track-radius-0 un-scrollbar-thumb-radius-2px un-scrollbar-thumb-color-slate-200 dark:un-scrollbar-thumb-color-moon-700 hover:un-scrollbar-thumb-color-slate-300 dark:hover:un-scrollbar-thumb-color-moon-600 un-scrollbar-track-color-transparent dark:un-scrollbar-track-color-transparent -->
+        <!-- class="un-h-50 un-overflow-y-auto un-border un-border-gray-200 dark:un-border-moon-700" -->
+        <ScrollAreaRoot class="un-h-50 un-overflow-hidden">
+            <ScrollAreaViewport
+                v-if="open"
+                class="un-w-full un-border un-border-gray-200 dark:un-border-moon-700 un-rounded-sm un-h-full"
+                asChild
             >
-                <ListboxItem :value="option" class="un-flex un-justify-start un-w-full">
-                    <div
-                        v-if="isSelected(option)"
-                        class="un-w-full un-h-full un-ps-2 un-py-2 un-h-[40px] un-bg-gray-200 un-text-gray-900 dark:un-text-gray-100 dark:un-bg-moon-600 hover:un-cursor-pointer hover:un-text-gray-100 hover:un-bg-red-400"
+                <ListboxContent  :class="props.dropdownClasses" asChild>
+                    <ListboxVirtualizer
+                        v-slot="{ option }"
+                        :options="filteredOptions"
+                        :textContent="props.labelFn"
+                        :estimateSize="props.optionSize"
+                        class=""
                     >
-                        {{ props.labelFn(option) }}
-                    </div>
-                    <div
-                        v-else
-                        class="un-w-full un-h-full un-ps-2 un-py-2 un-h-[40px] hover:un-cursor-pointer un-text-gray-900 dark:un-text-gray-100 hover:un-text-gray-100 hover:un-bg-navy-400"
-                    >
-                        {{ props.labelFn(option) }}
-                    </div>
-                </ListboxItem>
-            </ListboxVirtualizer>
-        </ListboxContent>
+                        <ListboxItem :value="option" class="un-flex un-justify-start un-w-full">
+                            <slot name="option" :option="option">
+                                <div
+                                    v-if="isSelected(option)"
+                                    class="un-w-full un-h-full un-ps-2 un-py-2 un-h-[40px] un-bg-gray-200 un-text-gray-900 dark:un-text-gray-100 dark:un-bg-moon-600 hover:un-cursor-pointer hover:un-text-gray-100 hover:un-bg-red-400"
+                                >
+                                    {{ props.labelFn(option) }}
+                                </div>
+                                <div
+                                    v-else
+                                    class="un-w-full un-h-full un-ps-2 un-py-2 un-h-[40px] hover:un-cursor-pointer un-text-gray-900 dark:un-text-gray-100 hover:un-text-gray-100 hover:un-bg-navy-400"
+                                >
+                                    {{ props.labelFn(option) }}
+                                </div>
+                            </slot>
+                        </ListboxItem>
+                    </ListboxVirtualizer>
+                </ListboxContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar
+                class="un-flex un-select-none un-touch-none un-p-0.5 un-bg-inherit un-transition-colors un-duration-[160ms] un-ease-out hover:un-bg-inherit/50 data-[orientation=vertical]:un-w-3 data-[orientation=horizontal]:un-flex-col data-[orientation=horizontal]:un-h-2.5"
+                orientation="vertical"
+            >
+                <ScrollAreaThumb
+                    class="un-flex-1 un-w-full un-bg-slate-200 hover:un-bg-slate-300 dark:un-bg-moon-700 dark:hover:un-bg-moon-600 un-rounded-sm un-relative before:un-content-[''] before:un-absolute before:un-top-1/2 before:un-left-1/2 before:-un-translate-x-1/2 before:-un-translate-y-1/2 before:un-w-full before:un-h-full before:un-min-w-[44px] before:un-min-h-[44px]"
+                />
+            </ScrollAreaScrollbar>
+            <ScrollAreaCorner />
+        </ScrollAreaRoot>
     </ListboxRoot>
 </template>

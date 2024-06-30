@@ -116,7 +116,7 @@ const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message
 const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo ' } }
 const tabs = [tab1, tab2]
 
-const listSelectOptions = [...new Array(1000).keys()].map(k => ({ id: k, name: `option ${k}` }))
+const listSelectOptions = [...new Array(100000).keys()].map(k => ({ id: k, name: `option ${k}` }))
 const filterText = ref('')
 const listSelectOptionsFiltered = computed(() =>
     filterText.value

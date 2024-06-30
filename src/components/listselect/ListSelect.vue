@@ -13,6 +13,11 @@ import {
     ScrollAreaViewport
 } from 'radix-vue'
 import { vOnClickOutside } from '@vueuse/components'
+import ListSelectItem from './ListSelectItem.vue'
+import ListSelectPreview from './ListSelectPreview.vue'
+import ListSelectExcessIndicator from './ListSelectExcessIndicator.vue'
+import ListSelectInput from './ListSelectInput.vue'
+import delay from '@/utils/delay.js'
 
 const props = defineProps({
     options: { type: Array, default: () => [] },
@@ -31,7 +36,8 @@ const props = defineProps({
         default: limit => `You can only select ${limit} items`
     },
     searchOptionsTextFn: { type: Function, default: () => 'Search items...' },
-    itemNameTextFn: { type: Function, default: count => (count !== 1 ? 'items' : 'item') }
+    itemNameTextFn: { type: Function, default: count => (count !== 1 ? 'items' : 'item') },
+    searchFn: { type: Function, required: false }
 })
 
 const selectedOptions = defineModel('selection', {
@@ -59,9 +65,9 @@ const toggleOpen = () => {
 }
 
 const searchTerm = ref('')
-watch(searchTerm, (newVal, oldVal) => {
-    if (newVal.length > 0 && oldVal.length === 0) {
-        toggleOpen()
+watch(searchTerm, newVal => {
+    if (newVal.length > 0) {
+        open.value = true
     }
 })
 
@@ -110,17 +116,6 @@ const $inputPlaceholder = computed(() => {
     }
 })
 
-const removeItem = index => {
-    const newValue = [...selectedOptions.value]
-    newValue.splice(index, 1)
-    selectedOptions.value = newValue
-}
-
-const delay = (ms = 1000) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-const listExcess = ref(null)
 const listLengthExceeded = ref(false)
 const select = option => {
     if (props.multiple) {
@@ -128,7 +123,6 @@ const select = option => {
             selectedOptions.value = selectedOptions.value.filter(
                 selectedOption => selectedOption.id !== option.id
             )
-            return
         } else if (selectedOptions.value.length < props.maxSelectionLength) {
             selectedOptions.value = [...selectedOptions.value, option]
         } else {
@@ -161,46 +155,22 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
     >
-        <ListboxFilter v-model="searchTerm" asChild>
-            <label
-                class="un-flex un-items-center un-bg-[field] dark:un-bg-moon-900 un-border un-border-gray-200 dark:un-border-moon-700 un-rounded"
-            >
-                <input
-                    v-model="searchTerm"
-                    class="un-w-full un-h-[2.5rem] un-rounded un-text-sm un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900"
-                    :class="props.inputClasses"
-                    ref="searchInput"
-                    v-bind:placeholder="$inputPlaceholder"
-                />
-                <div
-                    v-if="searchTerm"
-                    class="un-shrink-0 i-tabler-backspace un-block un-text-2xl un-text-gray-500! hover:un-cursor-pointer"
-                    ref="clearSearchButton"
-                    @click.prevent="searchTerm = ''"
-                ></div>
-                <div v-busy="optionsLoading">
-                    <span
-                        class="un-shrink-0 listselect--dropdown-toggle i-tabler-chevron-down un-block un-text-2xl un-text-gray-500! un-mr-2"
-                        @click.prevent="toggleOpen"
-                        ref="dropdownToggle"
-                    ></span>
-                </div>
-            </label>
+        <ListboxFilter v-model="searchTerm" @keydown.esc="open = false" asChild>
+            <ListSelectInput
+                :inputClasses="props.inputClasses"
+                :optionsLoading="props.optionsLoading"
+                :inputPlaceholder="$inputPlaceholder"
+                :toggleOpen="toggleOpen"
+            />
         </ListboxFilter>
         <div>
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
-                    <div
-                        ref="listExcess"
-                        class="un-absolute un-left-0 un-right-0 un-ml-auto un-mr-auto un-min-w-10 un-w-fit un-z-999999"
-                    >
-                        <div
-                            v-if="listLengthExceeded"
-                            class="un-bg-red-400 un-border un-border-red-500 un-rounded-sm un-p-2 un-text-gray-100 un-transition-colors"
-                        >
-                            {{ props.maxSelectionLengthTextFn(props.maxSelectionLength) }}
-                        </div>
-                    </div>
+                    <ListSelectExcessIndicator
+                        :listLengthExceeded="listLengthExceeded"
+                        :maxSelectionLength="props.maxSelectionLength"
+                        :maxSelectionLengthTextFn="props.maxSelectionLengthTextFn"
+                    />
                 </slot>
                 <ScrollAreaViewport
                     v-if="open"
@@ -222,18 +192,11 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                                 @click.stop.prevent="select(option)"
                             >
                                 <slot name="option" :option="option">
-                                    <div
-                                        v-if="isSelected(option)"
-                                        class="un-w-full un-h-full un-ps-2 un-py-2 un-bg-navy-300/80 un-text-gray-100 dark:un-bg-moon-600 hover:un-cursor-pointer hover:un-text-gray-100 hover:un-bg-red-400"
-                                    >
-                                        {{ props.labelFn(option) }}
-                                    </div>
-                                    <div
-                                        v-else
-                                        class="un-w-full un-h-full un-ps-2 un-py-2 hover:un-cursor-pointer un-text-gray-900 dark:un-text-gray-100 hover:un-text-gray-100 hover:un-bg-navy-400"
-                                    >
-                                        {{ props.labelFn(option) }}
-                                    </div>
+                                    <ListSelectItem
+                                        :option="option"
+                                        :isSelected="isSelected"
+                                        :labelFn="props.labelFn"
+                                    />
                                 </slot>
                             </ListboxItem>
                         </ListboxVirtualizer>
@@ -254,26 +217,12 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 v-if="showFooter"
             >
                 <slot name="footer" :selection="{ selectedOptions }">
-                    <div class="un-font-semibold un-uppercase un-text-slate-500 un-text-sm un-py-2">
-                        {{ props.selectionTextFn(selectedOptions.length) }}:
-                    </div>
-                    <ul class="un-flex un-flex-wrap un-gap-2">
-                        <li
-                            v-for="(option, index) in selectedOptions"
-                            :key="`selected-option-${index}`"
-                            class="un-px-2 un-bg-gray-100 dark:un-bg-moon-700 un-border-1 un-border-gray-400 dark:un-border-moon-600 un-rounded un-text-gray-900 dark:un-text-gray-100 un-flex un-items-center un-gap-2 un-w-fit"
-                        >
-                            <span>
-                                {{ props.labelFn(option) }}
-                            </span>
-                            <span class="hover:un-bg-gray-400 dark:hover:un-bg-moon-600 un-rounded">
-                                <span
-                                    class="un-block i-tabler-x un-text-gray-500 hover:un-text-gray-900 dark:hover:un-text-gray-100"
-                                    @click="removeItem(index)"
-                                ></span>
-                            </span>
-                        </li>
-                    </ul>
+                    <ListSelectPreview
+                        :selectedOptions="selectedOptions"
+                        :labelFn="props.labelFn"
+                        :selectionTextFn="props.selectionTextFn"
+                        @remove-option="select"
+                    ></ListSelectPreview>
                 </slot>
             </div>
         </div>

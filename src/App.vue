@@ -270,7 +270,7 @@ const listSelection = ref([])
         </loading-overlay>
     </card-component> -->
     <list-select
-        class="un-w-100"
+        class="un-pl-5 un-w-100"
         :options="listSelectOptions"
         :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
         :multiple="true"

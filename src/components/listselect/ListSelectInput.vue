@@ -4,7 +4,7 @@
     >
         <input
             v-model="searchTerm"
-            class="un-w-full un-h-[2.5rem] un-rounded un-text-sm un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900"
+            class="un-w-full un-h-[2.31rem] un-rounded un-text-sm un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900"
             :class="props.inputClasses"
             ref="searchInput"
             v-bind:placeholder="inputPlaceholder"

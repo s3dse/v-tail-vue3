@@ -28,7 +28,7 @@ const props = defineProps({
     optionsLoading: { type: Boolean, default: false },
     inputClasses: { type: String, default: 'focus:placeholder-transparent' },
     dropdownClasses: { type: String, default: '' },
-    optionSize: { type: Number, default: 40 },
+    optionSize: { type: Number, default: 39 },
     selectionTextFn: { type: Function, default: count => `${count} items selected` },
     maxSelectionLength: { type: Number, default: 2 },
     maxSelectionLengthTextFn: {
@@ -165,10 +165,10 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
             />
         </ListboxFilter>
         <div v-if="open" 
-            class="un-min-w-[18.75rem] un-w-fit un-absolute un-z-10 un-mt-[42px] un-bg-white dark:un-bg-moon-900" 
+            class="un-min-w-[18.75rem] un-w-fit un-absolute un-z-10 un-mt-[41px] un-bg-white dark:un-bg-moon-900" 
             :class="props.dropdownClasses"
             :style="{'z-index': props.dropDownZIndex }">
-            <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
+            <ScrollAreaRoot :scrollHideDelay="50" class="un-h-98 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
                         :listLengthExceeded="listLengthExceeded"
@@ -191,7 +191,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                         >
                             <ListboxItem
                                 :value="option"
-                                class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
+                                class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[37px] p-0"
                                 @click.stop.prevent="select(option)"
                             >
                                 <slot name="option" :option="option">

@@ -7,7 +7,7 @@ import { LoadingOverlay } from './loading-overlay'
 import { ModalComponent } from './modal'
 import { DialogComponent } from './dialog'
 import { SelectComponent } from './select'
-import { ListSelect } from './listselect'
+import { ListSelect, ListSelectPreview } from './listselect'
 
 export {
     TableComponent,
@@ -21,5 +21,6 @@ export {
     DialogComponent,
     SelectComponent,
     TabsComponent,
-    ListSelect
+    ListSelect,
+    ListSelectPreview
 }

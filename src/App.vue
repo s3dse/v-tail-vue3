@@ -276,8 +276,8 @@ const listSelection = ref([])
         :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
         :multiple="true"
         :label-fn="e => e.name"
-        v-model:selection="listSelection"
-        @update:selection="e => console.log(e)"
+        v-model="listSelection"
+        @update:modelValue="e => console.log(e)"
     ></list-select>
     <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, toValue, ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -41,7 +41,7 @@ const props = defineProps({
     dropDownZIndex: { type: Number, default: 9999 }
 })
 
-const selectedOptions = defineModel('selection', {
+const selectedOptions = defineModel({
     type: Array,
     default: () => [],
     set(value) {
@@ -53,9 +53,9 @@ const selectedOptions = defineModel('selection', {
     },
     get() {
         if (props.multiple) {
-            return props.selection
+            return props.modelValue
         } else {
-            return props.selection.length ? props.selection[0] : null
+            return props.modelValue.length ? props.modelValue[0] : null
         }
     }
 })
@@ -125,9 +125,9 @@ const select = option => {
                 selectedOption => selectedOption.id !== option.id
             )
         } else if (selectedOptions.value.length < props.maxSelectionLength) {
-            selectedOptions.value = [...selectedOptions.value, option]
+            selectedOptions.value = [...selectedOptions.value, option].map(toValue)
         } else {
-            selectedOptions.value = [...selectedOptions.value]
+            selectedOptions.value = selectedOptions.value.slice()
             listLengthExceeded.value = true
             delay().then(() => {
                 listLengthExceeded.value = false

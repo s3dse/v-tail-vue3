@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
+import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
         },
         rollupOptions: {
             external: ['vue'],
+            exports: 'named',
             output: {
                 globals: {
                     'vue': 'Vue'
@@ -23,7 +25,7 @@ export default defineConfig({
         minify: false
     },
     plugins: [
-        vue(), UnoCSS()
+        vue(), UnoCSS(), dts()
     ],
     resolve: {
         alias: {

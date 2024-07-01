@@ -37,7 +37,8 @@ const props = defineProps({
     },
     searchOptionsTextFn: { type: Function, default: () => 'Search items...' },
     itemNameTextFn: { type: Function, default: count => (count !== 1 ? 'items' : 'item') },
-    searchFn: { type: Function, required: false }
+    searchFn: { type: Function, required: false },
+    dropDownZIndex: { type: Number, default: 9999 }
 })
 
 const selectedOptions = defineModel('selection', {
@@ -147,7 +148,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
 
 <template>
     <ListboxRoot
-        class="un-flex un-flex-col un-text-nowrap"
+        class="un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
         selection-behavior="toggle"
         :multiple="props.multiple"
@@ -163,7 +164,10 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 :toggleOpen="toggleOpen"
             />
         </ListboxFilter>
-        <div>
+        <div v-if="open" 
+            class="un-min-w-[18.75rem] un-w-fit un-absolute un-z-10 un-mt-[42px] un-bg-white dark:un-bg-moon-900" 
+            :class="props.dropdownClasses"
+            :style="{'z-index': props.dropDownZIndex }">
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
@@ -173,12 +177,11 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     />
                 </slot>
                 <ScrollAreaViewport
-                    v-if="open"
                     class="un-w-full un-border-t un-border-l un-border-r un-border-gray-200 dark:un-border-moon-700 un-rounded-t un-h-full"
                     :class="{ 'un-border-b un-rounded-b': !showFooter }"
                     asChild
                 >
-                    <ListboxContent :class="props.dropdownClasses" asChild>
+                    <ListboxContent asChild>
                         <ListboxVirtualizer
                             v-slot="{ option }"
                             :options="filteredOptions"
@@ -207,7 +210,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     orientation="vertical"
                 >
                     <ScrollAreaThumb
-                        class="un-flex-1 un-w-full un-bg-slate-200 hover:un-bg-slate-300 dark:un-bg-moon-700 dark:hover:un-bg-moon-600 un-rounded-sm un-relative before:un-content-[''] before:un-absolute before:un-top-1/2 before:un-left-1/2 before:--un-translate-x-1/2 -before:-un-translate-y-1/2 --before:un-w-full --before:un-h-full --before:un-min-w-[44px] --before:un-min-h-[44px]"
+                        class="un-flex-1 un-w-full un-bg-slate-200 hover:un-bg-slate-300 dark:un-bg-moon-700 dark:hover:un-bg-moon-600 un-rounded-sm un-relative before:un-content-[''] before:un-absolute before:un-top-1/2 before:un-left-1/2"
                     />
                 </ScrollAreaScrollbar>
                 <ScrollAreaCorner />

@@ -269,6 +269,7 @@ const listSelection = ref([])
             </table-component>
         </loading-overlay>
     </card-component> -->
+    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
     <list-select
         class="un-pl-5 un-w-100"
         :options="listSelectOptions"
@@ -276,5 +277,7 @@ const listSelection = ref([])
         :multiple="true"
         :label-fn="e => e.name"
         v-model:selection="listSelection"
+        @update:selection="e => console.log(e)"
     ></list-select>
+    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 </template>

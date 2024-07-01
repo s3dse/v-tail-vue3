@@ -35,6 +35,7 @@ const props = defineProps({
         type: Function,
         default: limit => `You can only select ${limit} items`
     },
+    selectionExceededInfoDuration: { type: Number, default: 1300 },
     searchOptionsTextFn: { type: Function, default: () => 'Search items...' },
     itemNameTextFn: { type: Function, default: count => (count !== 1 ? 'items' : 'item') },
     searchFn: { type: Function, required: false },
@@ -129,7 +130,7 @@ const select = option => {
         } else {
             selectedOptions.value = selectedOptions.value.slice()
             listLengthExceeded.value = true
-            delay().then(() => {
+            delay(props.selectionExceededInfoDuration).then(() => {
                 listLengthExceeded.value = false
             })
         }

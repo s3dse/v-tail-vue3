@@ -1,6 +1,6 @@
 <script setup>
 import data from './assets/MOCK_DATA-2.json'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import TableComponent from './components/table/TableComponent.vue'
 import CardComponent from './components/card/CardComponent.vue'
 import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
@@ -12,6 +12,7 @@ import SelectComponentExample from './components/select/SelectComponentExample.v
 import TabCardComponent from './components/card/TabCardComponent.vue'
 import TestOne from './components/card/TestOne.vue'
 import TestTwo from './components/card/TestTwo.vue'
+import ListSelect from './components/listselect/ListSelect.vue'
 import { joinLines } from './utils/string-join-lines'
 
 function delay(ms) {
@@ -114,6 +115,18 @@ const isLoading = ref(true)
 const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message: 'testOne ' } }
 const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo ' } }
 const tabs = [tab1, tab2]
+
+const listSelectOptions = [...new Array(100000).keys()].map(k => ({ id: k, name: `option ${k}` }))
+const filterText = ref('')
+const listSelectOptionsFiltered = computed(() =>
+    filterText.value
+        ? listSelectOptions.filter(item =>
+              item.label.toLowerCase().includes(filterText.value.toLowerCase())
+          )
+        : listSelectOptions
+)
+
+const listSelection = ref([])
 </script>
 
 <template>
@@ -137,7 +150,13 @@ const tabs = [tab1, tab2]
         </p>
     </loading-overlay>
     <div class="un-flex un-px-50">
-        <action-dropdown-component :options="['a', 'b']" up-icon="" down-icon="" @on-select="logItem" class="un-px-10 un-ms-auto un-me-2 un-h-full un-rounded-sm hover:un-cursor-pointer">
+        <action-dropdown-component
+            :options="['a', 'b']"
+            up-icon=""
+            down-icon=""
+            @on-select="logItem"
+            class="un-px-10 un-ms-auto un-me-2 un-h-full un-rounded-sm hover:un-cursor-pointer"
+        >
             <template #toggle-label>
                 <div class="i-tabler-menu-2"></div>
             </template>
@@ -223,31 +242,42 @@ const tabs = [tab1, tab2]
     <div class="un-p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
-    <card-component class="un-mt-5">
-            <loading-overlay :show="tableStatus.busy">
-                <table-component
-                    :items="items"
-                    :fields="fields"
-                    :top-rows="topRows"
-                    title="Test"
-                    class="un-w-[100%] dark:un-bg-moon-800"
-                >
-                    <template #table-top-controls>
-                        <div
-                            class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
-                        >
-                            some control
-                        </div>
-                    </template>
-                    <template #page-size-label="{ pageSize }">
-                        Einträge pro Seite: {{ pageSize }}
-                    </template>
-                    <template #cell(share)="data">
-                        <div :title="data.unformatted">
-                            {{ data.value }}
-                        </div>
-                    </template>
-                </table-component>
-            </loading-overlay>
-        </card-component>
+    <!-- <card-component class="un-mt-5">
+        <loading-overlay :show="tableStatus.busy">
+            <table-component
+                :items="items"
+                :fields="fields"
+                :top-rows="topRows"
+                title="Test"
+                class="un-w-[100%] dark:un-bg-moon-800"
+            >
+                <template #table-top-controls>
+                    <div
+                        class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                    >
+                        some control
+                    </div>
+                </template>
+                <template #page-size-label="{ pageSize }">
+                    Einträge pro Seite: {{ pageSize }}
+                </template>
+                <template #cell(share)="data">
+                    <div :title="data.unformatted">
+                        {{ data.value }}
+                    </div>
+                </template>
+            </table-component>
+        </loading-overlay>
+    </card-component> -->
+    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
+    <list-select
+        class="un-pl-5 un-w-100"
+        :options="listSelectOptions"
+        :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
+        :multiple="true"
+        :label-fn="e => e.name"
+        v-model:selection="listSelection"
+        @update:selection="e => console.log(e)"
+    ></list-select>
+    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 </template>

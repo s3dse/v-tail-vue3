@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch } from 'vue'
+import { computed, toValue, toRef,ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -125,7 +125,7 @@ const select = option => {
                 selectedOption => selectedOption.id !== option.id
             )
         } else if (selectedOptions.value.length < props.maxSelectionLength) {
-            selectedOptions.value = [...selectedOptions.value, option].map(toValue)
+            selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
         } else {
             selectedOptions.value = selectedOptions.value.slice()
             listLengthExceeded.value = true

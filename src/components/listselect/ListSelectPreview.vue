@@ -2,7 +2,7 @@
     <div class="un-font-semibold un-uppercase un-text-slate-500 un-text-sm un-py-2">
         {{ props.selectionTextFn(selectedOptions.length) }}:
     </div>
-    <ul class="un-flex un-flex-wrap un-gap-2">
+    <ul class="un-flex un-flex-wrap un-gap-1 un-max-w-100">
         <li
             v-for="(option, index) in selectedOptions"
             :key="`selected-option-${index}`"

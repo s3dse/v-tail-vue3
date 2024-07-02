@@ -30,7 +30,7 @@ const props = defineProps({
     dropdownClasses: { type: String, default: '' },
     optionSize: { type: Number, default: 40 },
     selectionTextFn: { type: Function, default: count => `${count} items selected` },
-    maxSelectionLength: { type: Number, default: 2 },
+    maxSelectionLength: { type: Number, default: 10 },
     maxSelectionLengthTextFn: {
         type: Function,
         default: limit => `You can only select ${limit} items`
@@ -39,7 +39,9 @@ const props = defineProps({
     searchOptionsTextFn: { type: Function, default: () => 'Search items...' },
     itemNameTextFn: { type: Function, default: count => (count !== 1 ? 'items' : 'item') },
     searchFn: { type: Function, required: false },
-    dropDownZIndex: { type: Number, default: 9999 }
+    dropDownZIndex: { type: Number, default: 9999 },
+    dropDownWidth: { type: String, default: '30rem' },
+    truncateItems: { type: Boolean, default: false }
 })
 
 const selectedOptions = defineModel({
@@ -166,9 +168,9 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
             />
         </ListboxFilter>
         <div v-if="open" 
-            class="un-min-w-[18.75rem] un-w-fit un-absolute un-z-10 un-top-[39px] un-bg-white dark:un-bg-moon-900 un-shadow-lg" 
+            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg" 
             :class="props.dropdownClasses"
-            :style="{'z-index': props.dropDownZIndex }">
+            :style="{'z-index': props.dropDownZIndex, 'width': props.dropDownWidth }">
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
@@ -200,6 +202,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                                         :option="option"
                                         :isSelected="isSelected"
                                         :labelFn="props.labelFn"
+                                        :truncateItems="props.truncateItems"
                                     />
                                 </slot>
                             </ListboxItem>

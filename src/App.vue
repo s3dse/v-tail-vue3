@@ -116,7 +116,8 @@ const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message
 const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo ' } }
 const tabs = [tab1, tab2]
 
-const listSelectOptions = [...new Array(100000).keys()].map(k => ({ id: k, name: `option ${k}` }))
+const listSelectOptions = [...new Array(99999).keys()].map(k => ({ id: k+1, name: `option ${k+1}` }))
+listSelectOptions.unshift({id: 0, name: 'first option is a very long name that should be handled'})
 const filterText = ref('')
 const listSelectOptionsFiltered = computed(() =>
     filterText.value
@@ -269,15 +270,18 @@ const listSelection = ref([])
             </table-component>
         </loading-overlay>
     </card-component> -->
-    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
-    <list-select
-        class="un-pl-5 un-w-100"
-        :options="listSelectOptions"
-        :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
-        :multiple="true"
-        :label-fn="e => e.name"
-        v-model="listSelection"
-        @update:modelValue="e => console.log(e)"
-    ></list-select>
-    <div class="un-p-8 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
+    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
+    <div class="un-pl-8">
+        <list-select
+            class="un-w-fit"
+            :options="listSelectOptions"
+            :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
+            :multiple="true"
+            :label-fn="e => e.name"
+            v-model="listSelection"
+            @update:modelValue="e => console.log(e)"
+            :truncate-items="true"
+        ></list-select>
+    </div>
+    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 </template>

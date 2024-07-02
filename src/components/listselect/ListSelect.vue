@@ -168,7 +168,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
             />
         </ListboxFilter>
         <div v-if="open" 
-            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg" 
+            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded" 
             :class="props.dropdownClasses"
             :style="{'z-index': props.dropDownZIndex, 'width': props.dropDownWidth }">
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">

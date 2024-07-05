@@ -158,12 +158,18 @@ const selectSingle = option => {
 
 const selectMultiple = option => {
     if (isSelected(option)) {
-        selectedOptions.value = selectedOptions.value.filter(
-            selectedOption => selectedOption.id !== option.id
-        )
-    } else {
-        selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-    }
+            selectedOptions.value = selectedOptions.value.filter(
+                selectedOption => selectedOption.id !== option.id
+            )
+        } else if (selectedOptions.value.length < props.maxSelectionLength) {
+            selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
+        } else {
+            selectedOptions.value = selectedOptions.value.slice()
+            listLengthExceeded.value = true
+            delay(props.selectionExceededInfoDuration).then(() => {
+                listLengthExceeded.value = false
+            })
+        }
 }
 
 const showFooter = computed(() => props.multiple && open.value && selectedOptions.value.length)

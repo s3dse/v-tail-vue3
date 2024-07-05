@@ -221,7 +221,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             <ListboxItem
                                 :value="option"
                                 class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
-                                @select.stop.prevent="select(option)"
+                                @click.prevent="select(option)"
                             >
                                 <slot name="option" :option="option">
                                     <ListSelectItem

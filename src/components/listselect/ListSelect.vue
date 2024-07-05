@@ -123,26 +123,46 @@ const $inputPlaceholder = computed(() => {
 const listLengthExceeded = ref(false)
 const select = option => {
     if (props.multiple) {
-        if (isSelected(option)) {
-            selectedOptions.value = selectedOptions.value.filter(
-                selectedOption => selectedOption.id !== option.id
-            )
-        } else if (selectedOptions.value.length < props.maxSelectionLength) {
-            selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-        } else {
-            selectedOptions.value = selectedOptions.value.slice()
-            listLengthExceeded.value = true
-            delay(props.selectionExceededInfoDuration).then(() => {
-                listLengthExceeded.value = false
-            })
-        }
+        selectMultiple(option)
     } else {
-        if (isSelected(option)) {
-            selectedOptions.value = []
-        } else {
-            selectedOptions.value = [option]
-            open.value = false
-        }
+        selectSingle(option)
+    }
+    // if (props.multiple) {
+    //     if (isSelected(option)) {
+    //         selectedOptions.value = selectedOptions.value.filter(
+    //             selectedOption => selectedOption.id !== option.id
+    //         )
+    //     } else if (selectedOptions.value.length < props.maxSelectionLength) {
+    //         selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
+    //     } else {
+    //         selectedOptions.value = selectedOptions.value.slice()
+    //         listLengthExceeded.value = true
+    //         delay(props.selectionExceededInfoDuration).then(() => {
+    //             listLengthExceeded.value = false
+    //         })
+    //     }
+    // } else {
+    //     if (isSelected(option)) {
+    //         selectedOptions.value = []
+    //     } else {
+    //         selectedOptions.value = [option]
+    //         open.value = false
+    //     }
+    // }
+}
+
+const selectSingle = option => {
+    selectedOptions.value = [option]
+    open.value = false
+}
+
+const selectMultiple = option => {
+    if (isSelected(option)) {
+        selectedOptions.value = selectedOptions.value.filter(
+            selectedOption => selectedOption.id !== option.id
+        )
+    } else {
+        selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
     }
 }
 
@@ -195,7 +215,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             <ListboxItem
                                 :value="option"
                                 class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
-                                @click.stop.prevent="select(option)"
+                                @select.stop.prevent="select(option)"
                             >
                                 <slot name="option" :option="option">
                                     <ListSelectItem

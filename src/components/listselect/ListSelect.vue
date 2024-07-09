@@ -26,7 +26,7 @@ const props = defineProps({
     trackBy: { type: String, default: 'id' },
     multiple: { type: Boolean, default: true },
     optionsLoading: { type: Boolean, default: false },
-    inputClasses: { type: String, default: 'focus:placeholder-transparent' },
+    inputClasses: { type: String, default: '' },
     dropdownClasses: { type: String, default: '' },
     optionSize: { type: Number, default: 40 },
     selectionTextFn: { type: Function, default: count => `${count} items selected` },

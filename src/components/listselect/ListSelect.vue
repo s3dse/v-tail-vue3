@@ -228,7 +228,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                                         :option="option"
                                         :isSelected="isSelected"
                                         :labelFn="props.labelFn"
-                                        :truncateItems="props.truncateItems"
+                                        :truncateLabel="props.truncateItems"
                                     />
                                 </slot>
                             </ListboxItem>

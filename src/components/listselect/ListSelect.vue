@@ -127,28 +127,6 @@ const select = option => {
     } else {
         selectSingle(option)
     }
-    // if (props.multiple) {
-    //     if (isSelected(option)) {
-    //         selectedOptions.value = selectedOptions.value.filter(
-    //             selectedOption => selectedOption.id !== option.id
-    //         )
-    //     } else if (selectedOptions.value.length < props.maxSelectionLength) {
-    //         selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-    //     } else {
-    //         selectedOptions.value = selectedOptions.value.slice()
-    //         listLengthExceeded.value = true
-    //         delay(props.selectionExceededInfoDuration).then(() => {
-    //             listLengthExceeded.value = false
-    //         })
-    //     }
-    // } else {
-    //     if (isSelected(option)) {
-    //         selectedOptions.value = []
-    //     } else {
-    //         selectedOptions.value = [option]
-    //         open.value = false
-    //     }
-    // }
 }
 
 const selectSingle = option => {

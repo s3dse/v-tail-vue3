@@ -163,12 +163,14 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
     >
-        <ListboxFilter v-model="searchTerm" @keydown.esc="open = false" asChild>
+        <ListboxFilter @keydown.esc="open = false" asChild>
             <ListSelectInput
                 :inputClasses="props.inputClasses"
                 :optionsLoading="props.optionsLoading"
                 :inputPlaceholder="$inputPlaceholder"
                 :toggleOpen="toggleOpen"
+                v-model:searchTerm="searchTerm"
+                @clear-search="searchTerm = ''"
             />
         </ListboxFilter>
         <div v-if="open" 

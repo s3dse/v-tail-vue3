@@ -14,7 +14,7 @@
             v-if="searchTerm"
             class="un-shrink-0 i-tabler-backspace un-block un-text-2xl un-text-gray-500! hover:un-cursor-pointer"
             ref="clearSearchButton"
-            @click.prevent="searchTerm = ''"
+            @click.prevent="emit('clear-search')"
         ></div>
         <div v-busy="optionsLoading">
             <span
@@ -32,5 +32,6 @@ const props = defineProps({
     inputPlaceholder: String,
     toggleOpen: Function
 });
+const emit = defineEmits(['clear-search']);
 const searchTerm = defineModel('searchTerm', { type: String, default: null });
 </script>

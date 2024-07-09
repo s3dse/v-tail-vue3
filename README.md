@@ -44,7 +44,7 @@ We will use the following lines to illustrate the usage of the table component:
         :pagination-next-label="'>'"
     >
         <template #cell(ip_address)="{ value }">
-            <p class="tw-text-navy-500">{{ value }}</p>
+            <p class="text-navy-500">{{ value }}</p>
         </template>
         <template #pagination-label="{ perPage, currentPage, totalEntries }">
             I am currently showing entries 
@@ -76,10 +76,10 @@ export default {
                 { key: 'id' }, 
                 { key: 'name' },
                 { key: 'share',
-                  thClassList: 'tw-text-right tw-px-2',
-                  tdClassList: 'tw-text-right tw-px-2',
-                  tdTopRowClassList: 'tw-text-right tw-px-2 tw-italic',
-                  tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold',
+                  thClassList: 'text-right px-2',
+                  tdClassList: 'text-right px-2',
+                  tdTopRowClassList: 'text-right px-2 italic',
+                  tdBottomRowClassList: 'text-right px-2 font-semibold',
                   formatter: value =>
                           value
                               ? (parseFloat(value) * 100).toLocaleString(navigator.language, {
@@ -89,10 +89,10 @@ export default {
                               : ''
                 }
                 { key: 'ip_address',
-                  thClassList: 'tw-text-center tw-px-2',
-                  tdClassList: 'tw-text-center tw-px-2',
-                  tdTopRowClassList: 'tw-text-center tw-px-2 tw-italic',
-                  tdBottomRowClassList: 'tw-text-right tw-px-2 tw-font-semibold'
+                  thClassList: 'text-center px-2',
+                  tdClassList: 'text-center px-2',
+                  tdTopRowClassList: 'text-center px-2 italic',
+                  tdBottomRowClassList: 'text-right px-2 font-semibold'
                 }
             ]
         }
@@ -148,7 +148,7 @@ const validateAndSubmit = () => {
     ...
     <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" :pre-confirm="validateAndSubmit">
         <template #content>
-            <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
+            <div class="flex gap-4 flex-col text-gray-900 dark:text-gray-100 px-4 pt-3 pb-5">
                 <div>Some content</div>
             </div>
             <select class="custom-select"><option>a</option><option>b</option></select>
@@ -208,7 +208,7 @@ const selection = ref(options[0])
         label-key="name"
         aria-label="Select option"
     ></select-component>
-    <div class="un-text-gray-900 dark:un-text-gray-100">{{ selection }}</div>
+    <div class="text-gray-900 dark:text-gray-100">{{ selection }}</div>
 </template>
 
 ```
@@ -236,17 +236,69 @@ E.g.
         :options="options"
         label-key="name"
         aria-label="Select option"
-        class="un-w-full"
-        :classes="{trigger: 'un-bg-green-400'}"
+        class="w-full"
+        :classes="{trigger: 'bg-green-400'}"
     ></select-component>
 ```
+
+## ListSelect Component (Alpha)
+### Usage
+
+```html
+<script setup>
+...
+const listSelectOptions = [...new Array(99999).keys()].map(k => ({ id: k+1, name: `option ${k+1}` }))
+const listSelection = ref([])
+</script>
+<div class="pl-8">
+    <list-select
+        class="w-fit"
+        :options="listSelectOptions"
+        :dropdownClasses="`right-0 min-w-50 w-fit`"
+        :multiple="true"
+        :label-fn="e => e.name"
+        v-model="listSelection"
+        @update:modelValue="e => console.log(e)"
+        :truncate-items="true"
+    ></list-select>
+</div>
+```
+
+
+### Props
+| Prop       | Type|Description|
+|------------|-----|-----------|
+|options     | Array of objects | The available options.  |
+|modelValue (via `v-model`)|Array of objects| The selected options.|
+|inputPlaceholder | String  | The placeholder on the filter input.|
+|labelFn | Function | Retrieves the option label, default is `(option) => option.label` |
+|trackBy | String | The name of the property that uniquely identifies an option and is used for sorting, default is `(option) => option.id`.|
+|multiple| Boolean| The selection mode, i.e. switch between multiple selections and a single selection.|
+|optionsLoading|Boolean|Used to indicate a loading process on the input.|
+|inputClasses|String|Classes to apply to the input.|
+|dropdownClasses|String|Classes to apply to the dropdown container.|
+|optionSize|Integer|The height of an option in pixels. Used to properly align options within the virtual scroll viewport|
+|selectionTextFn|Function|Defines the how the selection text is build. Shown on the input and in the selection preview (when `multiple`).|
+|maxSelectionLength|Integer|Defines how many options can be selected (when `multiple`)|
+|maxSelectionLengthTextFn|Function|Defines how the warning text is build, when the selection length exceeds the limit. Default is ```(limit) => `You can only select ${limit} items.` ```|
+|selectionExceededInfoDuration|Integer|Defines how long the warning text (`maxSelectionLengthTextFn`) is shown in milliseconds.|
+|itemNameTextFn|Function|Used for pluralizing the name of options, e.g. ```(count) => (count !== 1 ? 'items' : 'item') ```.|
+|searchFn|Function|Defines how the options shall be filtered based on the given search term. The default checks if the lower-cased search term is included in the lower cased option label (see `labelFn`).|
+|dropDownZIndex|Integer|Customize the z-index of the dropdown container. Default value is `9999`.|
+|dropDownWidth|String|Customize the width of the dropdown container. Default value is `'30rem'`.|
+|truncateItems|Boolean|If `true`, option labels that exceed the dropdown width will be truncated with an ellipsis.|
+
+### Events
+| Name | Description|
+|------|------------|
+|update:modelValue| Indicates a change in the currently selected options.|
 
 ## Pagination Component
 ## Dropdown Component
 # License
 MIT License
 
-Copyright (c) 2023 Sebastian Doerl
+Copyright (c) 2024 Sebastian Doerl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,49 +1,49 @@
 <template>
-    <Story title="ListSelectItem">
+    <Story title="ListItemLabel" :layout="{ type: 'grid', width: '75%' }">
         <Variant title="default" :init-state="initState('default')">
             <template #default="{ state }">
-                <ListSelectItem
+                <ListItemLabel
                     class="un-w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
-                ></ListSelectItem>
+                ></ListItemLabel>
             </template>
         </Variant>
         <Variant title="selected" :init-state="initState('selected')">
             <template #default="{ state }">
-                <ListSelectItem
+                <ListItemLabel
                     class="un-w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
-                ></ListSelectItem>
+                ></ListItemLabel>
             </template>
         </Variant>
         <Variant title="truncated" :init-state="initState('truncated')">
             <template #default="{ state }">
-                <ListSelectItem
+                <ListItemLabel
                     class="un-w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
-                ></ListSelectItem>
+                ></ListItemLabel>
             </template>
         </Variant>
         <Variant title="truncated and selected" :init-state="initState('truncatedSelected')">
             <template #default="{ state }">
-                <ListSelectItem
+                <ListItemLabel
                     class="un-w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
-                ></ListSelectItem>
+                ></ListItemLabel>
             </template>
         </Variant>
     </Story>
 </template>
 <docs lang="md">
-# ListSelectItem
+# ListItemLabel
 
 ## Props
 
@@ -52,9 +52,9 @@
 -   `truncate` - Boolean: Whether to truncate the label
 </docs>
 <script setup>
-import '@unocss/reset/tailwind.css'
+import '@unocss/reset/tailwind-compat.css'
 import 'virtual:uno.css'
-import ListSelectItem from './ListItemLabel.vue'
+import { ListItemLabel } from '..'
 function initState(variant) {
     const state = {
         default: {
@@ -80,5 +80,4 @@ function initState(variant) {
     }
     return () => state[variant]
 }
-
 </script>

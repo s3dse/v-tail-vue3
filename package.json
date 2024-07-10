@@ -28,9 +28,13 @@
         "test:unit": "vitest run --environment jsdom",
         "test:coverage": "vitest run --coverage",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-        "format": "prettier --write src/"
+        "format": "prettier --write src/",
+        "story:dev": "histoire dev",
+        "story:build": "histoire build",
+        "story:preview": "histoire preview"
     },
     "devDependencies": {
+        "@histoire/plugin-vue": "^0.17.17",
         "@iconify-json/tabler": "^1.1.103",
         "@rushstack/eslint-patch": "^1.2.0",
         "@unocss/reset": "^0.51.13",
@@ -42,6 +46,7 @@
         "autoprefixer": "^10.4.16",
         "eslint": "^8.39.0",
         "eslint-plugin-vue": "^9.11.1",
+        "histoire": "^0.17.17",
         "jsdom": "^22.0.0",
         "postcss": "^8.4.33",
         "prettier": "^2.8.8",

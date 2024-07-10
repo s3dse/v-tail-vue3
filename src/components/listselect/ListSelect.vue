@@ -13,7 +13,7 @@ import {
     ScrollAreaViewport
 } from 'radix-vue'
 import { vOnClickOutside } from '@vueuse/components'
-import ListSelectItem from './ListSelectItem.vue'
+import ListItemLabel from './ListItemLabel.vue'
 import ListSelectPreview from './ListSelectPreview.vue'
 import ListSelectExcessIndicator from './ListSelectExcessIndicator.vue'
 import ListSelectInput from './ListSelectInput.vue'
@@ -204,10 +204,9 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                                 @click.prevent="select(option)"
                             >
                                 <slot name="option" :option="option">
-                                    <ListSelectItem
-                                        :option="option"
-                                        :isSelected="isSelected"
-                                        :labelFn="props.labelFn"
+                                    <ListItemLabel
+                                        :label="props.labelFn(option)"
+                                        :isSelected="isSelected(option)"
                                         :truncateLabel="props.truncateItems"
                                     />
                                 </slot>

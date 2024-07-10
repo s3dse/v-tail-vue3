@@ -19,7 +19,7 @@
         <div v-busy="optionsLoading">
             <span
                 class="un-shrink-0 listselect--dropdown-toggle i-tabler-chevron-down un-block un-text-2xl un-text-gray-500! un-mr-2"
-                @click.prevent="toggleOpen"
+                @click.prevent="emit('toggle-open')"
                 ref="dropdownToggle"
             ></span>
         </div>
@@ -30,8 +30,7 @@ const props = defineProps({
     inputClasses: String,
     optionsLoading: Boolean,
     inputPlaceholder: String,
-    toggleOpen: Function
 });
-const emit = defineEmits(['clear-search']);
+const emit = defineEmits(['clear-search', 'toggle-open']);
 const searchTerm = defineModel('searchTerm', { type: String, default: null });
 </script>

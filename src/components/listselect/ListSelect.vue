@@ -168,9 +168,9 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 :inputClasses="props.inputClasses"
                 :optionsLoading="props.optionsLoading"
                 :inputPlaceholder="$inputPlaceholder"
-                :toggleOpen="toggleOpen"
                 v-model:searchTerm="searchTerm"
                 @clear-search="searchTerm = ''"
+                @toggle-open="toggleOpen"
             />
         </ListboxFilter>
         <div v-if="open" 

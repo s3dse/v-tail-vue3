@@ -196,7 +196,6 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             :options="filteredOptions"
                             :textContent="props.labelFn"
                             :estimateSize="props.optionSize"
-                            class=""
                         >
                             <ListboxItem
                                 :value="option"

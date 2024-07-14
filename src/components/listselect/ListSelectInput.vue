@@ -19,18 +19,26 @@
         <div v-busy="optionsLoading">
             <span
                 class="un-shrink-0 listselect--dropdown-toggle i-tabler-chevron-down un-block un-text-2xl un-text-gray-500! un-mr-2"
-                @click.prevent="emit('toggle-open')"
+                @click.prevent="onToggleClick"
                 ref="dropdownToggle"
             ></span>
         </div>
     </label>
 </template>
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
     inputClasses: String,
     optionsLoading: Boolean,
     inputPlaceholder: String,
 });
+
+const searchInput = ref(null);
+const onToggleClick = () => {
+    emit('toggle-open');
+    searchInput.value.focus();
+};
 const emit = defineEmits(['clear-search', 'toggle-open']);
 const searchTerm = defineModel('searchTerm', { type: String, default: null });
 </script>

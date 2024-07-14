@@ -2,7 +2,7 @@
     <Story title="ListSelect" :layout="{ type: 'grid', width: '75%' }">
         <Variant title="default" :init-state="initState('default')" :meta="{ wrapper: true }">
             <template #default="{ state }">
-                <div class="un-h-400px">
+                <div class="un-h-600px un-w-600px">
                     <ListSelect
                         class="un-w-fit"
                         :options="state.options"

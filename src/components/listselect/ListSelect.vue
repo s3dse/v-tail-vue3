@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, toRef,ref, watch } from 'vue'
+import { computed, toValue, toRef, ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -136,18 +136,18 @@ const selectSingle = option => {
 
 const selectMultiple = option => {
     if (isSelected(option)) {
-            selectedOptions.value = selectedOptions.value.filter(
-                selectedOption => selectedOption.id !== option.id
-            )
-        } else if (selectedOptions.value.length < props.maxSelectionLength) {
-            selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-        } else {
-            selectedOptions.value = selectedOptions.value.slice()
-            listLengthExceeded.value = true
-            delay(props.selectionExceededInfoDuration).then(() => {
-                listLengthExceeded.value = false
-            })
-        }
+        selectedOptions.value = selectedOptions.value.filter(
+            selectedOption => selectedOption.id !== option.id
+        )
+    } else if (selectedOptions.value.length < props.maxSelectionLength) {
+        selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
+    } else {
+        selectedOptions.value = selectedOptions.value.slice()
+        listLengthExceeded.value = true
+        delay(props.selectionExceededInfoDuration).then(() => {
+            listLengthExceeded.value = false
+        })
+    }
 }
 
 const showFooter = computed(() => props.multiple && open.value && selectedOptions.value.length)
@@ -174,10 +174,12 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 @toggle-open="toggleOpen"
             />
         </ListboxFilter>
-        <div v-if="open" 
-            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded" 
+        <div
+            v-if="open"
+            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded"
             :class="props.dropdownClasses"
-            :style="{'z-index': props.dropDownZIndex, 'width': props.dropDownWidth }">
+            :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
+        >
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <ScrollAreaViewport
                     class="un-w-full un-border-t un-border-l un-border-r un-border-gray-200 dark:un-border-moon-700 un-rounded-t un-h-full"
@@ -185,13 +187,13 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     asChild
                 >
                     <ListboxContent asChild>
-                <slot name="list-excess" v-if="listLengthExceeded">
-                    <ListSelectExcessIndicator
-                        :listLengthExceeded="listLengthExceeded"
-                        :maxSelectionLength="props.maxSelectionLength"
-                        :maxSelectionLengthTextFn="props.maxSelectionLengthTextFn"
-                    />
-                </slot>
+                        <slot name="list-excess" v-if="listLengthExceeded">
+                            <ListSelectExcessIndicator
+                                :listLengthExceeded="listLengthExceeded"
+                                :maxSelectionLength="props.maxSelectionLength"
+                                :maxSelectionLengthTextFn="props.maxSelectionLengthTextFn"
+                            />
+                        </slot>
                         <ListboxVirtualizer
                             v-slot="{ option }"
                             :options="filteredOptions"
@@ -199,24 +201,19 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             :estimateSize="props.optionSize"
                         >
                             <ListboxItem
-                                class="listselect__option un-flex un-flex-gap-0 un-items-center un-justify-start un-w-full 
-                                un-min-h-[40px] un-h-40px un-max-h-[40px]
-                                un-border-0 un-ps-2
-                                data-[highlighted]:un-bg-navy-400 data-[highlighted]:un-text-gray-100
-                                data-[state=checked]:[&:not([data-highlighted])]:un-bg-navy-300/80 data-[state=checked]:[&:not([data-highlighted])]:un-text-gray-100
-                                data-[state=checked]:[&[data-highlighted]]:un-bg-red-400! data-[state=checked]:[&[data-highlighted]]:un-text-gray-100
-                                "
+                                class="listselect__option"
                                 :class="{ 'un-truncate': props.truncateItems }"
                                 :value="option"
                                 @click.prevent="select(option)"
-                            ><div class="un-flex">{{ props.labelFn(option) }}</div>
-                                <!-- <slot name="option" :option="option">
+                                as-child
+                            >
+                                <slot name="option" :option="option">
                                     <ListItemLabel
                                         :label="props.labelFn(option)"
                                         :isSelected="isSelected(option)"
                                         :truncateLabel="props.truncateItems"
                                     />
-                                </slot> -->
+                                </slot>
                             </ListboxItem>
                         </ListboxVirtualizer>
                     </ListboxContent>

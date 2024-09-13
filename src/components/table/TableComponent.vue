@@ -303,6 +303,10 @@ export default {
         fixed: {
             type: Boolean,
             default: false
+        },
+        remotePagination: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -400,26 +404,36 @@ export default {
                 this.sortColumnKey = col.key
             }
 
-            this.tableData.sort((a, b) => {
-                const aVal = a[col.key]
-                const bVal = b[col.key]
-                if (Number.isNaN(+aVal) && Number.isNaN(+bVal)) {
-                    return alnumSort(aVal, bVal, this.ascending)
-                } else if ([aVal, bVal].every(n => !Number.isNaN(+n))) {
-                    return numSort(aVal, bVal, this.ascending)
-                } else {
-                    return 0
+            if (this.remotePagination) {
+                this.$emit('remote-sort', { column: col, ascending: this.ascending })
+            } else {
+                this.tableData.sort((a, b) => {
+                    const aVal = a[col.key]
+                    const bVal = b[col.key]
+                    if (Number.isNaN(+aVal) && Number.isNaN(+bVal)) {
+                        return alnumSort(aVal, bVal, this.ascending)
+                    } else if ([aVal, bVal].every(n => !Number.isNaN(+n))) {
+                        return numSort(aVal, bVal, this.ascending)
+                    } else {
+                        return 0
+                    }
+                })
+                if (this.paginate) {
+                    this.changePage(1)
                 }
-            })
-            this.$emit('after-sort', { column: col, ascending: this.ascending })
-            if (this.paginate) {
-                this.changePage(1)
             }
+            this.$emit('after-sort', { column: col, ascending: this.ascending })
         },
         changePage(page) {
             if (page === this.currentPage) return
             const oldPage = this.currentPage
-            this.currentPage = page
+            
+            if (this.remotePagination) {
+                this.$emit('remote-page-change', { page })
+            } else {
+                this.currentPage = page
+
+            }
             this.$emit('after-page-change', { oldPage, newPage: this.currentPage })
         },
         getRows(data = this.tableData, paginate = this.paginate) {
@@ -436,10 +450,14 @@ export default {
             return textMatch(needle, searchableRow.normalized)
         },
         filterData(event) {
-            if (this.paginate) this.changePage(1)
-            const searchableData = this.items.map(toSearchableRow)
-            const filteredData = searchableData.filter(this.findItems)
-            this.tableData = filteredData.map(e => (e ? e.row : []))
+            if (this.remotePagination) {
+                this.$emit('remote-filter', { searchTerm: event.target.value })
+            } else {
+                if (this.paginate) this.changePage(1)
+                const searchableData = this.items.map(toSearchableRow)
+                const filteredData = searchableData.filter(this.findItems)
+                this.tableData = filteredData.map(e => (e ? e.row : []))
+            }
             this.$emit('after-filter', { searchTerm: event.target.value })
         },
         getClassList(column) {

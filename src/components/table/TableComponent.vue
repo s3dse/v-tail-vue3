@@ -1,11 +1,17 @@
 <template>
     <div>
-        <div v-if="title && !hasTitleSlot" class="vt-title-border un-border-b dark:un-border-moon-700 dark:un-bg-moon-800 un-my-3">
+        <div
+            v-if="title && !hasTitleSlot"
+            class="vt-title-border un-border-b dark:un-border-moon-700 dark:un-bg-moon-800 un-my-3"
+        >
             <div class="vt-title un-card-title un-mx-4 un-my-3">
                 {{ title }}
             </div>
         </div>
-        <div v-if="!title && hasTitleSlot" class="vt-title-border un-border-b dark:un-border-moon-700 un-my-3">
+        <div
+            v-if="!title && hasTitleSlot"
+            class="vt-title-border un-border-b dark:un-border-moon-700 un-my-3"
+        >
             <slot name="title" />
         </div>
         <div class="vt-table-header un-flex un-flex-wrap un-mx-4 un-my-3 un-gap-2 un-justify-start">
@@ -35,15 +41,13 @@
                 :fields="fields"
             ></slot>
         </div>
-        <div class="un-mt-2 un-pb-2 un-border-t dark:un-border-moon-700 un-overflow-x-auto 
-        un-scrollbar
-        un-scrollbar-rounded
-        un-scrollbar-track-radius-0
-        un-scrollbar-thumb-radius-2px 
-        un-scrollbar-thumb-color-slate-200 dark:un-scrollbar-thumb-color-moon-700
-        hover:un-scrollbar-thumb-color-slate-300 dark:hover:un-scrollbar-thumb-color-moon-600
-        un-scrollbar-track-color-inherit dark:un-scrollbar-track-color-inherit">
-            <table class="un-w-full dark:un-text-gray-100" :class="{ 'un-table-fixed un-whitespace-normal un-break-words': fixed }">
+        <div
+            class="un-mt-2 un-pb-2 un-border-t dark:un-border-moon-700 un-overflow-x-auto un-scrollbar un-scrollbar-rounded un-scrollbar-track-radius-0 un-scrollbar-thumb-radius-2px un-scrollbar-thumb-color-slate-200 dark:un-scrollbar-thumb-color-moon-700 hover:un-scrollbar-thumb-color-slate-300 dark:hover:un-scrollbar-thumb-color-moon-600 un-scrollbar-track-color-inherit dark:un-scrollbar-track-color-inherit"
+        >
+            <table
+                class="un-w-full dark:un-text-gray-100"
+                :class="{ 'un-table-fixed un-whitespace-normal un-break-words': fixed }"
+            >
                 <thead
                     class="un-bg-slate-100 dark:un-bg-moon-900 un-font-semibold un-text-[0.625rem] un-text-slate-500"
                     v-if="tableData.length || topRows.length"
@@ -55,21 +59,21 @@
                         :class="[col.thClassList, leftPadFirstCol(index), rightPadLastCol(index)]"
                         class="hover:un-cursor-pointer un-p-2 first:un-ps-6 last:un-pe-6 un-uppercase"
                     >
-                    <slot 
-                        :name="`th(${col.key})`"
-                        :field="col">
-                        <div class="">
-                            {{ underscoresToSpaces(getColumnLabel(col)) }}
-                            <div
-                                class="un-inline-block"
-                                :class="{
-                                    'i-tabler-arrows-sort': col.key !== sortColumnKey,
-                                    'i-tabler-sort-ascending': col.key === sortColumnKey && ascending,
-                                    'i-tabler-sort-descending': col.key === sortColumnKey && !ascending
-                                }"
-                            ></div>
-                        </div>
-                    </slot>
+                        <slot :name="`th(${col.key})`" :field="col">
+                            <div class="">
+                                {{ underscoresToSpaces(getColumnLabel(col)) }}
+                                <div
+                                    class="un-inline-block"
+                                    :class="{
+                                        'i-tabler-arrows-sort': col.key !== sortColumnKey,
+                                        'i-tabler-sort-ascending':
+                                            col.key === sortColumnKey && ascending,
+                                        'i-tabler-sort-descending':
+                                            col.key === sortColumnKey && !ascending
+                                    }"
+                                ></div>
+                            </div>
+                        </slot>
                     </th>
                 </thead>
                 <tbody v-if="topRows.length">
@@ -98,7 +102,11 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    <tr v-for="(item, rowIndex) in getRows()" :key="rowIndex" class="un-border-y dark:un-border-moon-700">
+                    <tr
+                        v-for="(item, rowIndex) in getRows()"
+                        :key="rowIndex"
+                        class="un-border-y dark:un-border-moon-700"
+                    >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
@@ -219,6 +227,10 @@ export default {
             type: Array,
             required: true
         },
+        totalItems: {
+            type: Number,
+            required: false
+        },
         topRows: {
             type: Array,
             default: () => []
@@ -317,7 +329,10 @@ export default {
             currentPage: 1,
             filterInputId: `filter_input_${this.id}`,
             filterInputSelector: `#filter_input_${this.id}`,
-            thePageSize: this.perPage > this.topRows.length ? this.perPage : this.pageSizes.find(e => e > this.topRows.length),
+            thePageSize:
+                this.perPage > this.topRows.length
+                    ? this.perPage
+                    : this.pageSizes.find(e => e > this.topRows.length),
             componentValidation: false
         }
     },
@@ -332,14 +347,13 @@ export default {
         },
         pageSize: {
             get() {
-                return this.thePageSize > this.topRows.length 
-                    ? this.thePageSize 
+                return this.thePageSize > this.topRows.length
+                    ? this.thePageSize
                     : this.pageSizes.find(e => e > this.topRows.length)
             },
             set(v) {
-                const alternative = v > this.topRows.length 
-                    ? v 
-                    : this.pageSizes.find(e => e > this.topRows.length)
+                const alternative =
+                    v > this.topRows.length ? v : this.pageSizes.find(e => e > this.topRows.length)
                 this.thePageSize = alternative
                 return this.thePageSize
             }
@@ -348,7 +362,11 @@ export default {
             return this.pageSize - this.topRows.length
         },
         numberOfPages() {
-            return Math.ceil(this.tableData.length / this.itemsPerPage)
+            if (this.remotePagination) {
+                return Math.ceil(this.totalItems / this.itemsPerPage)
+            } else {
+                return Math.ceil(this.tableData.length / this.itemsPerPage)
+            }
         },
         underscoresToSpaces() {
             return v => (v ? v.replaceAll('_', ' ') : v)
@@ -370,8 +388,17 @@ export default {
             } else {
                 this.pageSize = this.pageSizes.find(e => e > this.topRows.length)
             }
-        },
+        }
     },
+    emits: [
+        'per-page-change',
+        'remote-sort',
+        'after-sort',
+        'remote-page-change',
+        'after-page-change',
+        'remote-filter',
+        'after-filter'
+    ],
     methods: {
         validateProps() {
             if (this.pageSize <= this.topRows.length) {
@@ -427,13 +454,12 @@ export default {
         changePage(page) {
             if (page === this.currentPage) return
             const oldPage = this.currentPage
-            
-            if (this.remotePagination) {
-                this.$emit('remote-page-change', { page })
-            } else {
-                this.currentPage = page
 
+            if (this.remotePagination) {
+                this.$emit('remote-page-change', { page, pageSize: this.perPage })
             }
+            this.currentPage = page
+
             this.$emit('after-page-change', { oldPage, newPage: this.currentPage })
         },
         getRows(data = this.tableData, paginate = this.paginate) {

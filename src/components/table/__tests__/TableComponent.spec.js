@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { shallowMount } from '@vue/test-utils'
+import { flushPromises, shallowMount } from '@vue/test-utils'
 import TableComponent from '@/components/table/TableComponent.vue'
 describe('TableComponent with perPage setting', () => {
     const props = {
@@ -32,6 +32,7 @@ describe('TableComponent with perPage setting', () => {
         expect(wrapper.vm.numberOfPages).toBe(3)
         expect(wrapper.vm.getRows().length).toBe(5)
         wrapper.vm.changePage(2)
+        expect(wrapper.emitted()).toHaveProperty('page-change')
         expect(wrapper.vm.getRows().length).toBe(5)
         wrapper.vm.changePage(3)
         expect(wrapper.vm.getRows().length).toBe(1)
@@ -68,6 +69,8 @@ describe('TableComponent', async () => {
         perPage: 10,
         topRows: [],
         items: shuffledItems,
+        filterDebounce: 0,
+        filterMaxWait: 0,
         fields: [{ key: 'name' }, { key: 'value' }]
     }
     const intValuesOfColumn = (wrapper, column) =>
@@ -79,6 +82,7 @@ describe('TableComponent', async () => {
         const wrapper = shallowMount(TableComponent, { props })
         const el = wrapper.findAll('th')[1]
         await el.find('.i-tabler-arrows-sort').trigger('click')
+        expect(wrapper.emitted()).toHaveProperty('sort-change')
         expect(wrapper.vm.tableData.map(td => td.value)).toStrictEqual([...Array(100).keys()])
         const values = intValuesOfColumn(wrapper, 2)
         expect(values).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -87,6 +91,7 @@ describe('TableComponent', async () => {
         const wrapper = shallowMount(TableComponent, { props })
         const el = wrapper.findAll('th')[1]
         await el.find('.i-tabler-arrows-sort').trigger('click')
+        expect(wrapper.emitted()).toHaveProperty('sort-change')
         await wrapper.findAll('th')[1].find('.i-tabler-sort-ascending').trigger('click')
         expect(wrapper.vm.tableData.map(td => td.value)).toStrictEqual(
             [...Array(100).keys()].reverse()
@@ -98,6 +103,9 @@ describe('TableComponent', async () => {
         const wrapper = shallowMount(TableComponent, { props: { ...props, items } })
         const filterInput = wrapper.find('input')
         await filterInput.setValue('1')
+        await flushPromises()
+        expect(wrapper.emitted()).toHaveProperty('filter-change')
+        expect(wrapper.emitted()).toHaveProperty('filter-change-debounced')
         expect(wrapper.vm.tableData.map(td => td.value).sort()).toStrictEqual([
             1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 31, 41, 51, 61, 71, 81, 91
         ])
@@ -108,6 +116,8 @@ describe('TableComponent', async () => {
         const wrapper = shallowMount(TableComponent, { props })
         const input = wrapper.find('input')
         await input.setValue('test')
+        expect(wrapper.emitted()).toHaveProperty('filter-change')
+        expect(wrapper.emitted()).toHaveProperty('filter-change-debounced')
         expect(wrapper.vm.tableData).toStrictEqual(new Array())
         expect(wrapper.findAll('td')).toStrictEqual(new Array())
     })

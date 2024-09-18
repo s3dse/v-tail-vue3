@@ -21,6 +21,7 @@
                 :placeholder="searchPlaceholder"
                 :id="filterInputId"
                 @input="filterData"
+                v-model="searchTerm"
                 :class="searchInputClassList"
             />
             <dropdown-component
@@ -157,7 +158,7 @@
                 :per-page="itemsPerPage"
                 :current-page="currentPage"
                 :total-pages="numberOfPages"
-                :total-entries="tableData.length"
+                :total-entries="remotePagination ? totalItems : tableData.length"
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
                 @page-changed="changePage"
@@ -177,11 +178,14 @@
     </div>
 </template>
 <script>
+import { ref } from 'vue'
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue'
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
 import { joinLines } from '@/utils/string-join-lines.js'
 import 'virtual:uno.css'
 import { nanoid } from 'nanoid'
+import { useDebounceFn } from '@vueuse/core'
+
 function numSort(a, b, ascending) {
     return ascending ? a - b : b - a
 }
@@ -212,10 +216,20 @@ export default {
         PaginationComponent,
         DropdownComponent
     },
-    setup() {
+    setup(props, context) {
         const id = nanoid()
+        const searchTerm = ref(null)
+        const emitFilterDebounced = useDebounceFn(
+            () => {
+                context.emit('filter-change-debounced', searchTerm.value)
+            },
+            props.filterDebounce,
+            { maxWait: props.filterMaxWait }
+        )
         return {
-            id
+            id,
+            searchTerm,
+            emitFilterDebounced
         }
     },
     props: {
@@ -258,38 +272,38 @@ export default {
         },
         pageSizeButtonClassList: {
             type: String,
-            default: joinLines(`un-border 
-                                un-border-slate-200 
-                                dark:un-border-moon-700 
+            default: joinLines(`un-border
+                                un-border-slate-200
+                                dark:un-border-moon-700
                                 hover:un-border-slate-100
-                                dark:hover:un-border-moon-600  
-                                un-bg-slate-50 
-                                dark:un-bg-moon-800 
+                                dark:hover:un-border-moon-600
+                                un-bg-slate-50
+                                dark:un-bg-moon-800
                                 hover:un-bg-gray-200
                                 dark:hover:un-bg-moon-700
-                                dark:un-text-gray-100   
-                                hover:un-cursor-pointer 
-                                un-rounded-sm 
-                                un-text-sm 
+                                dark:un-text-gray-100
+                                hover:un-cursor-pointer
+                                un-rounded-sm
+                                un-text-sm
                                 un-px-4
                                 un-h-[100%]
-                                un-inline-flex 
+                                un-inline-flex
                                 un-items-center`)
         },
         searchInputClassList: {
             type: String,
-            default: joinLines(`un-border 
+            default: joinLines(`un-border
                                 dark:un-border-moon-700
-                                dark:un-bg-moon-900 
-                                dark:un-text-gray-100 
-                                un-rounded-sm 
+                                dark:un-bg-moon-900
+                                dark:un-text-gray-100
+                                un-rounded-sm
                                 dark:focus:un-outline-none
                                 dark:focus:un-ring-1
                                 dark:focus:un-ring-moon-500
                                 dark:focus:un-border-moon-300
-                                un-px-2 
-                                un-text-sm 
-                                un-flex 
+                                un-px-2
+                                un-text-sm
+                                un-flex
                                 un-h-auto`)
         },
         paginate: {
@@ -319,6 +333,14 @@ export default {
         remotePagination: {
             type: Boolean,
             default: false
+        },
+        filterDebounce: {
+            type: Number,
+            default: 250
+        },
+        filterMaxWait: {
+            type: Number,
+            default: 2000
         }
     },
     data() {
@@ -388,15 +410,19 @@ export default {
             } else {
                 this.pageSize = this.pageSizes.find(e => e > this.topRows.length)
             }
+        },
+        searchTerm: function (newSearchTerm) {
+            this.emitFilterDebounced()
         }
     },
     emits: [
         'per-page-change',
-        'remote-sort',
+        'sort-change',
         'after-sort',
-        'remote-page-change',
+        'page-change',
         'after-page-change',
-        'remote-filter',
+        'filter-change',
+        'filter-change-debounced',
         'after-filter'
     ],
     methods: {
@@ -404,6 +430,11 @@ export default {
             if (this.pageSize <= this.topRows.length) {
                 this.componentValidation = false
                 console.error("'pageSize' must be higher than length of 'topRows'.")
+                return false
+            }
+            if (this.remotePagination && (this.totalItems === undefined || this.totalItems === null) ) {
+                this.componentValidation = false
+                console.error("'remotePagination === true' requires a 'totalItems' (int) prop")
                 return false
             } else {
                 this.componentValidation = true
@@ -431,9 +462,8 @@ export default {
                 this.sortColumnKey = col.key
             }
 
-            if (this.remotePagination) {
-                this.$emit('remote-sort', { column: col, ascending: this.ascending })
-            } else {
+            this.$emit('sort-change', { column: col, ascending: this.ascending })
+            if (!this.remotePagination) {
                 this.tableData.sort((a, b) => {
                     const aVal = a[col.key]
                     const bVal = b[col.key]
@@ -448,22 +478,20 @@ export default {
                 if (this.paginate) {
                     this.changePage(1)
                 }
+                this.$emit('after-sort', { column: col, ascending: this.ascending })
             }
-            this.$emit('after-sort', { column: col, ascending: this.ascending })
         },
         changePage(page) {
             if (page === this.currentPage) return
             const oldPage = this.currentPage
 
-            if (this.remotePagination) {
-                this.$emit('remote-page-change', { page, pageSize: this.perPage })
-            }
+            this.$emit('page-change', page)
             this.currentPage = page
 
             this.$emit('after-page-change', { oldPage, newPage: this.currentPage })
         },
         getRows(data = this.tableData, paginate = this.paginate) {
-            if (paginate) {
+            if (paginate && !this.remotePagination) {
                 const start = (this.currentPage - 1) * this.itemsPerPage
                 const end = start + this.itemsPerPage
                 return data.slice(start, end)
@@ -476,15 +504,14 @@ export default {
             return textMatch(needle, searchableRow.normalized)
         },
         filterData(event) {
-            if (this.remotePagination) {
-                this.$emit('remote-filter', { searchTerm: event.target.value })
-            } else {
+            this.$emit('filter-change', event.target.value)
+            if (!this.remotePagination) {
                 if (this.paginate) this.changePage(1)
                 const searchableData = this.items.map(toSearchableRow)
                 const filteredData = searchableData.filter(this.findItems)
                 this.tableData = filteredData.map(e => (e ? e.row : []))
+                this.$emit('after-filter', { searchTerm: event.target.value })
             }
-            this.$emit('after-filter', { searchTerm: event.target.value })
         },
         getClassList(column) {
             return column.tdClassList || ''

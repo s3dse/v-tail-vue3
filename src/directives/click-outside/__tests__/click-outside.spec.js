@@ -32,7 +32,7 @@ describe('click outside directive', async () => {
             }
         })
 
-        await document.dispatchEvent(new Event('click'))
+        document.dispatchEvent(new Event('click'))
         const childWrapper = wrapper.findComponent(Child)
         expect(childWrapper.vm.outsideClickCount).toBe(1)
     })

@@ -116,8 +116,44 @@ Only those attributes present in the field array will be displayed in the result
 ### Pagination
 The page navigation can be enabled/disabled via the `:paginate` attribute. This will toggle pagination in general. The page size configurator can be enabled/disabled via the `:configurable-page-size` attribute. Both these attributes take boolean values and are `true` by default. They are part of the above example only for illustration.
 
+If the pagination is done outside of the component, e.g. server side pagination, you can provide `:remote-pagination="true"` and the number of total records via `:totalItems`. 
+
 ### Cell Rendering
 The above example shows how to use the `#cell()` slot to customize the rendering of individual cells. The slot is dynamic and takes a field key as argument. It provides an object holding the actual cell `value`, the `item` (or record) of the `:items` array, and the `field` of the `:fields` array.
+
+### Props
+| Prop        | Description                                                                                                                                   |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| title       | Table title                                                                             |
+| items       | The reccords to display. Required.                                                                                                            |
+| fields     | Schema of the records.|
+| totalItems  | The number of records across all pages. Only required if `remote-pagination` is`true`. .                                          |
+| topRows     | Sticky records at the top. |
+| bottomRows     | Sticky records at the bottom. |
+| perPage     | The number of records displayed per page. Default is `5`. |
+| configurablePageSize     | When `true` a dropdown control allows to select between page sizes. |
+| pageSizes     | Array of page sizes to chose from. Default is `[5, 10, 25, 50]` |
+| pageSizeButtonClassList    | Configure styling of page size button. String. |
+| searchInputClassList    | Configure styling of search input. String. |
+| paginate    | Whether pagination is enabled or not. |
+| enableSearch    | Whether searching (filtering) within records is enabled or not. |
+| searchPlaceholder    | The placeholder for the search input. Default is `'Search'`. |
+| paginationPreviousLabel    | The label for the 'previous page' button |
+| paginationNextLabel    | The label for the 'next page' button |
+| fixed    | Whether the table has fixed layout or not. |
+| remotePagination    | Whether the pagination is handeled outside of the component or not. If `true` the prop `totalItems` must be set. |
+| filterDebounce    | Debounce interval in ms for the search (filter) input. Default is `250`. |
+| filterMaxWait    | Max wait time in ms for the search (filter) input. Default is `2000`.|
+
+### Events
+| Event | Description |
+|-------|-------------|
+| per-page-change | Emits the number of displayed items per page when it has changed. |
+| page-change | Emits the current page number when it has changed.  |
+| sort-change | Emits an object with sorting information, when data is sorted by a column. Example: `{ sortColumn: { key: 'column_a' }, ascending: false }` |
+| filter-change | Emits the current search term when it has changed.  |
+| filter-change-debounced | Emits the current search term when it was changed and a debounce interval was reached. Can help to avoid request spamming. |
+
 
 ### Credits
 The component is heavily inspired by the Bootstrap Vue Table component. Have a look: https://github.com/bootstrap-vue/bootstrap-vue

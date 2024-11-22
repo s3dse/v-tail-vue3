@@ -37,6 +37,19 @@ export default defineConfig({
     ],
     theme: {
         colors: {
+            tooblue: {
+                50: '#e6f5ff',
+                100: '#cceaff',
+                200: '#99d5ff',
+                300: '#66c0ff',
+                400: '#33abff',
+                500: '#0096ff',
+                600: '#0078cc',
+                700: '#005a99',
+                800: '#003c66',
+                900: '#001e33'
+            },
+
             moon: {
                 100: '#b6cbe7',
                 200: '#6b95d2',
@@ -58,12 +71,18 @@ export default defineConfig({
                 700: '#123648',
                 800: '#0c2430',
                 900: '#061218'
+            },
+            primary: {
+                darker: '#33abff',
+                base: '#0096ff',
+                lighter: '#0078cc'
             }
         }
     },
     shortcuts: [
         [
-            /^busy-text-(.*)$/, ([, c]) => `un-relative 
+            /^busy-text-(.*)$/,
+            ([, c]) => `un-relative 
         un-select-none un-overflow-hidden un-border-rounded 
         before:un-animate-spin 
         before:un-border-opacity-90 
@@ -92,21 +111,21 @@ export default defineConfig({
         after:un-absolute 
         after:un-top-0 
         after:un-w-full 
-        after:un-z-499`],
-        [
-            /^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`
+        after:un-z-499`
         ],
+        [/^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`],
         {
             'un-form-help':
                 'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
             'un-page-header': 'un-text-xl un-font-semibold un-my-3',
-            'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
+            'un-card':
+                'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
             'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
         }
-        ],
+    ],
     presets: [
         presetUno({ prefix: 'un-' }),
-        presetScrollbar({ prefix: 'un-'}),
+        presetScrollbar({ prefix: 'un-' }),
         presetIcons({
             collections: {
                 custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }

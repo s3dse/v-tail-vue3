@@ -16,3 +16,4 @@ export default VTail
 
 export * from './components'
 export * from './directives'
+export {preset} from './preset/index.mjs'

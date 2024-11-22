@@ -14,7 +14,7 @@ export default defineConfig({
             fileName: format => `v-tail.${format}.js`
         },
         rollupOptions: {
-            external: ['vue'],
+            external: ['vue', 'unocss'],
             output: {
                 exports: 'named',
                 globals: {

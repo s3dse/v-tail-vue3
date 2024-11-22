@@ -178,12 +178,12 @@
     </div>
 </template>
 <script>
-import { ref, useId } from 'vue'
+import { ref } from 'vue'
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue'
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
 import { joinLines } from '@/utils/string-join-lines.js'
 import 'virtual:uno.css'
-// import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid'
 import { useDebounceFn } from '@vueuse/core'
 
 function numSort(a, b, ascending) {
@@ -217,7 +217,7 @@ export default {
         DropdownComponent
     },
     setup(props, context) {
-        const id = useId()
+        const id = nanoid()
         const searchTerm = ref(null)
         const emitFilterDebounced = useDebounceFn(
             () => {

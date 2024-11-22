@@ -26,5 +26,3 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
-/*v-tail-vue3*.tgz

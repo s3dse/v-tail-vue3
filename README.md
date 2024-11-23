@@ -1,8 +1,20 @@
 # v-tail-vue3
-A component library for Vue 3 using Tailwind CSS.
+A component library for Vue 3 using UnoCSS.
 ## Installation
 
 Install the library via `npm install --save @s3_dse/v-tail-vue3`.
+
+In your `uno.config.js` import and install the preset:
+
+```js
+import { defineConfig, presetUno } from 'unocss'
+import { preset } '@s3_dse/v-tail-vue3/preset'
+
+export default defineConfig({
+    presets: [presetUno(), preset()]
+})
+
+```
 
 Add the following to your entry point (e.g. `main.js`):
 ```js
@@ -100,7 +112,7 @@ export default {
 }
 </script>
 <style>
-@import '@s3_dse/v-tail-vue3/dist/style.css';
+@import '@s3_dse/v-tail-vue3/style.css';
 </style>
 ```
 

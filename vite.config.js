@@ -9,24 +9,31 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
     build: {
         lib: {
-            entry: path.resolve(__dirname, 'src/install.js'),
+            entry: {
+                'v-tail-vue3': path.resolve(__dirname, 'src/install.js'),
+                preset: path.resolve(__dirname, 'src/preset/index.mjs')
+            },
             name: 'v-tail',
-            fileName: format => `v-tail.${format}.js`
+            // fileName: (format, key) => `v-tail-${key}.${format}.js`
+            fileName: (format, name) => {
+                if (format === 'es') {
+                    return `${name}.js`
+                }
+                return `${name}.${format}`
+            }
         },
         rollupOptions: {
             external: ['vue', 'unocss'],
             output: {
                 exports: 'named',
                 globals: {
-                    'vue': 'Vue'
+                    vue: 'Vue'
                 }
             }
         },
         minify: false
     },
-    plugins: [
-        vue(), UnoCSS(), dts()
-    ],
+    plugins: [vue(), UnoCSS(), dts()],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))

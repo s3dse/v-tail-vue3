@@ -14,6 +14,5 @@ const VTail = {
 
 export default VTail
 
-export * from './components'
-export * from './directives'
-export {preset} from './preset/index.mjs'
+export * as components from './components'
+export * as directives from './directives'

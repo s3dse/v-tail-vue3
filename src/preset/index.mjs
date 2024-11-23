@@ -1,6 +1,6 @@
 import { definePreset } from 'unocss'
 
-export const preset = definePreset(() => {
+const preset = definePreset(() => {
     return {
         name: 'v-tail-vue3-preset',
         theme: {
@@ -31,3 +31,5 @@ export const preset = definePreset(() => {
         }
     }
 })
+
+export { preset }

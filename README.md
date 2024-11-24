@@ -56,7 +56,7 @@ We will use the following lines to illustrate the usage of the table component:
         :pagination-next-label="'>'"
     >
         <template #cell(ip_address)="{ value }">
-            <p class="tw-text-navy-500">{{ value }}</p>
+            <p class="tw-text-primary">{{ value }}</p>
         </template>
         <template #pagination-label="{ perPage, currentPage, totalEntries }">
             I am currently showing entries 

@@ -1,11 +1,8 @@
-import { defineConfig, presetIcons, presetUno } from 'unocss'
-import { presetScrollbar } from 'unocss-preset-scrollbar'
+import { defineConfig } from 'unocss'
+
 import transformerVariantGroup from '@unocss/transformer-variant-group'
-import presetTheme from 'unocss-preset-theme'
 import { preset } from './src/preset/index.mjs'
 import { colors } from './src/preset/colors.js'
-
-const Theme = presetUno().theme
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -22,9 +19,6 @@ const valWithUnit = v => {
     }
 }
 
-// const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
-// const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
-
 export default defineConfig({
     rules: [
         [
@@ -40,32 +34,6 @@ export default defineConfig({
             })
         ]
     ],
-    // theme: {
-    //     colors: {
-    //         moon: {
-    //             100: '#b6cbe7',
-    //             200: '#6b95d2',
-    //             300: '#4f76a7',
-    //             400: '#43648d',
-    //             500: '#3c597e',
-    //             600: '#293d57',
-    //             700: '#1f2e41',
-    //             800: '#182433',
-    //             900: '#151f2c'
-    //         },
-    //         navy: {
-    //             100: '#d2dee4',
-    //             200: '#a5bdc9',
-    //             300: '#789cae',
-    //             400: '#4b7b93',
-    //             500: '#1e5a78',
-    //             600: '#184860',
-    //             700: '#123648',
-    //             800: '#0c2430',
-    //             900: '#061218'
-    //         }
-    //     }
-    // },
     shortcuts: [
         [
             /^busy-text-(.*)$/,
@@ -110,35 +78,6 @@ export default defineConfig({
             'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
         }
     ],
-    presets: [
-        // presetUno({ prefix: 'un-' }),
-        presetScrollbar({ prefix: 'un-' }),
-        // presetIcons({
-        //     collections: {
-        //         custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }
-        //     }
-        // }),
-        // presetTheme({
-        //     theme: {
-        //         dark: {
-        //             colors: {
-        //                 background: colors.moon[900],
-        //                 border: colors.moon[700],
-        //                 inputfield: colors.moon[900],
-        //                 thead: colors.moon[900]
-        //             },
-        //         },
-        //         light: {
-        //             colors: {
-        //                 background: Theme.colors.gray[50],
-        //                 border: Theme.colors.gray[200],
-        //                 inputfield: Theme.colors.white,
-        //                 thead: Theme.colors.slate[100]
-        //             },
-        //         }
-        //     }
-        // }),
-        preset()
-    ],
+    presets: [preset({ primary: colors.navy })],
     transformers: [transformerVariantGroup()]
 })

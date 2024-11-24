@@ -1,7 +1,11 @@
 import { defineConfig, presetIcons, presetUno } from 'unocss'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
+import presetTheme from 'unocss-preset-theme'
 import { preset } from './src/preset/index.mjs'
+import { colors } from './src/preset/colors.js'
+
+const Theme = presetUno().theme
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -18,8 +22,8 @@ const valWithUnit = v => {
     }
 }
 
-const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
-const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
+// const chevronDown = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /> </svg>`
+// const chevronUp = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="un-w-6 un-h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /> </svg>`
 
 export default defineConfig({
     rules: [
@@ -64,7 +68,8 @@ export default defineConfig({
     // },
     shortcuts: [
         [
-            /^busy-text-(.*)$/, ([, c]) => `un-relative 
+            /^busy-text-(.*)$/,
+            ([, c]) => `un-relative 
         un-select-none un-overflow-hidden un-border-rounded 
         before:un-animate-spin 
         before:un-border-opacity-90 
@@ -93,26 +98,46 @@ export default defineConfig({
         after:un-absolute 
         after:un-top-0 
         after:un-w-full 
-        after:un-z-499`],
-        [
-            /^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`
+        after:un-z-499`
         ],
+        [/^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`],
         {
             'un-form-help':
                 'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
             'un-page-header': 'un-text-xl un-font-semibold un-my-3',
-            'un-card': 'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
+            'un-card':
+                'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
             'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
         }
-        ],
+    ],
     presets: [
-        presetUno({ prefix: 'un-' }),
-        presetScrollbar({ prefix: 'un-'}),
-        presetIcons({
-            collections: {
-                custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }
-            }
-        }),
+        // presetUno({ prefix: 'un-' }),
+        presetScrollbar({ prefix: 'un-' }),
+        // presetIcons({
+        //     collections: {
+        //         custom: { 'chevron-down': chevronDown, 'chevron-up': chevronUp }
+        //     }
+        // }),
+        // presetTheme({
+        //     theme: {
+        //         dark: {
+        //             colors: {
+        //                 background: colors.moon[900],
+        //                 border: colors.moon[700],
+        //                 inputfield: colors.moon[900],
+        //                 thead: colors.moon[900]
+        //             },
+        //         },
+        //         light: {
+        //             colors: {
+        //                 background: Theme.colors.gray[50],
+        //                 border: Theme.colors.gray[200],
+        //                 inputfield: Theme.colors.white,
+        //                 thead: Theme.colors.slate[100]
+        //             },
+        //         }
+        //     }
+        // }),
         preset()
     ],
     transformers: [transformerVariantGroup()]

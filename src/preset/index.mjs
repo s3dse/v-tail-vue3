@@ -1,34 +1,45 @@
-import { definePreset } from 'unocss'
+import { definePreset, presetIcons, presetUno } from 'unocss'
+import { colors } from './colors.js'
+import { icons } from './icons.js'
+import presetTheme from 'unocss-preset-theme'
+
+const Theme = presetUno().theme
 
 const preset = definePreset(() => {
     return {
         name: 'v-tail-vue3-preset',
-        theme: {
-            colors: {
-                moon: {
-                    100: '#b6cbe7',
-                    200: '#6b95d2',
-                    300: '#4f76a7',
-                    400: '#43648d',
-                    500: '#3c597e',
-                    600: '#293d57',
-                    700: '#1f2e41',
-                    800: '#182433',
-                    900: '#151f2c'
-                },
-                navy: {
-                    100: '#d2dee4',
-                    200: '#a5bdc9',
-                    300: '#789cae',
-                    400: '#4b7b93',
-                    500: '#1e5a78',
-                    600: '#184860',
-                    700: '#123648',
-                    800: '#0c2430',
-                    900: '#061218'
+        theme: { colors },
+        shortcuts: {
+            'border-base': 'un-border-border'
+        },
+        presets: [
+            presetUno({ prefix: 'un-' }),
+            presetIcons({
+                collections: {
+                    custom: icons
                 }
-            }
-        }
+            }),
+            presetTheme({
+                theme: {
+                    dark: {
+                        colors: {
+                            background: colors.moon[900],
+                            border: colors.moon[700],
+                            inputfield: colors.moon[900],
+                            thead: colors.moon[900]
+                        }
+                    },
+                    light: {
+                        colors: {
+                            background: Theme.colors.gray[50],
+                            border: Theme.colors.gray[200],
+                            inputfield: Theme.colors.white,
+                            thead: Theme.colors.slate[100]
+                        }
+                    }
+                }
+            })
+        ]
     }
 })
 

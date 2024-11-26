@@ -35,6 +35,9 @@ export default defineConfig({
             })
         ]
     ],
+    theme: {
+        colors
+    },
     shortcuts: [
         [
             /^busy-text-(.*)$/,
@@ -83,6 +86,7 @@ export default defineConfig({
         presetUno({ prefix: 'un-' }),
         presetScrollbar({ prefix: 'un-' }),
 
-        preset({ primary: colors.navy })],
+        preset({ colors: { primary: colors.navy } })
+    ],
     transformers: [transformerVariantGroup()]
 })

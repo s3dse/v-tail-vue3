@@ -14,13 +14,11 @@ const preset = definePreset(({primary}) => {
             'border-base': 'un-border-border'
         },
         presets: [
-            presetUno({ prefix: 'un-' }),
             presetIcons({
                 collections: {
                     custom: icons
                 }
             }),
-            presetScrollbar({ prefix: 'un-' }),
             presetTheme({
                 theme: {
                     dark: {

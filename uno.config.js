@@ -1,8 +1,9 @@
-import { defineConfig } from 'unocss'
+import { defineConfig, presetUno } from 'unocss'
 
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 import { preset } from './src/preset/index.mjs'
 import { colors } from './src/preset/colors.js'
+import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 const cutOffBrackets = v =>
     v.indexOf('[') === 0 && v.indexOf(']') === v.length - 1 ? v.slice(1, -1) : v
@@ -78,6 +79,10 @@ export default defineConfig({
             'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
         }
     ],
-    presets: [preset({ primary: colors.navy })],
+    presets: [
+        presetUno({ prefix: 'un-' }),
+        presetScrollbar({ prefix: 'un-' }),
+
+        preset({ primary: colors.navy })],
     transformers: [transformerVariantGroup()]
 })

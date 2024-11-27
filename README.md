@@ -8,10 +8,10 @@ In your `uno.config.js` import and install the preset:
 
 ```js
 import { defineConfig, presetUno } from 'unocss'
-import { preset } '@s3_dse/v-tail-vue3/preset'
+import presetVTail '@s3_dse/v-tail-vue3/preset'
 
 export default defineConfig({
-    presets: [presetUno(), preset()]
+    presets: [presetUno(), presetVTail()]
 })
 
 ```
@@ -291,6 +291,24 @@ E.g.
 
 ## Pagination Component
 ## Dropdown Component
+# Theme Customization
+The preset accepts a theme as argument. It allows for configuring/overriding the default theme:
+```js
+// in your uno.config.js
+const myCustomColors = {
+    superBlue: {...},
+    customYellow: {...},
+    moon: {...}
+}
+
+export default defineConfig({
+    presets: [
+        presetUno(), 
+        presetVTail({ colors: ...myCustomColors })
+    ]
+})
+
+```
 # License
 MIT License
 

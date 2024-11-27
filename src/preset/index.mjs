@@ -6,7 +6,7 @@ import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 const Theme = presetUno().theme
 
-const preset = definePreset(options => {
+const presetVTail = definePreset(options => {
     const givenColors = options?.colors || {}
     const mergedColors = { ...colors, ...givenColors }
     if (!mergedColors.primary) {
@@ -51,4 +51,4 @@ const preset = definePreset(options => {
     }
 })
 
-export { preset }
+export default presetVTail

@@ -1,7 +1,7 @@
 import { defineConfig, presetUno } from 'unocss'
 
 import transformerVariantGroup from '@unocss/transformer-variant-group'
-import { preset } from './src/preset/index.mjs'
+import presetVTail from './src/preset/index.mjs'
 import { colors } from './src/preset/colors.js'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
 
@@ -86,7 +86,7 @@ export default defineConfig({
         presetUno({ prefix: 'un-' }),
         presetScrollbar({ prefix: 'un-' }),
 
-        preset({ colors: { primary: colors.navy } })
+        presetVTail({ colors: { primary: colors.navy } })
     ],
     transformers: [transformerVariantGroup()]
 })

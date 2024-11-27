@@ -62,6 +62,7 @@
         "prettier": "^3.3.3",
         "unocss": "^0.64.1",
         "unocss-preset-scrollbar": "^0.3.1",
+        "unocss-preset-theme": "^0.14.1",
         "vite": "^5.4.11",
         "vite-plugin-dts": "^4.3.0",
         "vitest": "^2.1.5",

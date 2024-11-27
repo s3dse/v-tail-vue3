@@ -102,11 +102,11 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'un-bg-navy-500 un-text-white dark:un-text-gray-100 un-ring un-ring-navy-200 dark:un-ring-navy-700 un-ring-2 un-rounded-sm un-px-2'
+                'un-bg-primary un-text-white dark:un-text-gray-100 un-ring un-ring-primary-200 dark:un-ring-primary-700 un-ring-2 un-rounded-sm un-px-2'
         },
         inactiveClasses: {
             type: String,
-            default: 'hover:un-text-navy-500 un-transition-colors un-ease'
+            default: 'hover:un-text-primary un-transition-colors un-ease'
         },
         disabledClasses: {
             type: String,

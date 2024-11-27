@@ -14,5 +14,5 @@ const VTail = {
 
 export default VTail
 
-export * from './components'
-export * from './directives'
+export * as components from './components'
+export * as directives from './directives'

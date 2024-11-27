@@ -22,7 +22,7 @@ const defaultClasses = {
         un-shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:un-outline-none un-z-500
         un-border un-border-gray-200 dark:un-border-moon-600`,
     description: 'un-text-gray-900 dark:un-text-gray-100 un-p-4',
-    confirmButton: `un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 
+    confirmButton: `un-bg-primary hover:un-bg-primary-600 dark:hover:un-bg-primary-400  un-text-gray-100 
                         disabled:un-bg-gray-400 disabled:active:un-text-gray-100 disabled:hover:un-bg-gray-400 disabled:hover:un-text-gray-100
                         un-rounded un-px-4 un-h-[2.375rem]`,
     cancelButton: `un-border un-border-slate-200 dark:un-border-moon-700 
@@ -76,7 +76,7 @@ const cancel = () => emit('cancel')
   <DialogRoot v-model:open="open">
     <DialogTrigger :class="getClass('trigger')">
         <slot name="trigger">
-            <button class="un-bg-navy-500 hover:un-bg-navy-600 dark:hover:un-bg-navy-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]">Settings</button>
+            <button class="un-bg-primary hover:un-bg-primary-600 dark:hover:un-bg-primary-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]">Settings</button>
         </slot>
     </DialogTrigger>
     <DialogPortal>

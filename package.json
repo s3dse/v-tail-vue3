@@ -1,6 +1,6 @@
 {
     "name": "@s3_dse/v-tail-vue3",
-    "version": "0.1.114",
+    "version": "0.2.0",
     "author": {
         "name": "Sebastian Doerl",
         "email": "sebastian.doerl@gmail.com"
@@ -15,8 +15,19 @@
     "publishConfig": {
         "access": "public"
     },
-    "main": "dist/v-tail.umd.js",
-    "module": "dist/v-tail.es.js",
+    "main": "dist/v-tail-vue3.cjs",
+    "module": "dist/v-tail-vue3.js",
+    "exports": {
+        ".": {
+            "import": "./dist/v-tail-vue3.js",
+            "require": "./dist/v-tail-vue3.cjs"
+        },
+        "./preset": {
+            "import": "./dist/preset.js",
+            "require": "./dist/preset.cjs"
+        },
+        "./*.css": "./dist/*.css"
+    },
     "sideEffects": false,
     "files": [
         "dist"

@@ -242,8 +242,8 @@ const listSelection = ref([])
     <div class="un-p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
-    <!-- <card-component class="un-mt-5"> -->
-        <!-- <loading-overlay :show="tableStatus.busy"> -->
+    <!-- <card-component class="un-mt-5">
+        <loading-overlay :show="tableStatus.busy">
             <table-component
                 :items="items"
                 :fields="fields"
@@ -267,8 +267,8 @@ const listSelection = ref([])
                     </div>
                 </template>
             </table-component>
-        <!-- </loading-overlay> -->
-    <!-- </card-component> -->
+        </loading-overlay>
+    </card-component> -->
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
     <div class="un-pl-8">
         <list-select

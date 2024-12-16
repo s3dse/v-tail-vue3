@@ -111,8 +111,8 @@ const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
 const isLoading = ref(true)
 
-const tab1 = { id: 'a', label: 'First Tab', component: TestOne, props: { message: 'testOne ' } }
-const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo ' } }
+const tab1 = { id: 'a', label: 'First Tab', help: '<p>This is a test!!! And it should work!<p>', component: TestOne, props: { message: 'testOne' } }
+const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo' } }
 const tabs = [tab1, tab2]
 
 const listSelectOptions = [...new Array(99999).keys()].map(k => ({ id: k+1, name: `option ${k+1}` }))

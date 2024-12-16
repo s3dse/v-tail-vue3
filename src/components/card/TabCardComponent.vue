@@ -4,7 +4,12 @@
             <tabs-component @update:current-tab-index="selectTab" :tabs="tabs">
             </tabs-component>
         </div>
-        <component :is="component" v-bind="componentProps"></component>
+
+        <keep-alive v-if="keepAlive">
+            <component :is="component" v-bind="componentProps"></component>
+        </keep-alive>
+        <component v-else :is="component" v-bind="componentProps"></component>
+
     </div>
 </template>
 <script setup>
@@ -18,6 +23,10 @@ const props = defineProps({
     tabs: {
         type: Array,
         default: () => []
+    },
+    keepAlive: {
+        type: Boolean,
+        default: false
     }
 })
 const component = computed(() => props.tabs[tabIndex.value].component)

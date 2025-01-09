@@ -111,6 +111,8 @@ const $inputPlaceholder = computed(() => {
         } else {
             return props.searchOptionsTextFn()
         }
+    } else if (props.multiple && selectedOptions.value.length === 1) {
+        return props.labelFn(selectedOptions.value[0])
     } else if (selectedOptions.value.length === 0) {
         return props.searchOptionsTextFn()
     } else {

@@ -191,11 +191,10 @@ function numSort(a, b, ascending) {
 }
 
 function alnumSort(a, b, ascending) {
-    const direction = ascending ? 1 : -1
-    const comparison = a.localeCompare(b, undefined, {
-        sensitivity: 'base'
-    })
-    return comparison * direction
+  if (a === '' && b !== '') return 1;
+  if (b === '' && a !== '') return -1;
+  const direction = ascending ? 1 : -1;
+  return a.localeCompare(b, undefined, { sensitivity: 'base' }) * direction;
 }
 
 function textMatch(needle, haystack) {
@@ -467,13 +466,20 @@ export default {
                 this.tableData.sort((a, b) => {
                     const aVal = a[col.key]
                     const bVal = b[col.key]
-                    if (Number.isNaN(+aVal) && Number.isNaN(+bVal)) {
-                        return alnumSort(aVal, bVal, this.ascending)
-                    } else if ([aVal, bVal].every(n => !Number.isNaN(+n))) {
-                        return numSort(aVal, bVal, this.ascending)
-                    } else {
-                        return 0
+                    const aNum = +aVal
+                    const bNum = +bVal
+                    const aInvalid = aVal === null || Number.isNaN(aNum)
+                    const bInvalid = bVal === null || Number.isNaN(bNum)
+
+                    if (aInvalid && !bInvalid) return 1
+                    if (!aInvalid && bInvalid) return -1
+
+                    if (aInvalid && bInvalid) {
+                        const aStr = aVal === null ? '' : aVal.toString()
+                        const bStr = bVal === null ? '' : bVal.toString()
+                        return alnumSort(aStr, bStr, this.ascending)
                     }
+                    return numSort(aNum, bNum, this.ascending)
                 })
                 if (this.paginate) {
                     this.changePage(1)

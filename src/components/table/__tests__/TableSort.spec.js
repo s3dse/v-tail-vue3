@@ -24,10 +24,10 @@ describe('TableSort', () => {
     })
     describe('should sort numbers', () => {
         it('ascending & nulls last per default', () => {
-            const tableData = [{ a: 10 }, { a: 12 }, { a: 1 }, { a: 5 }, { a: null }]
+            const tableData = [{ a: 10 }, { a: 12 }, { a: 0 }, { a: 5 }, { a: null }]
             const col = { key: 'a', type: 'numeric' }
             sortTable(tableData, col)
-            expect(tableData).toEqual([{ a: 1 }, { a: 5 }, { a: 10 }, { a: 12 }, { a: null }])
+            expect(tableData).toEqual([{ a: 0 }, { a: 5 }, { a: 10 }, { a: 12 }, { a: null }])
         })
         it('descending & nulls first when nullsFirst is not provided', () => {
             const tableData = [{ a: 10 }, { a: 12 }, { a: 1 }, { a: 5 }, { a: null }]

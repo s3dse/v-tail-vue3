@@ -71,6 +71,7 @@
     "dependencies": {
         "@vueuse/components": "^11.3.0",
         "@vueuse/core": "^11.3.0",
-        "radix-vue": "^1.9.10"
+        "radix-vue": "^1.9.10",
+        "vue3-popper": "^1.5.0"
     }
 }

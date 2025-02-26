@@ -1,8 +1,8 @@
 function numSort(a, b, ascending, nullsFirst) {
-    if (!a) {
+    if (a === null || a === undefined) {
         return nullsFirst ? -1 : 1
     }
-    if (!b) {
+    if (b === null || b === undefined) {
         return nullsFirst ? 1 : -1
     }
     return ascending ? a - b : b - a

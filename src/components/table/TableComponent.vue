@@ -331,7 +331,7 @@ export default {
             type: Number,
             default: 2000
         },
-        nullsFirst: {
+        sortNullsFirst: {
             type: Boolean,
             default: null
         }
@@ -457,7 +457,7 @@ export default {
 
             this.$emit('sort-change', { column: col, ascending: this.ascending })
             if (!this.remotePagination) {
-                sortTable(this.tableData, col, { ascending: this.ascending, nullsFirst: this.nullsFirst })
+                sortTable(this.tableData, col, { ascending: this.ascending, nullsFirst: this.sortNullsFirst })
                 if (this.paginate) {
                     this.changePage(1)
                 }

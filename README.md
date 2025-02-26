@@ -122,6 +122,7 @@ We pass the table data as an array of objects via the `:items` attribute. The sa
  * `tdTopRowClassList`: classes for styling the column's `<td>` content (only applied to `:top-rows` records)
  * `tdBottomRowClassList`: classes for styling the column's `<td>` content (only applied to `:bottom-rows` records)
  * `formatter`: a function defining a formatting logic for the values of that field/column
+ * `type`: Either `numeric` or `alphanumeric`, explicitly influences sort behaviour
 
 Only those attributes present in the field array will be displayed in the resulting table.
 

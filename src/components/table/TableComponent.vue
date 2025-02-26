@@ -185,18 +185,7 @@ import { joinLines } from '@/utils/string-join-lines.js'
 import 'virtual:uno.css'
 import { nanoid } from 'nanoid'
 import { useDebounceFn } from '@vueuse/core'
-
-function numSort(a, b, ascending) {
-    return ascending ? a - b : b - a
-}
-
-function alnumSort(a, b, ascending) {
-    const direction = ascending ? 1 : -1
-    const comparison = a.localeCompare(b, undefined, {
-        sensitivity: 'base'
-    })
-    return comparison * direction
-}
+import { sortTable } from './table-sort'
 
 function textMatch(needle, haystack) {
     const lowerCasedNeedle = needle.toLowerCase()
@@ -341,6 +330,10 @@ export default {
         filterMaxWait: {
             type: Number,
             default: 2000
+        },
+        sortNullsFirst: {
+            type: Boolean,
+            default: null
         }
     },
     data() {
@@ -464,17 +457,7 @@ export default {
 
             this.$emit('sort-change', { column: col, ascending: this.ascending })
             if (!this.remotePagination) {
-                this.tableData.sort((a, b) => {
-                    const aVal = a[col.key]
-                    const bVal = b[col.key]
-                    if (Number.isNaN(+aVal) && Number.isNaN(+bVal)) {
-                        return alnumSort(aVal, bVal, this.ascending)
-                    } else if ([aVal, bVal].every(n => !Number.isNaN(+n))) {
-                        return numSort(aVal, bVal, this.ascending)
-                    } else {
-                        return 0
-                    }
-                })
+                sortTable(this.tableData, col, { ascending: this.ascending, nullsFirst: this.sortNullsFirst })
                 if (this.paginate) {
                     this.changePage(1)
                 }

@@ -18,8 +18,16 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 // const items = await delay(2000).tehn(() => ref([...data]))
-const items = ref([...data])
-const topRows = ref([...data].slice(0, 5))
+const nullRecord = {
+    id: null,
+    first_name: null,
+    last_name: null,
+    email: null,
+    share: null,
+    ip_address: null
+}
+const items = ref([...data, nullRecord])
+const topRows = ref([...data].slice(0, 1))
 const fields = ref([
     {
         key: 'id',
@@ -242,7 +250,7 @@ const listSelection = ref([])
     <div class="un-p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
-    <!-- <card-component class="un-mt-5">
+    <card-component class="un-mt-5">
         <loading-overlay :show="tableStatus.busy">
             <table-component
                 :items="items"
@@ -268,7 +276,7 @@ const listSelection = ref([])
                 </template>
             </table-component>
         </loading-overlay>
-    </card-component> -->
+    </card-component>
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
     <div class="un-pl-8">
         <list-select

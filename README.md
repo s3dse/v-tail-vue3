@@ -122,6 +122,7 @@ We pass the table data as an array of objects via the `:items` attribute. The sa
  * `tdTopRowClassList`: classes for styling the column's `<td>` content (only applied to `:top-rows` records)
  * `tdBottomRowClassList`: classes for styling the column's `<td>` content (only applied to `:bottom-rows` records)
  * `formatter`: a function defining a formatting logic for the values of that field/column
+ * `type`: Either `numeric` or `alphanumeric`, explicitly influences sort behaviour
 
 Only those attributes present in the field array will be displayed in the resulting table.
 
@@ -156,6 +157,7 @@ The above example shows how to use the `#cell()` slot to customize the rendering
 | remotePagination    | Whether the pagination is handeled outside of the component or not. If `true` the prop `totalItems` must be set. |
 | filterDebounce    | Debounce interval in ms for the search (filter) input. Default is `250`. |
 | filterMaxWait    | Max wait time in ms for the search (filter) input. Default is `2000`.|
+| sortNullsFirst    | When `true` will sort `null\|undefined` first, when `false` will sort them last. Default value is `null` and causes a natural sort order, i.e `null\|undefined` will come first when sort direction is descending, `null\|undefined` will come last when sort direction is ascending. |
 
 ### Events
 | Event | Description |

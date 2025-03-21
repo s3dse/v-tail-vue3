@@ -82,6 +82,7 @@ const dropdownToggle = ref(null)
 const onClickOutsideHandler = [
     () => {
         open.value = false
+        searchTerm.value = ''
     },
     { ignore: [dropdownToggle, searchInput, clearSearchButton] }
 ]

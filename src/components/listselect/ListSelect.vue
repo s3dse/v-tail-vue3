@@ -54,11 +54,13 @@ const selectedOptions = defineModel({
             return value ? [value] : []
         }
     },
-    get() {
+    get(value) {
         if (props.multiple) {
-            return props.modelValue
+            return value
+            // return props.modelValue
         } else {
-            return props.modelValue.length ? props.modelValue[0] : null
+            return value[0] || null
+            // return props.modelValue.length ? props.modelValue[0] : null
         }
     }
 })

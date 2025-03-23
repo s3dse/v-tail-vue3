@@ -57,10 +57,8 @@ const selectedOptions = defineModel({
     get(value) {
         if (props.multiple) {
             return value
-            // return props.modelValue
         } else {
             return value[0] || null
-            // return props.modelValue.length ? props.modelValue[0] : null
         }
     }
 })
@@ -90,7 +88,7 @@ const onClickOutsideHandler = [
 
 const isSelected = option => {
     if (props.multiple) {
-        return selectedOptions.value.map(selectedOption => selectedOption.id).includes(option.id)
+        return selectedOptions.value.some(selectedOption => selectedOption.id === option.id)
     } else {
         return selectedOptions.value && selectedOptions.value.id === option.id
     }

@@ -33,6 +33,12 @@ import 'virtual:uno.css'
 import { ListSelect } from '..'
 import { ref } from 'vue'
 
+const vBusy = {
+  mounted: (el, { value }) => {
+    el.setAttribute('title', value)
+  },
+}
+
 function initState(variant) {
     const state = {
         default: {

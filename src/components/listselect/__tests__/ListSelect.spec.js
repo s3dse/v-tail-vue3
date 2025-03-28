@@ -63,74 +63,6 @@ describe('ListSelect', () => {
         wrapper.unmount()
     })
 
-    it('updates modelValue when an option is selected', async () => {
-        const { wrapper, modelValue } = mountListSelect()
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        const option = wrapper.findAll('.listselect__option').at(1)
-        await option.trigger('click')
-        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
-        wrapper.unmount()
-    })
-
-    it('supports multiple selection when multiple is true', async () => {
-        const { wrapper, modelValue } = mountListSelect({ multiple: true })
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        await wrapper.findAll('.listselect__option').at(2).trigger('click')
-
-        expect(modelValue.value).toStrictEqual([
-            { id: '2', label: 'option2' },
-            { id: '3', label: 'option3' }
-        ])
-        wrapper.unmount()
-    })
-
-    it('supports deselect when multiple is true', async () => {
-        const { wrapper, modelValue } = mountListSelect({ multiple: true })
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
-        await wrapper.findAll('.listselect__option').at(2).trigger('click')
-        expect(modelValue.value).toStrictEqual([
-            { id: '2', label: 'option2' },
-            { id: '3', label: 'option3' }
-        ])
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
-        wrapper.unmount()
-    })
-
-    it('handles list length excess', async () => {
-        const { wrapper, modelValue } = mountListSelect({ multiple: true, maxSelectionLength: 2 })
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        await wrapper.findAll('.listselect__option').at(2).trigger('click')
-        await wrapper.findAll('.listselect__option').at(0).trigger('click')
-        
-        expect(modelValue.value).toStrictEqual([
-            { id: '2', label: 'option2' },
-            { id: '3', label: 'option3' }
-        ])
-        wrapper.unmount()
-    })
-    
-    it('can remove an option via taglist remove buttons', async () => {
-        const { wrapper, modelValue } = mountListSelect({ multiple: true, maxSelectionLength: 2 })
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        await wrapper.findAll('.listselect__option').at(2).trigger('click')
-        expect(modelValue.value).toStrictEqual([
-            { id: '2', label: 'option2' },
-            { id: '3', label: 'option3' }
-        ])
-
-        await wrapper.find('.remove-option-0').trigger('click')
-        expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
-
-        console.log(wrapper.html())
-
-    })
-
     it('renders a placeholder when provided', () => {
         const wrapper = mountListSelect({ inputPlaceholder: 'Select an option' }).wrapper
         const input = wrapper.find('input')
@@ -139,24 +71,101 @@ describe('ListSelect', () => {
         wrapper.unmount()
     })
 
-    it('emits an update event when the value changes', async () => {
-        const { wrapper, modelValue } = mountListSelect({ multiple: false })
-        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-        await wrapper.findAll('.listselect__option').at(1).trigger('click')
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        // expect(wrapper.emitted('update:modelValue')[0]).toEqual([[{ id: '2', label: 'option2' }]])
-        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
-
-        await wrapper.findAll('.listselect__option').at(2).trigger('click')
-        expect(wrapper.emitted('update:modelValue').length).toBe(2)
-        // expect(wrapper.emitted('update:modelValue')).toEqual([[{ id: '3', label: 'option3' }]])
-        expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
-        wrapper.unmount()
-    })
-
     it('renders no options when options prop is empty', () => {
         const { wrapper } = mountListSelect({ options: [] })
         const options = wrapper.findAll('option')
         expect(options.length).toBe(0)
+    })
+
+    describe('in single mode', () => {
+        it('updates modelValue when an option is selected', async () => {
+            const { wrapper, modelValue } = mountListSelect()
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            const option = wrapper.findAll('.listselect__option').at(1)
+            await option.trigger('click')
+            expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
+            wrapper.unmount()
+        })
+
+        it('emits an update event when the value changes', async () => {
+            const { wrapper, modelValue } = mountListSelect({ multiple: false })
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+            // expect(wrapper.emitted('update:modelValue')[0]).toEqual([[{ id: '2', label: 'option2' }]])
+            expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
+
+            await wrapper.findAll('.listselect__option').at(2).trigger('click')
+            expect(wrapper.emitted('update:modelValue').length).toBe(2)
+            // expect(wrapper.emitted('update:modelValue')).toEqual([[{ id: '3', label: 'option3' }]])
+            expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
+            wrapper.unmount()
+        })
+    })
+
+    describe('in multiple mode', () => {
+        it('supports multiple selection when multiple is true', async () => {
+            const { wrapper, modelValue } = mountListSelect({ multiple: true })
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            await wrapper.findAll('.listselect__option').at(2).trigger('click')
+
+            expect(modelValue.value).toStrictEqual([
+                { id: '2', label: 'option2' },
+                { id: '3', label: 'option3' }
+            ])
+            wrapper.unmount()
+        })
+
+        it('supports deselect when multiple is true', async () => {
+            const { wrapper, modelValue } = mountListSelect({ multiple: true })
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
+            await wrapper.findAll('.listselect__option').at(2).trigger('click')
+            expect(modelValue.value).toStrictEqual([
+                { id: '2', label: 'option2' },
+                { id: '3', label: 'option3' }
+            ])
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
+            wrapper.unmount()
+        })
+
+        it('handles list length excess', async () => {
+            const { wrapper, modelValue } = mountListSelect({
+                multiple: true,
+                maxSelectionLength: 2
+            })
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            await wrapper.findAll('.listselect__option').at(2).trigger('click')
+            await wrapper.findAll('.listselect__option').at(0).trigger('click')
+
+            expect(modelValue.value).toStrictEqual([
+                { id: '2', label: 'option2' },
+                { id: '3', label: 'option3' }
+            ])
+            wrapper.unmount()
+        })
+
+        it('can remove an option via taglist remove buttons', async () => {
+            const { wrapper, modelValue } = mountListSelect({
+                multiple: true,
+                maxSelectionLength: 2
+            })
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            await wrapper.findAll('.listselect__option').at(1).trigger('click')
+            await wrapper.findAll('.listselect__option').at(2).trigger('click')
+            expect(modelValue.value).toStrictEqual([
+                { id: '2', label: 'option2' },
+                { id: '3', label: 'option3' }
+            ])
+
+            await wrapper.find('.remove-option-0').trigger('click')
+            expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
+
+            console.log(wrapper.html())
+        })
     })
 })

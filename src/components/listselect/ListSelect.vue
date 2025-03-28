@@ -58,7 +58,7 @@ const preserveArray = (value, multiple) => {
     }
 }
 
-const handleListLengthExceeded = (value) => {
+const handleListLengthExceeded = value => {
     listLengthExceeded.value = true
     delay(() => {
         listLengthExceeded.value = false
@@ -81,6 +81,19 @@ const selectedOptions = defineModel({
         }
     }
 })
+
+const removeFromSelection = option => {
+    if (props.multiple) {
+        const index = selectedOptions.value.findIndex(
+            selectedOption => selectedOption[props.trackBy] === option[props.trackBy]
+        )
+        if (index !== -1) {
+            selectedOptions.value.splice(index, 1)
+        }
+    } else {
+        selectedOptions.value = null
+    }
+}
 
 const open = ref(false)
 const toggleOpen = () => {
@@ -109,9 +122,9 @@ const isSelected = option => {
     if (props.multiple) {
         const isSelected =
             selectedOptions.value &&
-            selectedOptions.value.find(
+            selectedOptions.value.some(
                 selectedOption => selectedOption[props.trackBy] === option[props.trackBy]
-            ) !== undefined
+            )
         return isSelected
     } else {
         return selectedOptions.value && selectedOptions.value.id === option.id
@@ -149,7 +162,6 @@ const $inputPlaceholder = computed(() => {
 })
 
 const showFooter = computed(() => props.multiple && open.value && selectedOptions.value?.length)
-// :selection-behavior="props.multiple ? 'toggle' : 'replace'"
 </script>
 
 <template>
@@ -232,7 +244,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                         :selectedOptions="selectedOptions"
                         :labelFn="props.labelFn"
                         :selectionTextFn="props.selectionTextFn"
-                        @remove-option="select"
+                        @remove-option="removeFromSelection"
                     ></ListSelectPreview>
                 </slot>
             </div>

@@ -106,12 +106,29 @@ describe('ListSelect', () => {
         await wrapper.findAll('.listselect__option').at(1).trigger('click')
         await wrapper.findAll('.listselect__option').at(2).trigger('click')
         await wrapper.findAll('.listselect__option').at(0).trigger('click')
-
+        
         expect(modelValue.value).toStrictEqual([
             { id: '2', label: 'option2' },
             { id: '3', label: 'option3' }
         ])
         wrapper.unmount()
+    })
+    
+    it('can remove an option via taglist remove buttons', async () => {
+        const { wrapper, modelValue } = mountListSelect({ multiple: true, maxSelectionLength: 2 })
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        await wrapper.findAll('.listselect__option').at(1).trigger('click')
+        await wrapper.findAll('.listselect__option').at(2).trigger('click')
+        expect(modelValue.value).toStrictEqual([
+            { id: '2', label: 'option2' },
+            { id: '3', label: 'option3' }
+        ])
+
+        await wrapper.find('.remove-option-0').trigger('click')
+        expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
+
+        console.log(wrapper.html())
+
     })
 
     it('renders a placeholder when provided', () => {

@@ -168,7 +168,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
     <ListboxRoot
         class="un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
-        selection-behavior="toggle"
+        :selection-behavior="multiple ? 'toggle' : 'replace'"
         :multiple="props.multiple"
         as="div"
         :by="props.trackBy"

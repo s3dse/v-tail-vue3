@@ -82,14 +82,9 @@ const selectedOptions = defineModel({
     }
 })
 
-const removeFromSelection = option => {
+const removeFromSelection = index => {
     if (props.multiple) {
-        const index = selectedOptions.value.findIndex(
-            selectedOption => selectedOption[props.trackBy] === option[props.trackBy]
-        )
-        if (index !== -1) {
-            selectedOptions.value.splice(index, 1)
-        }
+        selectedOptions.value.splice(index, 1)
     } else {
         selectedOptions.value = null
     }
@@ -162,13 +157,13 @@ const $inputPlaceholder = computed(() => {
 })
 
 const showFooter = computed(() => props.multiple && open.value && selectedOptions.value?.length)
+// :selection-behavior="multiple ? 'toggle' : 'replace'"
 </script>
 
 <template>
     <ListboxRoot
         class="un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
-        :selection-behavior="multiple ? 'toggle' : 'replace'"
         :multiple="props.multiple"
         as="div"
         :by="props.trackBy"

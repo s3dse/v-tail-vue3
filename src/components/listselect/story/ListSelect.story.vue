@@ -10,7 +10,23 @@
                         :multiple="state.multiple"
                         :label-fn="state.labelFn"
                         :truncate-items="state.truncateItems"
-                        v-model="selection"
+                        v-model="selectionMulti"
+                        @update:modelValue="e => console.log(e)"
+                    ></ListSelect>
+                </div>
+            </template>
+        </Variant>
+        <Variant title="default" :init-state="initState('default')" :meta="{ wrapper: true }">
+            <template #default="{ state }">
+                <div class="un-h-600px un-w-600px">
+                    <ListSelect
+                        class="un-w-fit"
+                        :options="state.options"
+                        :dropdownClasses="state.dropdownClasses"
+                        :multiple="false"
+                        :label-fn="state.labelFn"
+                        :truncate-items="state.truncateItems"
+                        v-model="selectionSingle"
                         @update:modelValue="e => console.log(e)"
                     ></ListSelect>
                 </div>
@@ -52,5 +68,6 @@ function initState(variant) {
     return () => state[variant]
 }
 
-const selection = ref([])
+const selectionMulti = ref([])
+const selectionSingle = ref([])
 </script>

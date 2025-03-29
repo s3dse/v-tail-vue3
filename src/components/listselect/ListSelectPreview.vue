@@ -15,7 +15,7 @@
                 <span
                     class="un-block i-tabler-x un-text-gray-500 hover:un-text-gray-900 dark:hover:un-text-gray-100"
                     :class="`remove-option-${index}`"
-                    @click="emit('removeOption', option)"
+                    @click="emit('removeOption', index)"
                 ></span>
             </span>
         </li>

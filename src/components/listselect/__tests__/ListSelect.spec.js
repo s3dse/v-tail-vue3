@@ -63,6 +63,29 @@ describe('ListSelect', () => {
         wrapper.unmount()
     })
 
+    it('filters options based on search input', async () => {
+        const { wrapper } = mountListSelect()
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        const input = wrapper.find('input')
+        
+        await input.setValue('option2')
+        const options = wrapper.findAll('.listselect__option')
+        expect(options.length).toBe(1)
+        expect(options.at(0).text()).toBe('option2')
+        wrapper.unmount()
+    })
+
+    it('closes dropdown when clicking outside', async () => {
+        const { wrapper } = mountListSelect()
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        expect(wrapper.find('.listselect__option').exists()).toBe(true)
+    
+        await document.body.click()
+        expect(wrapper.find('.listselect__option').exists()).toBe(false)
+        wrapper.unmount()
+    })
+
+
     it('renders a placeholder when provided', () => {
         const wrapper = mountListSelect({ inputPlaceholder: 'Select an option' }).wrapper
         const input = wrapper.find('input')

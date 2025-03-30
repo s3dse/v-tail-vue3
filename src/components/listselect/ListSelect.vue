@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, toRef, ref, watch, defineModel } from 'vue'
+import { computed, toValue, ref, watch, defineModel } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -48,7 +48,7 @@ const listLengthExceeded = ref(false)
 
 const preserveArray = (value, multiple) => {
     if (!Array.isArray(value)) {
-        return [value]
+        return value ? [value] : []
     } else {
         if (multiple) {
             return value
@@ -60,10 +60,10 @@ const preserveArray = (value, multiple) => {
 
 const handleListLengthExceeded = value => {
     listLengthExceeded.value = true
-    delay(() => {
+    delay(props.selectionExceededInfoDuration).then(() => {
         listLengthExceeded.value = false
-    }, props.selectionExceededInfoDuration)
-    return value.splice(0, props.maxSelectionLength)
+    })
+    return [...value].splice(0, props.maxSelectionLength)
 }
 
 const selectedOptions = defineModel({
@@ -84,7 +84,7 @@ const selectedOptions = defineModel({
 
 const removeFromSelection = index => {
     if (props.multiple) {
-        selectedOptions.value.splice(index, 1)
+        selectedOptions.value = selectedOptions.value.filter((_, idx) => idx !== index)
     } else {
         selectedOptions.value = null
     }
@@ -134,30 +134,36 @@ const filteredOptions = computed(() =>
           })
 )
 
-const $inputPlaceholder = computed(() => {
-    if (props.inputPlaceholder) {
-        return props.inputPlaceholder
-    } else if (!props.multiple) {
-        if (selectedOptions.value) {
-            return props.labelFn(selectedOptions.value)
-        } else {
-            return props.searchOptionsTextFn()
-        }
-    } else if (props.multiple && selectedOptions.value?.length === 1) {
+const getSingleSelectPlaceholder = () => {
+    if (selectedOptions.value) {
+        return props.labelFn(selectedOptions.value)
+    } else {
+        return props.searchOptionsTextFn()
+    }
+}
+const getMultipleSelectPlaceholder = () => {
+    if (selectedOptions.value?.length === 1) {
         return props.labelFn(selectedOptions.value[0])
     } else if (selectedOptions.value?.length === 0) {
         return props.searchOptionsTextFn()
     } else {
-        if (selectedOptions.value) {
-            return `${selectedOptions.value.length} ${props.itemNameTextFn(
-                selectedOptions.value.length
-            )}`
-        }
+        return `${selectedOptions.value.length} ${props.itemNameTextFn(
+            selectedOptions.value.length
+        )}`
+    }
+}
+
+const $inputPlaceholder = computed(() => {
+    if (props.inputPlaceholder) {
+        return props.inputPlaceholder
+    } else if (!props.multiple) {
+        return getSingleSelectPlaceholder()
+    } else {
+        return getMultipleSelectPlaceholder()
     }
 })
 
 const showFooter = computed(() => props.multiple && open.value && selectedOptions.value?.length)
-// :selection-behavior="multiple ? 'toggle' : 'replace'"
 </script>
 
 <template>

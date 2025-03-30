@@ -102,6 +102,12 @@ watch(searchTerm, newVal => {
     }
 })
 
+watch(open, newVal => {
+    if (!newVal) {
+        searchTerm.value = ''
+    }
+})
+
 const searchInput = ref(null)
 const clearSearchButton = ref(null)
 const dropdownToggle = ref(null)

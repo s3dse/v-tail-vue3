@@ -100,6 +100,75 @@ describe('ListSelect', () => {
         expect(options.length).toBe(0)
     })
 
+    it('allows selection using keyboard navigation', async () => {
+        const { wrapper, modelValue } = mountListSelect()
+        
+        const input = wrapper.find('input')
+        await input.trigger('focus') 
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        
+        await input.trigger('keydown', { key: 'ArrowDown' })
+        await input.trigger('keydown', { key: 'ArrowDown' })
+        await input.trigger('keydown', { key: 'Enter' })
+    
+        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
+        wrapper.unmount()
+    })
+
+    it('allows deselection using keyboard navigation', async () => {
+        const { wrapper, modelValue } = mountListSelect()
+        
+        const input = wrapper.find('input')
+        await input.trigger('focus')
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        
+        await input.trigger('keydown', { key: 'ArrowDown' })
+        await input.trigger('keydown', { key: 'ArrowDown' })
+        await input.trigger('keydown', { key: 'Enter' })
+        
+        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
+        await input.trigger('keydown', { key: 'Enter' })
+        expect(modelValue.value).toStrictEqual([])
+        wrapper.unmount()
+    })
+
+    describe('clears the input when options list is closed', () => {
+        it('via click outside', async () => {
+            const { wrapper } = mountListSelect()
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            const input = wrapper.find('input')
+            await input.setValue('option2')
+            expect(input.element.value).toBe('option2')
+
+            await document.body.click()
+            expect(input.element.value).toBe('')
+            wrapper.unmount()
+        }
+        )
+        it('via escape key', async () => {
+            const { wrapper } = mountListSelect()
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            const input = wrapper.find('input')
+            await input.setValue('option2')
+            expect(input.element.value).toBe('option2')
+
+            await input.trigger('keydown', { key: 'Escape' })
+            expect(input.element.value).toBe('')
+            wrapper.unmount()
+        })
+        it('via button click', async () => {
+            const { wrapper } = mountListSelect()
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            const input = wrapper.find('input')
+            await input.setValue('option2')
+            expect(input.element.value).toBe('option2')
+
+            await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+            expect(input.element.value).toBe('')
+            wrapper.unmount()
+        })
+    })
+
     describe('in single mode', () => {
         it('updates modelValue when an option is selected', async () => {
             const { wrapper, modelValue } = mountListSelect()

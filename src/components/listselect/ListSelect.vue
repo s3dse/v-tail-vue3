@@ -97,7 +97,7 @@ const toggleOpen = () => {
 
 const searchTerm = ref('')
 watch(searchTerm, newVal => {
-    if (newVal.length > 0) {
+    if (newVal.length > 0 && !open.value) {
         open.value = true
     }
 })
@@ -106,25 +106,11 @@ const searchInput = ref(null)
 const clearSearchButton = ref(null)
 const dropdownToggle = ref(null)
 
-const onClickOutsideHandler = [
-    () => {
-        open.value = false
-    },
-    { ignore: [dropdownToggle, searchInput, clearSearchButton] }
-]
-
-const isSelected = option => {
-    if (props.multiple) {
-        const isSelected =
-            selectedOptions.value &&
-            selectedOptions.value.some(
-                selectedOption => selectedOption[props.trackBy] === option[props.trackBy]
-            )
-        return isSelected
-    } else {
-        return selectedOptions.value && selectedOptions.value.id === option.id
-    }
+const close = () => {
+    open.value = false
 }
+
+const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
 
 const filteredOptions = computed(() =>
     searchTerm.value === ''
@@ -175,7 +161,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
     >
-        <ListboxFilter v-model="searchTerm" @keydown.esc="open = false" asChild>
+        <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
             <ListSelectInput
                 :inputClasses="props.inputClasses"
                 :optionsLoading="props.optionsLoading"
@@ -213,11 +199,11 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             <ListboxItem
                                 :value="option"
                                 class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
+                                asChild
                             >
                                 <slot name="option" :option="option">
                                     <ListSelectItem
                                         :option="option"
-                                        :isSelected="isSelected"
                                         :labelFn="props.labelFn"
                                         :truncateItems="props.truncateItems"
                                     />

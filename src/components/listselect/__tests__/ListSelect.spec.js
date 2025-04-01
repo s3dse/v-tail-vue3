@@ -18,6 +18,7 @@ const initMocksForVirtualList = () => {
         y: 0,
         toJSON: () => {}
     }))
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
 }
 
 describe('ListSelect', () => {

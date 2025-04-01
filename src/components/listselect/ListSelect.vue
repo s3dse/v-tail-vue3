@@ -166,6 +166,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         as="div"
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
+        @keydown.enter.prevent="() => {}"
     >
         <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
             <ListSelectInput

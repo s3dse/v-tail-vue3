@@ -6,6 +6,10 @@ import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 const Theme = presetUno().theme
 
+const MATCHERS = Object.freeze({
+    SELECTED_AND_HIGHLIGHTED: 'selected-and-highlighted:'
+})
+
 const presetVTail = definePreset(options => {
     const givenColors = options?.colors || {}
     const mergedColors = { ...colors, ...givenColors }
@@ -47,7 +51,23 @@ const presetVTail = definePreset(options => {
                 }
             }),
             presetTheme({ theme })
-        ]
+        ],
+        variants: [
+            matcher => {
+                if (!matcher.startsWith(MATCHERS.SELECTED_AND_HIGHLIGHTED)) {
+                    return matcher
+                }
+                return {
+                    matcher: matcher.slice(MATCHERS.SELECTED_AND_HIGHLIGHTED.length),
+                    selector: s => `${s}[data-state="checked"][data-highlighted]`
+                }
+            }
+        ],
+        autocomplete: {
+            templates: [
+                MATCHERS.SELECTED_AND_HIGHLIGHTED
+            ]
+        }
     }
 })
 

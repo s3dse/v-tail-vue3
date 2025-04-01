@@ -14,7 +14,8 @@
             <span class="hover:un-bg-gray-400 dark:hover:un-bg-moon-600 un-rounded">
                 <span
                     class="un-block i-tabler-x un-text-gray-500 hover:un-text-gray-900 dark:hover:un-text-gray-100"
-                    @click="emit('removeOption', option)"
+                    :class="`remove-option-${index}`"
+                    @click="emit('removeOption', index)"
                 ></span>
             </span>
         </li>

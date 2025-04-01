@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, toRef,ref, watch } from 'vue'
+import { computed, toValue, ref, watch, defineModel } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -44,24 +44,51 @@ const props = defineProps({
     truncateItems: { type: Boolean, default: false }
 })
 
-const selectedOptions = defineModel({
-    type: Array,
-    default: () => [],
-    set(value) {
-        if (props.multiple) {
+const listLengthExceeded = ref(false)
+
+const preserveArray = (value, multiple) => {
+    if (!Array.isArray(value)) {
+        return value ? [value] : []
+    } else {
+        if (multiple) {
             return value
         } else {
-            return value ? [value] : []
+            return value[value.length - 1]
         }
+    }
+}
+
+const handleListLengthExceeded = value => {
+    listLengthExceeded.value = true
+    delay(props.selectionExceededInfoDuration).then(() => {
+        listLengthExceeded.value = false
+    })
+    return [...value].splice(0, props.maxSelectionLength)
+}
+
+const selectedOptions = defineModel({
+    type: [Object, Array],
+    get(value) {
+        const val = toValue(value)
+        return preserveArray(val, props.multiple)
     },
-    get() {
-        if (props.multiple) {
-            return props.modelValue
+    set(newValue) {
+        const value = preserveArray(newValue, props.multiple)
+        if (props.multiple && value.length > props.maxSelectionLength) {
+            return handleListLengthExceeded(value)
         } else {
-            return props.modelValue.length ? props.modelValue[0] : null
+            return value
         }
     }
 })
+
+const removeFromSelection = index => {
+    if (props.multiple) {
+        selectedOptions.value = selectedOptions.value.filter((_, idx) => idx !== index)
+    } else {
+        selectedOptions.value = null
+    }
+}
 
 const open = ref(false)
 const toggleOpen = () => {
@@ -70,8 +97,14 @@ const toggleOpen = () => {
 
 const searchTerm = ref('')
 watch(searchTerm, newVal => {
-    if (newVal.length > 0) {
+    if (newVal.length > 0 && !open.value) {
         open.value = true
+    }
+})
+
+watch(open, newVal => {
+    if (!newVal) {
+        searchTerm.value = ''
     }
 })
 
@@ -79,20 +112,11 @@ const searchInput = ref(null)
 const clearSearchButton = ref(null)
 const dropdownToggle = ref(null)
 
-const onClickOutsideHandler = [
-    () => {
-        open.value = false
-    },
-    { ignore: [dropdownToggle, searchInput, clearSearchButton] }
-]
-
-const isSelected = option => {
-    if (props.multiple) {
-        return selectedOptions.value.map(selectedOption => selectedOption.id).includes(option.id)
-    } else {
-        return selectedOptions.value && selectedOptions.value.id === option.id
-    }
+const close = () => {
+    open.value = false
 }
+
+const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
 
 const filteredOptions = computed(() =>
     searchTerm.value === ''
@@ -102,92 +126,49 @@ const filteredOptions = computed(() =>
           })
 )
 
-const $inputPlaceholder = computed(() => {
-    if (props.inputPlaceholder) {
-        return props.inputPlaceholder
-    } else if (!props.multiple) {
-        if (selectedOptions.value) {
-            return props.labelFn(selectedOptions.value)
-        } else {
-            return props.searchOptionsTextFn()
-        }
-    } else if (props.multiple && selectedOptions.value.length === 1) {
+const getSingleSelectPlaceholder = () => {
+    if (selectedOptions.value) {
+        return props.labelFn(selectedOptions.value)
+    } else {
+        return props.searchOptionsTextFn()
+    }
+}
+const getMultipleSelectPlaceholder = () => {
+    if (selectedOptions.value?.length === 1) {
         return props.labelFn(selectedOptions.value[0])
-    } else if (selectedOptions.value.length === 0) {
+    } else if (selectedOptions.value?.length === 0) {
         return props.searchOptionsTextFn()
     } else {
         return `${selectedOptions.value.length} ${props.itemNameTextFn(
             selectedOptions.value.length
         )}`
     }
+}
+
+const $inputPlaceholder = computed(() => {
+    if (props.inputPlaceholder) {
+        return props.inputPlaceholder
+    } else if (!props.multiple) {
+        return getSingleSelectPlaceholder()
+    } else {
+        return getMultipleSelectPlaceholder()
+    }
 })
 
-const listLengthExceeded = ref(false)
-const select = option => {
-    if (props.multiple) {
-        selectMultiple(option)
-    } else {
-        selectSingle(option)
-    }
-    // if (props.multiple) {
-    //     if (isSelected(option)) {
-    //         selectedOptions.value = selectedOptions.value.filter(
-    //             selectedOption => selectedOption.id !== option.id
-    //         )
-    //     } else if (selectedOptions.value.length < props.maxSelectionLength) {
-    //         selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-    //     } else {
-    //         selectedOptions.value = selectedOptions.value.slice()
-    //         listLengthExceeded.value = true
-    //         delay(props.selectionExceededInfoDuration).then(() => {
-    //             listLengthExceeded.value = false
-    //         })
-    //     }
-    // } else {
-    //     if (isSelected(option)) {
-    //         selectedOptions.value = []
-    //     } else {
-    //         selectedOptions.value = [option]
-    //         open.value = false
-    //     }
-    // }
-}
-
-const selectSingle = option => {
-    selectedOptions.value = [option]
-    open.value = false
-}
-
-const selectMultiple = option => {
-    if (isSelected(option)) {
-            selectedOptions.value = selectedOptions.value.filter(
-                selectedOption => selectedOption.id !== option.id
-            )
-        } else if (selectedOptions.value.length < props.maxSelectionLength) {
-            selectedOptions.value = [...selectedOptions.value, toRef(option)].map(toValue)
-        } else {
-            selectedOptions.value = selectedOptions.value.slice()
-            listLengthExceeded.value = true
-            delay(props.selectionExceededInfoDuration).then(() => {
-                listLengthExceeded.value = false
-            })
-        }
-}
-
-const showFooter = computed(() => props.multiple && open.value && selectedOptions.value.length)
+const showFooter = computed(() => props.multiple && open.value && selectedOptions.value?.length)
 </script>
 
 <template>
     <ListboxRoot
         class="un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
-        selection-behavior="toggle"
         :multiple="props.multiple"
         as="div"
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
+        @keydown.enter.prevent="() => {}"
     >
-        <ListboxFilter v-model="searchTerm" @keydown.esc="open = false" asChild>
+        <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
             <ListSelectInput
                 :inputClasses="props.inputClasses"
                 :optionsLoading="props.optionsLoading"
@@ -195,10 +176,12 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 :toggleOpen="toggleOpen"
             />
         </ListboxFilter>
-        <div v-if="open" 
-            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded" 
+        <div
+            v-if="open"
+            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded"
             :class="props.dropdownClasses"
-            :style="{'z-index': props.dropDownZIndex, 'width': props.dropDownWidth }">
+            :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
+        >
             <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
@@ -223,12 +206,11 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             <ListboxItem
                                 :value="option"
                                 class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
-                                @click.prevent="select(option)"
+                                asChild
                             >
                                 <slot name="option" :option="option">
                                     <ListSelectItem
                                         :option="option"
-                                        :isSelected="isSelected"
                                         :labelFn="props.labelFn"
                                         :truncateItems="props.truncateItems"
                                     />
@@ -256,7 +238,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                         :selectedOptions="selectedOptions"
                         :labelFn="props.labelFn"
                         :selectionTextFn="props.selectionTextFn"
-                        @remove-option="select"
+                        @remove-option="removeFromSelection"
                     ></ListSelectPreview>
                 </slot>
             </div>

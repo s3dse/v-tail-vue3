@@ -127,8 +127,8 @@ const filteredOptions = computed(() =>
 )
 
 const getSingleSelectPlaceholder = () => {
-    if (selectedOptions.value) {
-        return props.labelFn(selectedOptions.value)
+    if (selectedOptions.value && selectedOptions.value.length === 1) {
+        return props.labelFn(selectedOptions.value[0])
     } else {
         return props.searchOptionsTextFn()
     }

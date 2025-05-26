@@ -53,7 +53,7 @@ const preserveArray = (value, multiple) => {
         if (multiple) {
             return value
         } else {
-            return value[value.length - 1]
+            return value.slice(-1)
         }
     }
 }

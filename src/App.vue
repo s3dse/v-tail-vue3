@@ -283,7 +283,7 @@ const listSelection = ref([])
             class="un-w-fit"
             :options="listSelectOptions"
             :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
-            :multiple="true"
+            :multiple="false"
             :label-fn="e => e.name"
             v-model="listSelection"
             @update:modelValue="e => console.log(e)"

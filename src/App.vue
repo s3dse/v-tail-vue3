@@ -13,6 +13,7 @@ import TestOne from './components/card/TestOne.vue'
 import TestTwo from './components/card/TestTwo.vue'
 import ListSelect from './components/listselect/ListSelect.vue'
 import { joinLines } from './utils/string-join-lines'
+import SampleListSelect from './components/sample/SampleListSelect.vue'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -291,4 +292,6 @@ const listSelection = ref([])
         ></list-select>
     </div>
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
+
+    <SampleListSelect></SampleListSelect>
 </template>

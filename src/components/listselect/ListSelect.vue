@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch, defineModel } from 'vue'
+import { computed, toValue, ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -11,7 +11,7 @@ import {
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport
-} from 'radix-vue'
+} from 'reka-ui'
 import { vOnClickOutside } from '@vueuse/components'
 import ListSelectItem from './ListSelectItem.vue'
 import ListSelectPreview from './ListSelectPreview.vue'
@@ -182,20 +182,20 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
             :class="props.dropdownClasses"
             :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
         >
-            <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
+            <!-- <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
                         :listLengthExceeded="listLengthExceeded"
                         :maxSelectionLength="props.maxSelectionLength"
                         :maxSelectionLengthTextFn="props.maxSelectionLengthTextFn"
                     />
-                </slot>
-                <ScrollAreaViewport
+                </slot> -->
+                <!-- <ScrollAreaViewport
                     class="un-w-full un-border-t un-border-l un-border-r un-border-gray-200 dark:un-border-moon-700 un-rounded-t un-h-full"
                     :class="{ 'un-border-b un-rounded-b': !showFooter }"
                     asChild
-                >
-                    <ListboxContent asChild>
+                > -->
+                    <ListboxContent class="un-h-50 un-overflow-y-auto">
                         <ListboxVirtualizer
                             v-slot="{ option }"
                             :options="filteredOptions"
@@ -218,8 +218,8 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             </ListboxItem>
                         </ListboxVirtualizer>
                     </ListboxContent>
-                </ScrollAreaViewport>
-                <ScrollAreaScrollbar
+                <!-- </ScrollAreaViewport> -->
+                <!-- <ScrollAreaScrollbar
                     class="un-flex un-select-none un-touch-none un-p-0.5 un-bg-inherit hover:un-bg-inherit data-[orientation=vertical]:un-w-3 data-[orientation=horizontal]:un-flex-col data-[orientation=horizontal]:un-h-3"
                     orientation="vertical"
                 >
@@ -228,7 +228,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     />
                 </ScrollAreaScrollbar>
                 <ScrollAreaCorner />
-            </ScrollAreaRoot>
+            </ScrollAreaRoot> -->
             <div
                 class="un-border un-border-gray-200 un-rounded-b dark:un-border-moon-700 un-min-h-25 un-max-h-fit un-p-2"
                 v-if="showFooter"

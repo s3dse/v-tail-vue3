@@ -2,11 +2,9 @@
 import {
     SelectContent,
     SelectGroup,
-    SelectArrow,
     SelectItem,
     SelectItemIndicator,
     SelectItemText,
-    SelectLabel,
     SelectPortal,
     SelectRoot,
     SelectScrollDownButton,
@@ -14,7 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
     SelectViewport
-} from 'radix-vue'
+} from 'reka-ui'
 import { toRefs, ref, computed } from 'vue'
 import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
 

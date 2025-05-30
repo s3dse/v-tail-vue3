@@ -178,12 +178,11 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref, useId } from 'vue'
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue'
 import DropdownComponent from '@/components/dropdown/DropdownComponent.vue'
 import { joinLines } from '@/utils/string-join-lines.js'
 import 'virtual:uno.css'
-import { nanoid } from 'nanoid'
 import { useDebounceFn } from '@vueuse/core'
 import { sortTable } from './table-sort'
 
@@ -206,7 +205,7 @@ export default {
         DropdownComponent
     },
     setup(props, context) {
-        const id = nanoid()
+        const id = useId()
         const searchTerm = ref(null)
         const emitFilterDebounced = useDebounceFn(
             () => {

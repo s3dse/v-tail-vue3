@@ -174,7 +174,7 @@ describe('ListSelect', () => {
 
     describe('in single mode', () => {
         it('updates modelValue when an option is selected', async () => {
-            const { wrapper, modelValue } = mountListSelect()
+            const { wrapper, modelValue } = mountListSelect({ multiple: false })
             await wrapper.find('.listselect--dropdown-toggle').trigger('click')
             const option = wrapper.findAll('.listselect__option').at(1)
             await option.trigger('click')

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch } from 'vue'
+import { computed, toValue, ref, watch, useTemplateRef, nextTick } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -102,9 +102,13 @@ watch(searchTerm, newVal => {
     }
 })
 
+
+const listboxRootRef = useTemplateRef('listboxRootRef')
 watch(open, newVal => {
     if (!newVal) {
         searchTerm.value = ''
+    } else {
+        listboxRootRef.value?.highlightSelected()
     }
 })
 
@@ -167,6 +171,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
         @keydown.enter.prevent="() => {}"
+        ref="listboxRootRef"
     >
         <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
             <ListSelectInput

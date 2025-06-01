@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch, defineModel } from 'vue'
+import { computed, toValue, ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -11,7 +11,7 @@ import {
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport
-} from 'radix-vue'
+} from 'reka-ui'
 import { vOnClickOutside } from '@vueuse/components'
 import ListSelectItem from './ListSelectItem.vue'
 import ListSelectPreview from './ListSelectPreview.vue'
@@ -174,6 +174,8 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 :optionsLoading="props.optionsLoading"
                 :inputPlaceholder="$inputPlaceholder"
                 :toggleOpen="toggleOpen"
+                @keydown.arrow-down="open = true"
+                @keydown.arrow-up="open = true"
             />
         </ListboxFilter>
         <div

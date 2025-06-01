@@ -134,7 +134,8 @@ const listSelectOptionsFiltered = computed(() =>
         : listSelectOptions
 )
 
-const listSelection = ref([])
+const listSelectionMultiple = ref([])
+const listSelectionSingle = ref([])
 </script>
 
 <template>
@@ -277,7 +278,20 @@ const listSelection = ref([])
             </table-component>
         </loading-overlay>
     </card-component>
-    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text above.</div>
+    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Multiple.</div>
+    <div class="un-pl-8">
+        <list-select
+            class="un-w-fit"
+            :options="listSelectOptions"
+            :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
+            :multiple="true"
+            :label-fn="e => e.name"
+            v-model="listSelectionMultiple"
+            @update:modelValue="e => console.log(e)"
+            :truncate-items="true"
+        ></list-select>
+    </div>
+    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Single.</div>
     <div class="un-pl-8">
         <list-select
             class="un-w-fit"
@@ -285,7 +299,7 @@ const listSelection = ref([])
             :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
             :multiple="false"
             :label-fn="e => e.name"
-            v-model="listSelection"
+            v-model="listSelectionSingle"
             @update:modelValue="e => console.log(e)"
             :truncate-items="true"
         ></list-select>

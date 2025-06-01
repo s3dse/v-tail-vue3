@@ -13,7 +13,6 @@ import TestOne from './components/card/TestOne.vue'
 import TestTwo from './components/card/TestTwo.vue'
 import ListSelect from './components/listselect/ListSelect.vue'
 import { joinLines } from './utils/string-join-lines'
-import SampleListSelect from './components/sample/SampleListSelect.vue'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -284,7 +283,7 @@ const listSelection = ref([])
             class="un-w-fit"
             :options="listSelectOptions"
             :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
-            :multiple="false"
+            :multiple="true"
             :label-fn="e => e.name"
             v-model="listSelection"
             @update:modelValue="e => console.log(e)"
@@ -293,5 +292,4 @@ const listSelection = ref([])
     </div>
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 
-    <SampleListSelect></SampleListSelect>
 </template>

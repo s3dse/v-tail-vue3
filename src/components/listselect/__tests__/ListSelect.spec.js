@@ -1,36 +1,36 @@
-import { describe, it, expect } from 'vitest'
-
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { vi } from 'vitest'
 import { ref } from 'vue'
 import ListSelect from '@/components/listselect/ListSelect.vue'
 import { busy } from '@/directives/busy/busy'
 
-// const initMocksForVirtualList = () => {
-//     const options = {
-//         width: 100,
-//         height: 50,
-//         top: 0,
-//         left: 0,
-//         bottom: 50,
-//         right: 100,
-//         x: 0,
-//         y: 0
-//     }
-//     window.HTMLElement.prototype.getBoundingClientRect = vi.fn(() => ({
-//         ...options,
-//         toJSON: () => JSON.stringify(options)
-//     }))
-//     window.HTMLElement.prototype.scrollIntoView = vi.fn()
-// }
+function initMocksForVirtualizer() {
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        value: 800
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        value: 800
+    })
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
+}
+
+const createAndAppendDiv = id => {
+    const div = document.createElement('div')
+    div.id = id
+    if (document.body) {
+        document.body.appendChild(div)
+    }
+    return div
+}
 
 describe('ListSelect', () => {
-    window.HTMLElement.prototype.releasePointerCapture = vi.fn()
-    window.HTMLElement.prototype.hasPointerCapture = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = vi.fn()
-    // initMocksForVirtualList()
+    beforeEach(() => {
+        initMocksForVirtualizer()
+    })
 
-    const mountListSelect = props => {
+    const mountListSelect = (props, attachToBody = true) => {
+        if (document.body) document.body.innerHTML = ''
+        const app = createAndAppendDiv('app')
         const modelValue = ref([])
         const wrapper = mount(ListSelect, {
             global: {
@@ -44,16 +44,16 @@ describe('ListSelect', () => {
                     { id: '2', label: 'option2' },
                     { id: '3', label: 'option3' }
                 ],
-                multiple: false,
+                multiple: true,
                 modelValue,
                 'onUpdate:modelValue': e => {
                     modelValue.value = e
                 },
                 ...props
             },
-            attachTo: document.body
+            ...(attachToBody ? { attachTo: app } : {})
         })
-        return { wrapper, modelValue }
+        return { wrapper, modelValue, appDiv: app }
     }
 
     it('renders properly', () => {
@@ -66,7 +66,6 @@ describe('ListSelect', () => {
         const { wrapper } = mountListSelect()
         const toggle = wrapper.find('.listselect--dropdown-toggle')
         await toggle.trigger('click')
-        console.log(wrapper.html())
         const options = wrapper.findAll('.listselect__option')
         expect(options.length).toBe(3)
         wrapper.unmount()
@@ -85,7 +84,7 @@ describe('ListSelect', () => {
     })
 
     it('closes dropdown when clicking outside', async () => {
-        const { wrapper } = mountListSelect()
+        const { wrapper } = mountListSelect({}, false)
         await wrapper.find('.listselect--dropdown-toggle').trigger('click')
         expect(wrapper.find('.listselect__option').exists()).toBe(true)
 
@@ -112,13 +111,11 @@ describe('ListSelect', () => {
         const { wrapper, modelValue } = mountListSelect()
 
         const input = wrapper.find('input')
-        await input.trigger('focus')
         await wrapper.find('.listselect--dropdown-toggle').trigger('click')
-
+        const content = wrapper.find('[role=listbox]')
+        await content.trigger('focus')
         await input.trigger('keydown', { key: 'ArrowDown' })
-        await input.trigger('keydown', { key: 'ArrowDown' })
-        await input.trigger('keydown', { key: 'Enter' })
-
+        await content.trigger('keydown', { key: 'Enter' })
         expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
         wrapper.unmount()
     })
@@ -127,22 +124,23 @@ describe('ListSelect', () => {
         const { wrapper, modelValue } = mountListSelect()
 
         const input = wrapper.find('input')
-        await input.trigger('focus')
         await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        const content = wrapper.find('[role=listbox]')
+        await content.trigger('focus')
 
         await input.trigger('keydown', { key: 'ArrowDown' })
         await input.trigger('keydown', { key: 'ArrowDown' })
-        await input.trigger('keydown', { key: 'Enter' })
+        await content.trigger('keydown', { key: 'Enter' })
 
-        expect(modelValue.value).toStrictEqual([{ id: '2', label: 'option2' }])
-        await input.trigger('keydown', { key: 'Enter' })
+        expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
+        await content.trigger('keydown', { key: 'Enter' })
         expect(modelValue.value).toStrictEqual([])
         wrapper.unmount()
     })
 
     describe('clears the input when options list is closed', () => {
         it('via click outside', async () => {
-            const { wrapper } = mountListSelect()
+            const { wrapper } = mountListSelect({}, false)
             await wrapper.find('.listselect--dropdown-toggle').trigger('click')
             const input = wrapper.find('input')
             await input.setValue('option2')
@@ -267,8 +265,6 @@ describe('ListSelect', () => {
 
             await wrapper.find('.remove-option-0').trigger('click')
             expect(modelValue.value).toStrictEqual([{ id: '3', label: 'option3' }])
-
-            console.log(wrapper.html())
         })
     })
 })

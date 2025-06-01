@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch } from 'vue'
+import { computed, toValue, ref, watch, useTemplateRef } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -13,6 +13,7 @@ import {
     ScrollAreaViewport
 } from 'reka-ui'
 import { vOnClickOutside } from '@vueuse/components'
+import { onClickOutside } from '@vueuse/core'
 import ListSelectItem from './ListSelectItem.vue'
 import ListSelectPreview from './ListSelectPreview.vue'
 import ListSelectExcessIndicator from './ListSelectExcessIndicator.vue'
@@ -116,7 +117,16 @@ const close = () => {
     open.value = false
 }
 
-const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
+const listboxRootRef = useTemplateRef('listboxRootRef')
+
+onClickOutside(listboxRootRef, close, {
+    ignore: [searchInput, clearSearchButton, dropdownToggle],
+    // eventFilter: e => {
+    //     // Prevent closing when clicking inside the dropdown
+    //     return !e.target.closest('.listselect__root')
+    // }
+})
+// const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
 
 const filteredOptions = computed(() =>
     searchTerm.value === ''
@@ -159,13 +169,14 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
 </script>
 
 <template>
+    <!-- v-on-click-outside="onClickOutsideHandler" -->
     <ListboxRoot
-        class="un-flex un-flex-col un-text-nowrap un-relative"
+        class="listselect__root un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
         :multiple="props.multiple"
         as="div"
         :by="props.trackBy"
-        v-on-click-outside="onClickOutsideHandler"
+        ref="listboxRootRef"
         @keydown.enter.prevent="() => {}"
     >
         <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
@@ -182,20 +193,20 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
             :class="props.dropdownClasses"
             :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
         >
-            <!-- <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
+            <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
                         :listLengthExceeded="listLengthExceeded"
                         :maxSelectionLength="props.maxSelectionLength"
                         :maxSelectionLengthTextFn="props.maxSelectionLengthTextFn"
                     />
-                </slot> -->
-                <!-- <ScrollAreaViewport
+                </slot>
+                <ScrollAreaViewport
                     class="un-w-full un-border-t un-border-l un-border-r un-border-gray-200 dark:un-border-moon-700 un-rounded-t un-h-full"
                     :class="{ 'un-border-b un-rounded-b': !showFooter }"
                     asChild
-                > -->
-                    <ListboxContent class="un-h-50 un-overflow-y-auto">
+                >
+                    <ListboxContent asChild>
                         <ListboxVirtualizer
                             v-slot="{ option }"
                             :options="filteredOptions"
@@ -218,8 +229,8 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                             </ListboxItem>
                         </ListboxVirtualizer>
                     </ListboxContent>
-                <!-- </ScrollAreaViewport> -->
-                <!-- <ScrollAreaScrollbar
+                </ScrollAreaViewport>
+                <ScrollAreaScrollbar
                     class="un-flex un-select-none un-touch-none un-p-0.5 un-bg-inherit hover:un-bg-inherit data-[orientation=vertical]:un-w-3 data-[orientation=horizontal]:un-flex-col data-[orientation=horizontal]:un-h-3"
                     orientation="vertical"
                 >
@@ -228,7 +239,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     />
                 </ScrollAreaScrollbar>
                 <ScrollAreaCorner />
-            </ScrollAreaRoot> -->
+            </ScrollAreaRoot>
             <div
                 class="un-border un-border-gray-200 un-rounded-b dark:un-border-moon-700 un-min-h-25 un-max-h-fit un-p-2"
                 v-if="showFooter"

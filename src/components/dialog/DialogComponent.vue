@@ -8,7 +8,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
 import { toRefs, ref } from 'vue';
 

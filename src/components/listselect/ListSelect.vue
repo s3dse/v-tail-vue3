@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch, useTemplateRef } from 'vue'
+import { computed, toValue, ref, watch } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,
@@ -13,7 +13,6 @@ import {
     ScrollAreaViewport
 } from 'reka-ui'
 import { vOnClickOutside } from '@vueuse/components'
-import { onClickOutside } from '@vueuse/core'
 import ListSelectItem from './ListSelectItem.vue'
 import ListSelectPreview from './ListSelectPreview.vue'
 import ListSelectExcessIndicator from './ListSelectExcessIndicator.vue'
@@ -117,16 +116,7 @@ const close = () => {
     open.value = false
 }
 
-const listboxRootRef = useTemplateRef('listboxRootRef')
-
-onClickOutside(listboxRootRef, close, {
-    ignore: [searchInput, clearSearchButton, dropdownToggle],
-    // eventFilter: e => {
-    //     // Prevent closing when clicking inside the dropdown
-    //     return !e.target.closest('.listselect__root')
-    // }
-})
-// const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
+const onClickOutsideHandler = [close, { ignore: [dropdownToggle, searchInput, clearSearchButton] }]
 
 const filteredOptions = computed(() =>
     searchTerm.value === ''
@@ -169,14 +159,13 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
 </script>
 
 <template>
-    <!-- v-on-click-outside="onClickOutsideHandler" -->
     <ListboxRoot
-        class="listselect__root un-flex un-flex-col un-text-nowrap un-relative"
+        class="un-flex un-flex-col un-text-nowrap un-relative"
         v-model="selectedOptions"
         :multiple="props.multiple"
         as="div"
         :by="props.trackBy"
-        ref="listboxRootRef"
+        v-on-click-outside="onClickOutsideHandler"
         @keydown.enter.prevent="() => {}"
     >
         <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
@@ -185,6 +174,8 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                 :optionsLoading="props.optionsLoading"
                 :inputPlaceholder="$inputPlaceholder"
                 :toggleOpen="toggleOpen"
+                @keydown.arrow-down="open = true"
+                @keydown.arrow-up="open = true"
             />
         </ListboxFilter>
         <div

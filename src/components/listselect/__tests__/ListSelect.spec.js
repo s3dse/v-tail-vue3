@@ -62,6 +62,19 @@ describe('ListSelect', () => {
         wrapper.unmount()
     })
 
+    it('opens dropdown on arrow up and down keys', async () => {
+        const { wrapper } = mountListSelect()
+        const input = wrapper.find('input')
+        await input.trigger('keydown', { key: 'ArrowDown' })
+        expect(wrapper.find('.listselect__option').exists()).toBe(true)
+
+        await wrapper.find('.listselect--dropdown-toggle').trigger('click')
+        expect(wrapper.find('.listselect__option').exists()).toBe(false)
+
+        await input.trigger('keydown', { key: 'ArrowUp' })
+        expect(wrapper.find('.listselect__option').exists()).toBe(true)
+    })
+
     it('renders the correct number of options', async () => {
         const { wrapper } = mountListSelect()
         const toggle = wrapper.find('.listselect--dropdown-toggle')

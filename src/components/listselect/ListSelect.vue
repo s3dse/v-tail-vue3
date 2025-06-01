@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue, ref, watch, useTemplateRef, nextTick } from 'vue'
+import { computed, toValue, ref, watch, useTemplateRef } from 'vue'
 import {
     ListboxContent,
     ListboxFilter,

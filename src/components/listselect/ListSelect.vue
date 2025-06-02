@@ -103,7 +103,7 @@ watch(searchTerm, newVal => {
 })
 
 
-const listboxRootRef = useTemplateRef('listboxRootRef')
+const listboxRootRef = useTemplateRef('listboxRoot')
 watch(open, newVal => {
     if (!newVal) {
         searchTerm.value = ''
@@ -171,7 +171,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         :by="props.trackBy"
         v-on-click-outside="onClickOutsideHandler"
         @keydown.enter.prevent="() => {}"
-        ref="listboxRootRef"
+        ref="listboxRoot"
     >
         <ListboxFilter v-model:searchTerm="searchTerm" @keydown.esc="close" asChild>
             <ListSelectInput

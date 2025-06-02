@@ -341,6 +341,7 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
         :id-function="x => x.value"
         :label-function="x => x.name"
         :is-default-option="x => x.value === 'all'"
+        :placeholder-function="v => v.length === 1 ? v[0].name : v.length + ' are selected'"
         class="un-w-fit un-mb-2"
         ></multi-select>
 

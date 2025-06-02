@@ -118,15 +118,20 @@ const props = defineProps({
     multiple: {
         type: Boolean,
         default: true
+    },
+    placeholderFunction: {
+        type: Function
     }
 })
 
 const options = toRef(props, 'options')
 
 const modelText = computed(() => {
-    return modelValue.value.length === 1
-        ? props.labelFunction(modelValue.value[0])
-        : `${modelValue.value.length} selected`
+    const value = modelValue.value
+    if (props.placeholderFunction) return props.placeholderFunction(value)
+    return value.length === 1
+        ? props.labelFunction(value[0])
+        : `${value.length} selected`
 })
 
 const closeDropdown = () => {

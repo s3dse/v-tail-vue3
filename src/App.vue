@@ -7,12 +7,13 @@ import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
 import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 import DialogComponent from './components/dialog/DialogComponent.vue'
-import SelectComponentExample from './components/select/SelectComponentExample.vue'
 import TabCardComponent from './components/card/TabCardComponent.vue'
 import TestOne from './components/card/TestOne.vue'
 import TestTwo from './components/card/TestTwo.vue'
 import ListSelect from './components/listselect/ListSelect.vue'
 import { joinLines } from './utils/string-join-lines'
+import SingleSelect from './components/select/SingleSelect.vue'
+import MultiSelect from './components/select/MultiSelect.vue'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -136,6 +137,28 @@ const listSelectOptionsFiltered = computed(() =>
 
 const listSelectionMultiple = ref([])
 const listSelectionSingle = ref([])
+
+
+const singleSelectOptions = [
+    { name: 'Record A', value: 'a' },
+    { name: 'Record B', value: 'b' },
+    { name: 'Record C', value: 'c' },
+    { name: 'Record D', value: 'd' },
+    { name: 'Record E', value: 'e' },
+    { name: 'Record F', value: 'f' }
+]
+const singleSelectValue = ref(singleSelectOptions[0])
+
+const multiSelectOptions = [
+    { name: 'Record A', value: 'a' },
+    { name: 'Record B', value: 'b' },
+    { name: 'Record C', value: 'c' },
+    { name: 'Record D', value: 'd' },
+    { name: 'Record E', value: 'e' },
+    { name: 'Record F', value: 'f' },
+    { name: 'All Records', value: 'all' }
+]
+const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
 </script>
 
 <template>
@@ -172,9 +195,6 @@ const listSelectionSingle = ref([])
         </action-dropdown-component>
     </div>
     <!-- <div class="un-p-5">
-        <select-component-example></select-component-example>
-      
-
         <dialog-component
             title="Testing Dialog"
             description="A dialog..."
@@ -305,5 +325,23 @@ const listSelectionSingle = ref([])
         ></list-select>
     </div>
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
+
+    <div>Small options selects:</div>
+    <div>single</div>
+    <single-select
+        :options="singleSelectOptions"
+        v-model="singleSelectValue"
+        label-key="name"
+        class="un-w-fit un-mb-2"></single-select>
+
+    <div>multiple</div>
+    <multi-select
+        :options="multiSelectOptions"
+        v-model="multiSelectValue"
+        :id-function="x => x.value"
+        :label-function="x => x.name"
+        :is-default-option="x => x.value === 'all'"
+        class="un-w-fit un-mb-2"
+        ></multi-select>
 
 </template>

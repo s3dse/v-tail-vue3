@@ -1,3 +1,4 @@
-import SelectComponent from './SelectComponent.vue'
+import SingleSelect from './SingleSelect.vue'
+import MultiSelect from './MultiSelect.vue'
 
-export { SelectComponent }
+export { SingleSelect, MultiSelect }

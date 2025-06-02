@@ -5,7 +5,7 @@ import { TabsComponent } from './tabs'
 import { CardComponent, TabCardComponent } from './card'
 import { LoadingOverlay } from './loading-overlay'
 import { DialogComponent } from './dialog'
-import { SelectComponent } from './select'
+import { SingleSelect, MultiSelect } from './select'
 import { ListSelect, ListSelectPreview } from './listselect'
 
 export {
@@ -17,7 +17,8 @@ export {
     TabCardComponent,
     LoadingOverlay,
     DialogComponent,
-    SelectComponent,
+    SingleSelect,
+    MultiSelect,
     TabsComponent,
     ListSelect,
     ListSelectPreview

@@ -1,110 +1,164 @@
-<script setup>
-import {
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectItemIndicator,
-    SelectItemText,
-    SelectPortal,
-    SelectRoot,
-    SelectScrollDownButton,
-    SelectScrollUpButton,
-    SelectTrigger,
-    SelectValue,
-    SelectViewport
-} from 'reka-ui'
-import { toRefs, ref, computed } from 'vue'
-import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
+<template>
+    <div
+        v-click-outside="closeDropdown"
+        @keydown.space="!open && toggleOpen()"
+        @keydown.arrow-down="!open && toggleOpen()"
+        @keydown.arrow-up="!open && toggleOpen()"
+        @keydown.esc="closeDropdown"
+        @keydown.tab="closeDropdown"
+        tabindex="0"
+    >
+        <label
+            class="selectcomponent__label un-flex un-items-center un-bg-[field] dark:un-bg-moon-900 un-border un-border-gray-200 dark:un-border-moon-700 un-rounded"
+        >
+            <input
+                :value="modelText"
+                readonly
+                tabindex="-1"
+                class="un-w-full un-h-[2.31rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900 hover:un-cursor-pointer"
+                :class="props.inputClasses"
+            />
+            <div>
+                <span
+                    class="un-shrink-0 i-tabler-chevron-down un-block un-text-2xl un-text-gray-500! un-mr-2"
+                    @click.prevent="toggleOpen"
+                    ref="dropdownToggle"
+                ></span>
+            </div>
+        </label>
+        <div class="un-relative">
+            <div
+                class="un-p-3 un-absolute un-top-[-2.31rem] un-right-auto un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[15.75rem] un-max-h-50rem un-overflow-auto un-scrollbar un-border un-border-gray-200 dark:un-border-moon-700 un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501"
+                v-if="open"
+            >
+                <ul
+                    ref="listRef"
+                    role="listbox"
+                    @keydown="onArrowKey"
+                    aria-multiselectable="true"
+                    :aria-activedescendant="'opion-' + idFunction(options[focusedIndex])"
+                >
+                    <li
+                        v-for="(option, i) in options"
+                        class="un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8 un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 focus:un-bg-gray-200 dark:hover:un-bg-moon-600 focus:dark:un-bg-moon-600`"
+                        :id="'option-' + idFunction(option)"
+                        :key="idFunction(option)"
+                        role="option"
+                        @focus="focusedIndex = i"
+                        :tabindex="i === focusedIndex ? 0 : -1"
+                        @keydown.enter.prevent="toggleSelect(option)"
+                        @click="toggleSelect(option)"
+                        :aria-selected="isSelected(option)"
+                    >
+                        <div class="un-relative un-inline-flex un-items-center un-justify-center">
+                            <span
+                                :data-selected="isSelected(option)"
+                                class="data-[selected=true]:un-block data-[selected=true]:i-tabler-check un-absolute un-left-[-1.75rem]"
+                            ></span>
+                            {{ labelFunction(option) }}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
 
-const classes = {
-    trigger:
-        `un-inline-flex un-items-center un-justify-between un-gap-2 un-min-w-[10rem] 
-        un-bg-white dark:un-bg-moon-900 un-border un-border-gray-200 dark:un-border-moon-700 
-        un-h-[2.375rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-px-3`,
-    content: `un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[11.25rem] 
-        un-border un-border-gray-200 dark:un-border-moon-700
-        un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501`,
-    item: `un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8
-        un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 dark:hover:un-bg-moon-600`
+<script setup>
+import { computed, toRef, toValue, ref, useTemplateRef, onMounted } from 'vue'
+import { useSmartMultiSelect } from './useSmartSelect'
+import { useListKeyboardNavigation } from './useListKeyboardNavigation'
+import { clickOutside } from '@/directives/click-outside'
+
+const vClickOutside = clickOutside
+
+const preserveArray = (value, multiple) => {
+    if (!Array.isArray(value)) {
+        return value ? [value] : []
+    } else {
+        if (multiple) {
+            return value
+        } else {
+            return value.slice(-1)
+        }
+    }
 }
 
-const props = defineProps({
-    classes: {
-        type: Object,
-        default: null
+const modelValue = defineModel({
+    type: Array,
+    default: () => [],
+    required: true,
+    get(value) {
+        const val = toValue(value)
+        return preserveArray(val, props.multiple)
     },
+    set(newValue) {
+        return preserveArray(newValue, props.multiple)
+    }
+})
+const open = ref(false)
+
+const props = defineProps({
     options: {
         type: Array,
         required: true
     },
-    labelKey: {
-        type: String,
-        default: null
+    isDefaultOption: {
+        type: Function,
+        default: x => x.id === 'DEFAULT'
     },
-    placeholder: {
-        type: String,
-        default: 'Select option'
+    labelFunction: {
+        type: Function,
+        default: x => x.label
     },
-    modelValue: {
-        type: [String, Boolean, Number, Object],
-        required: false
+    idFunction: {
+        type: Function,
+        default: x => x.id
+    },
+    multiple: {
+        type: Boolean,
+        default: false
     }
 })
-const emit = defineEmits(['update:modelValue'])
-const { classes: propsClasses, options, labelKey } = toRefs(props)
-const getClass = dispatchClass(propsClasses.value, classes)
 
-const getOptionValue = option => (labelKey.value ? option[labelKey.value] : option)
-const getOption = value => props.labelKey !== null ? props.options.find(o => o[props.labelKey] === value) : value
-const selected = computed({
-    get: () => props.labelKey !== null ? props.modelValue[props.labelKey] : props.modelValue,
-    set: (value) => emit('update:modelValue', getOption(value))
+const options = toRef(props, 'options')
+
+const modelText = computed(() => {
+    return modelValue.value.length === 1
+        ? props.labelFunction(modelValue.value[0])
+        : `${modelValue.value.length} selected`
+})
+
+const closeDropdown = () => {
+    open.value = false
+}
+
+const handleEnter = event => {
+    if (!open.value) {
+        event.preventDefault()
+        toggleOpen()
+    }
+}
+
+const toggleOpen = () => {
+    open.value = !open.value
+    if (open.value) {
+        resetFocus()
+    }
+}
+
+const { toggleSelect, isSelected } = useSmartMultiSelect({
+    modelValue,
+    multiple: props.multiple,
+    options,
+    isDefaultOption: props.isDefaultOption,
+    idFunction: props.idFunction
+})
+
+const listTemplateRef = useTemplateRef('listRef')
+
+const { focusedIndex, onArrowKey, resetFocus } = useListKeyboardNavigation({
+    itemsRef: options,
+    listTemplateRef
 })
 </script>
-
-<template>
-    <SelectRoot v-model="selected">
-        <SelectTrigger :class="getClass('trigger')" v-bind="$attrs">
-            <SelectValue :placeholder="placeholder">
-                <slot name="triggerLabel">
-                    <span>{{ selected }}</span>
-                </slot>
-            </SelectValue>
-            <span class="i-tabler-chevron-down un-font-light un-text-gray-400 hover:un-text-gray-800 dark:hover:un-text-gray-100 un-text-2xl un-block"></span>
-        </SelectTrigger>
-
-        <SelectPortal>
-            <SelectContent :class="getClass('content')" :side-offset="5">
-                <SelectScrollUpButton class="un-flex un-items-center un-justify-center">
-                    <span
-                        class="i-tabler-chevron-up un-block un-text-gray-900 dark:un-text-gray-100"
-                    ></span>
-                </SelectScrollUpButton>
-                <SelectViewport class="un-p-3">
-                    <SelectGroup>
-                        <SelectItem
-                            v-for="(option, index) in options"
-                            :key="index"
-                            :value="getOptionValue(option)"
-                            :class="getClass('item')"
-                        >
-                            <SelectItemIndicator
-                                class="un-absolute un-left-[1rem] un-w-[1rem] un-inline-flex un-items-center un-justify-center"
-                            >
-                                <span
-                                    class="i-tabler-check un-block un-text-gray-900 dark:un-text-gray-100"
-                                ></span>
-                            </SelectItemIndicator>
-                            <SelectItemText>{{ getOptionValue(option) }}</SelectItemText>
-                        </SelectItem>
-                    </SelectGroup>
-                </SelectViewport>
-                <SelectScrollDownButton class="un-flex un-items-center un-justify-center">
-                    <span
-                        class="i-tabler-chevron-down un-block un-text-gray-900 dark:un-text-gray-100"
-                    ></span>
-                </SelectScrollDownButton>
-            </SelectContent>
-        </SelectPortal>
-    </SelectRoot>
-</template>

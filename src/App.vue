@@ -7,12 +7,13 @@ import LoadingOverlay from './components/loading-overlay/LoadingOverlay.vue'
 import DropdownComponent from './components/dropdown/DropdownComponent.vue'
 import ActionDropdownComponent from './components/dropdown/ActionDropdownComponent.vue'
 import DialogComponent from './components/dialog/DialogComponent.vue'
-import SelectComponentExample from './components/select/SelectComponentExample.vue'
 import TabCardComponent from './components/card/TabCardComponent.vue'
 import TestOne from './components/card/TestOne.vue'
 import TestTwo from './components/card/TestTwo.vue'
 import ListSelect from './components/listselect/ListSelect.vue'
+import SelectComponent from './components/select/SelectComponent.vue'
 import { joinLines } from './utils/string-join-lines'
+import SelectComponentOld from './components/select/SelectComponentOld.vue'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -119,12 +120,24 @@ const fruits = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const selected = ref(selectOptions[0])
 const isLoading = ref(true)
 
-const tab1 = { id: 'a', label: 'First Tab', help: '<p>This is a test!!! And it should work!<p>', component: TestOne, props: { message: 'testOne' } }
+const tab1 = {
+    id: 'a',
+    label: 'First Tab',
+    help: '<p>This is a test!!! And it should work!<p>',
+    component: TestOne,
+    props: { message: 'testOne' }
+}
 const tab2 = { id: 'b', label: 'Second Tab', component: TestTwo, props: { message: 'testTwo' } }
 const tabs = [tab1, tab2]
 
-const listSelectOptions = [...new Array(99999).keys()].map(k => ({ id: k+1, name: `option ${k+1}` }))
-listSelectOptions.unshift({id: 0, name: 'first option is a very long name that should be handled'})
+const listSelectOptions = [...new Array(99999).keys()].map(k => ({
+    id: k + 1,
+    name: `option ${k + 1}`
+}))
+listSelectOptions.unshift({
+    id: 0,
+    name: 'first option is a very long name that should be handled'
+})
 const filterText = ref('')
 const listSelectOptionsFiltered = computed(() =>
     filterText.value
@@ -136,6 +149,16 @@ const listSelectOptionsFiltered = computed(() =>
 
 const listSelectionMultiple = ref([])
 const listSelectionSingle = ref([])
+// select component
+const options = [
+    { id: 1, label: 'Option 1' },
+    { id: 2, label: 'Option 2' },
+    { id: 3, label: 'Option 3' },
+    { id: 4, label: 'Option 4' },
+    { id: 5, label: 'All Options' }
+]
+
+const selectedOptions = ref([])
 </script>
 
 <template>
@@ -306,4 +329,14 @@ const listSelectionSingle = ref([])
     </div>
     <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
 
+    <div class="un-p-8">
+        <SelectComponent
+            class="un-w-10rem"
+            :options="options"
+            v-model="selectedOptions"
+            :is-default-option="x => x.id === 5"
+            :multiple="true"
+        ></SelectComponent>
+        <p>{{ selectedOptions }}</p>
+    </div>
 </template>

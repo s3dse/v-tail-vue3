@@ -17,6 +17,7 @@
                 tabindex="-1"
                 class="un-w-full un-h-[2.31rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900 hover:un-cursor-pointer"
                 :class="props.inputClasses"
+                :id="inputId"
             />
             <div>
                 <span
@@ -26,9 +27,9 @@
                 ></span>
             </div>
         </label>
-        <div class="un-relative">
+        <div class="un-relative un-w-full">
             <div
-                class="un-p-3 un-absolute un-top-[-2.31rem] un-right-auto un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[15.75rem] un-max-h-50rem un-overflow-auto un-scrollbar un-border un-border-gray-200 dark:un-border-moon-700 un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501"
+                class="un-p-3 un-absolute un-top-[-2.31rem] un-right-auto un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[15.75rem] un-w-full un-max-h-50rem un-overflow-auto un-scrollbar un-border un-border-gray-200 dark:un-border-moon-700 un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501"
                 v-if="open"
             >
                 <ul
@@ -66,7 +67,7 @@
 </template>
 
 <script setup>
-import { computed, toRef, toValue, ref, useTemplateRef, onMounted } from 'vue'
+import { computed, toRef, toValue, ref, useTemplateRef, useId } from 'vue'
 import { useSmartMultiSelect } from './useSmartSelect'
 import { useListKeyboardNavigation } from './useListKeyboardNavigation'
 import { clickOutside } from '@/directives/click-outside'
@@ -84,6 +85,8 @@ const preserveArray = (value, multiple) => {
         }
     }
 }
+
+const inputId = useId()
 
 const modelValue = defineModel({
     type: Array,

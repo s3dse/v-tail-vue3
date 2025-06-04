@@ -40,7 +40,8 @@
                 >
                     <li
                         v-for="(option, i) in options"
-                        class="un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8 un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 focus:un-bg-gray-200 dark:hover:un-bg-moon-600 focus:dark:un-bg-moon-600`"
+                        class="un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8 un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 hover:dark:un-bg-moon-600 `"
+                        :class="[focusedIndex === i ? 'un-bg-gray-200 dark:un-bg-moon-600' : '']"
                         :id="'option-' + idFunction(option)"
                         :key="idFunction(option)"
                         role="option"

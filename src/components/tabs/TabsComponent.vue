@@ -1,24 +1,24 @@
 <template>
-    <!-- <div class="un-border-b un-border-gray-200 dark:un-border-moon-700"> -->
-        <ul class="un-flex un-px-2 un-border-b un-border-gray-200 dark:un-border-moon-700 un-w-full">
+    <!-- <div class="border-b border-gray-200 dark:border-moon-700"> -->
+        <ul class="flex px-2 border-b border-gray-200 dark:border-moon-700 w-full">
             <tab-component 
-                class="data-[active=true]:un-bg-white 
-                data-[active=true]:un-border-b-transparent 
-                dark:data-[active=true]:un-bg-moon-800 
-                dark:data-[active=true]:un-border-b-transparent
-                dark:data-[active=true]:un-text-gray-100
-                -un-mb-px un-py-3 un-px-4 un-inline-flex un-items-center un-gap-x-2 
-                un-bg-gray-50 un-text-sm un-font-medium un-text-center 
-                un-border 
-                data-[active=false]:un-border-t-transparent
-                data-[active=false]:un-border-l-transparent
-                data-[active=false]:un-border-r-transparent
-                hover:data-[active=false]:un-border-gray-200 
-                dark:hover:data-[active=false]:un-border-moon-700 
-                un-text-gray-500 un-rounded-t hover:un-text-gray-700 dark:hover:un-text-gray-300
-                disabled:un-opacity-50 disabled:un-pointer-events-none 
-                dark:un-bg-moon-900 dark:un-border-moon-700 dark:un-text-gray-400 
-                dark:focus:un-outline-none dark:focus:un-ring-1 dark:focus:un-ring-gray-600"
+                class="data-[active=true]:bg-white 
+                data-[active=true]:border-b-transparent 
+                dark:data-[active=true]:bg-moon-800 
+                dark:data-[active=true]:border-b-transparent
+                dark:data-[active=true]:text-gray-100
+                -mb-px py-3 px-4 inline-flex items-center gap-x-2 
+                bg-gray-50 text-sm font-medium text-center 
+                border 
+                data-[active=false]:border-t-transparent
+                data-[active=false]:border-l-transparent
+                data-[active=false]:border-r-transparent
+                hover:data-[active=false]:border-gray-200 
+                dark:hover:data-[active=false]:border-moon-700 
+                text-gray-500 rounded-t hover:text-gray-700 dark:hover:text-gray-300
+                disabled:opacity-50 disabled:pointer-events-none 
+                dark:bg-moon-900 dark:border-moon-700 dark:text-gray-400 
+                dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 v-for="(tab, index) in tabs" :key="tab" :title="tabLabel(tab)" :help="tab.help" @click="selectTab(index)" :data-active="index===tabIndex"></tab-component>
         </ul>
     <!-- </div> -->

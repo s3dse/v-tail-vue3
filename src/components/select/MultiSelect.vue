@@ -9,27 +9,27 @@
         tabindex="0"
     >
         <label
-            class="selectcomponent__label un-flex un-items-center un-bg-[field] dark:un-bg-moon-900 un-border un-border-gray-200 dark:un-border-moon-700 un-rounded"
+            class="selectcomponent__label flex items-center bg-[field] dark:bg-moon-900 border border-gray-200 dark:border-moon-700 rounded"
         >
             <input
                 :value="modelText"
                 readonly
                 tabindex="-1"
-                class="un-w-full un-h-[2.31rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-outline-none un-pl-2 un-bg-[field] dark:un-bg-moon-900 hover:un-cursor-pointer"
+                class="w-full h-[2.31rem] rounded text-gray-900 dark:text-gray-100 outline-none pl-2 bg-[field] dark:bg-moon-900 hover:cursor-pointer"
                 :class="props.inputClasses"
                 :id="inputId"
             />
             <div>
                 <span
-                    class="un-shrink-0 i-tabler-chevron-down un-block un-text-2xl un-text-gray-500! un-mr-2"
+                    class="shrink-0 i-tabler-chevron-down block text-2xl text-gray-500! mr-2"
                     @click.prevent="toggleOpen"
                     ref="dropdownToggle"
                 ></span>
             </div>
         </label>
-        <div class="un-relative un-w-full">
+        <div class="relative w-full">
             <div
-                class="un-p-3 un-absolute un-top-[-2.31rem] un-right-auto un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[15.75rem] un-w-full un-max-h-50rem un-overflow-auto un-scrollbar un-border un-border-gray-200 dark:un-border-moon-700 un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501"
+                class="p-3 absolute top-[-2.31rem] right-auto bg-white dark:bg-moon-800 rounded min-w-[15.75rem] w-full max-h-50rem overflow-auto scrollbar border border-gray-200 dark:border-moon-700 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] z-501"
                 v-if="open"
             >
                 <ul
@@ -41,8 +41,8 @@
                 >
                     <li
                         v-for="(option, i) in options"
-                        class="un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8 un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 hover:dark:un-bg-moon-600 `"
-                        :class="[focusedIndex === i ? 'un-bg-gray-200 dark:un-bg-moon-600' : '']"
+                        class="text-gray-900 dark:text-gray-100 leading-none flex items-center pl-8 outline-none select-none py-1 data-[disabled]:cursor-not-allowed hover:bg-gray-200 hover:dark:bg-moon-600 `"
+                        :class="[focusedIndex === i ? 'bg-gray-200 dark:bg-moon-600' : '']"
                         :id="'option-' + idFunction(option)"
                         :key="idFunction(option)"
                         role="option"
@@ -52,10 +52,10 @@
                         @click="toggleSelect(option)"
                         :aria-selected="isSelected(option)"
                     >
-                        <div class="un-relative un-inline-flex un-items-center un-justify-center">
+                        <div class="relative inline-flex items-center justify-center">
                             <span
                                 :data-selected="isSelected(option)"
-                                class="data-[selected=true]:un-block data-[selected=true]:i-tabler-check un-absolute un-left-[-1.75rem]"
+                                class="data-[selected=true]:block data-[selected=true]:i-tabler-check absolute left-[-1.75rem]"
                             ></span>
                             {{ labelFunction(option) }}
                         </div>

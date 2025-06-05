@@ -20,5 +20,5 @@ const selection = ref(options[0])
         label-key="name"
         aria-label="Select option"
     ></select-component>
-    <div class="un-text-gray-900 dark:un-text-gray-100">{{ selection }}</div>
+    <div class="text-gray-900 dark:text-gray-100">{{ selection }}</div>
 </template>

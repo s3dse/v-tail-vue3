@@ -1,6 +1,6 @@
 <template>
     <li v-if="help">
-        <div class="un-flex un-gap-2">
+        <div class="flex gap-2">
         <span>{{ title }}</span>
         <help-component>
             <template #content><p class="text-sm font-light normal-case" v-html="help"></p></template>

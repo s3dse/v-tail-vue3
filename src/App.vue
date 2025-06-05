@@ -32,39 +32,39 @@ const topRows = ref([...data].slice(0, 1))
 const fields = ref([
     {
         key: 'id',
-        thClassList: 'un-text-right un-px-1 un-w-18',
-        tdClassList: 'un-text-right un-px-1 un-font-mono',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-right px-1 w-18',
+        tdClassList: 'text-right px-1 font-mono',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'first_name',
         label: 'the first name',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'last_name',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'email',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1 un-w-15',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1 w-15',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'share',
-        thClassList: 'un-text-right un-px-1 un-w-15',
-        tdClassList: 'un-text-right un-px-1 un-font-mono un-w-15',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold',
+        thClassList: 'text-right px-1 w-15',
+        tdClassList: 'text-right px-1 font-mono w-15',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold',
         formatter: number =>
             number
                 ? (parseFloat(number) * 100).toLocaleString(navigator.language, {
@@ -75,10 +75,10 @@ const fields = ref([
     },
     {
         key: 'ip_address',
-        thClassList: 'un-text-right un-px-1 un-w-45',
-        tdClassList: 'un-text-right un-px-1 un-font-mono',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-right px-1 w-45',
+        tdClassList: 'text-right px-1 font-mono',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     }
 ])
 const tableStatus = ref({ busy: false })
@@ -99,14 +99,14 @@ const validateAndSubmit = () => {
         return true
     }
 }
-const panelClassList = joinLines(`un-w-full 
-                            un-max-w-md 
-                            un-overflow-hidden 
-                            un-bg-white 
-                            un-rounded-lg
-                            un-text-left 
-                            un-align-middle 
-                            un-shadow-xl`)
+const panelClassList = joinLines(`w-full 
+                            max-w-md 
+                            overflow-hidden 
+                            bg-white 
+                            rounded-lg
+                            text-left 
+                            align-middle 
+                            shadow-xl`)
 
 const selectOptions = [
     { name: 'Record A', value: 'a' },
@@ -162,39 +162,39 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
 </script>
 
 <template>
-    <button class="un-text-gray-900 dark:un-text-gray-100" @click="isLoading = !isLoading">
+    <button class="text-gray-900 dark:text-gray-100" @click="isLoading = !isLoading">
         Loading {{ isLoading }}
     </button>
     <div
         v-busy="isLoading"
-        class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700"
+        class="py-3 border rounded border-solid border-gray-200 dark:border-moon-700"
     >
-        <p class="un-text-gray-900 dark:un-text-gray-100">
+        <p class="text-gray-900 dark:text-gray-100">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.
         </p>
     </div>
     <loading-overlay
         :show="isLoading"
-        class="un-py-3 un-border un-rounded un-border-solid un-border-gray-200 dark:un-border-moon-700"
+        class="py-3 border rounded border-solid border-gray-200 dark:border-moon-700"
     >
-        <p class="un-text-gray-900 dark:un-text-gray-100">
+        <p class="text-gray-900 dark:text-gray-100">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, dolore.
         </p>
     </loading-overlay>
-    <div class="un-flex un-px-50">
+    <div class="flex px-50">
         <action-dropdown-component
             :options="['a', 'b']"
             up-icon=""
             down-icon=""
             @on-select="logItem"
-            class="un-px-10 un-ms-auto un-me-2 un-h-full un-rounded-sm hover:un-cursor-pointer"
+            class="px-10 ms-auto me-2 h-full rounded-sm hover:cursor-pointer"
         >
             <template #toggle-label>
                 <div class="i-tabler-menu-2"></div>
             </template>
         </action-dropdown-component>
     </div>
-    <!-- <div class="un-p-5">
+    <!-- <div class="p-5">
         <dialog-component
             title="Testing Dialog"
             description="A dialog..."
@@ -204,7 +204,7 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
         >
             <template #content>
                 <div
-                    class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5"
+                    class="flex gap-4 flex-col text-gray-900 dark:text-gray-100 px-4 pt-3 pb-5"
                 >
                     <span>test</span>
                     <span>another test</span>
@@ -225,32 +225,32 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
             :dialog-panel-class-list="panelClassList"
         >
             <template #content>
-                <p class="un-pt-2 un-text-gray-600 un-px-4">...and some text to show</p>
+                <p class="pt-2 text-gray-600 px-4">...and some text to show</p>
             </template>
         </modal-component>
-        <div class="un-p-[8rem]"></div>
-        <action-dropdown-component :options="['a', 'b']" @on-select="logItem" class="un-w-fit">
+        <div class="p-[8rem]"></div>
+        <action-dropdown-component :options="['a', 'b']" @on-select="logItem" class="w-fit">
             <template #toggle-label>
                 <div>select action</div>
             </template>
         </action-dropdown-component>
-        <dropdown-component :options="['a', 'b']" class="un-w-fit">
+        <dropdown-component :options="['a', 'b']" class="w-fit">
             <template #toggle-label>
                 <div>select</div>
             </template>
         </dropdown-component>
-        <card-component class="un-mt-5">
+        <card-component class="mt-5">
             <loading-overlay :show="tableStatus.busy">
                 <table-component
                     :items="items"
                     :fields="fields"
                     :top-rows="topRows"
                     title="Test"
-                    class="un-w-[100%] dark:un-bg-moon-800"
+                    class="w-[100%] dark:bg-moon-800"
                 >
                     <template #table-top-controls>
                         <div
-                            class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                            class="border dark:border-moon-700 dark:text-gray-100 px-4 ms-auto"
                         >
                             some control
                         </div>
@@ -267,22 +267,22 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
             </loading-overlay>
         </card-component>
     </div>  -->
-    <div class="un-py-12 un-text-gray-900 dark:un-text-gray-100">give me some space...</div>
-    <div class="un-p-3">
+    <div class="py-12 text-gray-900 dark:text-gray-100">give me some space...</div>
+    <div class="p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
-    <card-component class="un-mt-5">
+    <card-component class="mt-5">
         <loading-overlay :show="tableStatus.busy">
             <table-component
                 :items="items"
                 :fields="fields"
                 :top-rows="topRows"
                 title="Test"
-                class="un-w-[100%] dark:un-bg-moon-800"
+                class="w-[100%] dark:bg-moon-800"
             >
                 <template #table-top-controls>
                     <div
-                        class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                        class="border dark:border-moon-700 dark:text-gray-100 px-4 ms-auto"
                     >
                         some control
                     </div>
@@ -298,12 +298,12 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
             </table-component>
         </loading-overlay>
     </card-component>
-    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Multiple.</div>
-    <div class="un-pl-8">
+    <div class="p-2 text-gray-900 dark:text-gray-100">Multiple.</div>
+    <div class="pl-8">
         <list-select
-            class="un-w-fit"
+            class="w-fit"
             :options="listSelectOptions"
-            :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
+            :dropdownClasses="`right-0 min-w-50 w-fit`"
             :multiple="true"
             :label-fn="e => e.name"
             v-model="listSelectionMultiple"
@@ -311,12 +311,12 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
             :truncate-items="true"
         ></list-select>
     </div>
-    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Single.</div>
-    <div class="un-pl-8">
+    <div class="p-2 text-gray-900 dark:text-gray-100">Single.</div>
+    <div class="pl-8">
         <list-select
-            class="un-w-fit"
+            class="w-fit"
             :options="listSelectOptions"
-            :dropdownClasses="`un-right-0 un-min-w-50 un-w-fit`"
+            :dropdownClasses="`right-0 min-w-50 w-fit`"
             :multiple="false"
             :label-fn="e => e.name"
             v-model="listSelectionSingle"
@@ -324,7 +324,7 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
             :truncate-items="true"
         ></list-select>
     </div>
-    <div class="un-p-2 un-text-gray-900 dark:un-text-gray-100">Some text below.</div>
+    <div class="p-2 text-gray-900 dark:text-gray-100">Some text below.</div>
 
     <div>Small options selects:</div>
     <div>single</div>
@@ -332,7 +332,7 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
         :options="singleSelectOptions"
         v-model="singleSelectValue"
         label-key="name"
-        class="un-w-fit un-mb-2"></single-select>
+        class="w-fit mb-2"></single-select>
 
     <div>multiple</div>
     <multi-select
@@ -342,7 +342,7 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
         :label-function="x => x.name"
         :is-default-option="x => x.value === 'all'"
         :placeholder-function="v => v.length === 1 ? v[0].name : v.length + ' are selected'"
-        class="un-w-[200px] un-mb-2"
+        class="w-[200px] mb-2"
         ></multi-select>
 
 </template>

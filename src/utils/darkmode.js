@@ -1,6 +1,6 @@
 // @unocss-include
 
-const switchToLightClasses = ["i-tabler-sun", "hover:i-tabler-sun-filled"]
+const switchToLightClasses = ["i-tabler-sun", "hover:i-tabler-sfilled"]
 const switchToDarkClasses = ["i-tabler-moon", "hover:i-tabler-moon-filled"]
 
 function toggleDocDark() {

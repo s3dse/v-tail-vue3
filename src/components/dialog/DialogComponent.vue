@@ -13,22 +13,22 @@ import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
 import { toRefs, ref } from 'vue';
 
 const defaultClasses = {
-    trigger: 'un-text-gray-900 dark:un-text-gray-100',
-    overlay: 'un-fixed un-inset-0 un-bg-black dark:un-bg-moon-900 un-bg-opacity-25 dark:un-bg-opacity-85 un-z-499 un-backdrop-filter un-backdrop-blur-sm',
-    title: `un-bg-white dark:un-bg-moon-700 un-text-gray-900 dark:un-text-gray-100 un-text-xl un-font-semibold un-leading-6 
-        un-border-b un-border-b-gray-200 dark:un-border-b-moon-600 un-p-4 un-rounded-t`,
-    content: `un-fixed un-top-[50%] un-left-[50%] un-max-h-[85vh] un-w-[90vw] un-max-w-[28rem] un-translate-x-[-50%] un-translate-y-[-50%]
-        un-rounded un-bg-gray-50 dark:un-bg-moon-800
-        un-shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:un-outline-none un-z-500
-        un-border un-border-gray-200 dark:un-border-moon-600`,
-    description: 'un-text-gray-900 dark:un-text-gray-100 un-p-4',
-    confirmButton: `un-bg-primary hover:un-bg-primary-600 dark:hover:un-bg-primary-400  un-text-gray-100 
-                        disabled:un-bg-gray-400 disabled:active:un-text-gray-100 disabled:hover:un-bg-gray-400 disabled:hover:un-text-gray-100
-                        un-rounded un-px-4 un-h-[2.375rem]`,
-    cancelButton: `un-border un-border-slate-200 dark:un-border-moon-700 
-                    hover:un-border-slate-100 dark:hover:un-border-moon-600 
-                    un-bg-slate-50 dark:un-bg-moon-800 hover:un-bg-gray-200 dark:hover:un-bg-moon-700 dark:un-text-gray-100 
-                    un-rounded un-px-4 un-h-[2.375rem]`
+    trigger: 'text-gray-900 dark:text-gray-100',
+    overlay: 'fixed inset-0 bg-black dark:bg-moon-900 bg-opacity-25 dark:bg-opacity-85 z-499 backdrop-filter backdrop-blur-sm',
+    title: `bg-white dark:bg-moon-700 text-gray-900 dark:text-gray-100 text-xl font-semibold leading-6 
+        border-b border-b-gray-200 dark:border-b-moon-600 p-4 rounded-t`,
+    content: `fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[28rem] translate-x-[-50%] translate-y-[-50%]
+        rounded bg-gray-50 dark:bg-moon-800
+        shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-500
+        border border-gray-200 dark:border-moon-600`,
+    description: 'text-gray-900 dark:text-gray-100 p-4',
+    confirmButton: `bg-primary hover:bg-primary-600 dark:hover:bg-primary-400  text-gray-100 
+                        disabled:bg-gray-400 disabled:active:text-gray-100 disabled:hover:bg-gray-400 disabled:hover:text-gray-100
+                        rounded px-4 h-[2.375rem]`,
+    cancelButton: `border border-slate-200 dark:border-moon-700 
+                    hover:border-slate-100 dark:hover:border-moon-600 
+                    bg-slate-50 dark:bg-moon-800 hover:bg-gray-200 dark:hover:bg-moon-700 dark:text-gray-100 
+                    rounded px-4 h-[2.375rem]`
 }
 
 
@@ -76,7 +76,7 @@ const cancel = () => emit('cancel')
   <DialogRoot v-model:open="open">
     <DialogTrigger :class="getClass('trigger')">
         <slot name="trigger">
-            <button class="un-bg-primary hover:un-bg-primary-600 dark:hover:un-bg-primary-400  un-text-gray-100 un-rounded un-px-4 un-h-[2.375rem]">Settings</button>
+            <button class="bg-primary hover:bg-primary-600 dark:hover:bg-primary-400  text-gray-100 rounded px-4 h-[2.375rem]">Settings</button>
         </slot>
     </DialogTrigger>
     <DialogPortal>
@@ -86,7 +86,7 @@ const cancel = () => emit('cancel')
         <DialogDescription :class="getClass('description')">{{ description }}</DialogDescription>
         <slot name="content" v-bind="{ open }">
         </slot>
-        <div class="un-flex un-gap-4 un-justify-end un-p-3">
+        <div class="flex gap-4 justify-end p-3">
             <DialogClose>
                 <slot name="cancelTrigger">
                     <button @click="cancel" :class="getClass('cancelButton')">

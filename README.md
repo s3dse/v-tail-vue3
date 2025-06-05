@@ -198,7 +198,7 @@ const validateAndSubmit = () => {
     ...
     <dialog-component title="Testing Dialog" description="A dialog..." @cancel="test" :pre-confirm="validateAndSubmit">
         <template #content>
-            <div class="un-flex un-gap-4 un-flex-col un-text-gray-900 dark:un-text-gray-100 un-px-4 un-pt-3 un-pb-5">
+            <div class="flex gap-4 flex-col text-gray-900 dark:text-gray-100 px-4 pt-3 pb-5">
                 <div>Some content</div>
             </div>
             <select class="custom-select"><option>a</option><option>b</option></select>
@@ -258,7 +258,7 @@ const selection = ref(options[0])
         label-key="name"
         aria-label="Select option"
     ></select-component>
-    <div class="un-text-gray-900 dark:un-text-gray-100">{{ selection }}</div>
+    <div class="text-gray-900 dark:text-gray-100">{{ selection }}</div>
 </template>
 
 ```
@@ -286,8 +286,8 @@ E.g.
         :options="options"
         label-key="name"
         aria-label="Select option"
-        class="un-w-full"
-        :classes="{trigger: 'un-bg-green-400'}"
+        class="w-full"
+        :classes="{trigger: 'bg-green-400'}"
     ></select-component>
 ```
 

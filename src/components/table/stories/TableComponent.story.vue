@@ -8,7 +8,7 @@
                     :fields="state.fields"
                     :top-rows="topRows"
                     title="Test"
-                    class="un-w-[100%] dark:un-bg-moon-800"
+                    class="w-[100%] dark:bg-moon-800"
                     remote-pagination
                     :per-page="state.pagination.perPage"
                     @per-page-change="onPerPageChange"
@@ -18,7 +18,7 @@
                 >
                     <template #table-top-controls>
                         <div
-                            class="un-border dark:un-border-moon-700 dark:un-text-gray-100 un-px-4 un-ms-auto"
+                            class="border dark:border-moon-700 dark:text-gray-100 px-4 ms-auto"
                         >
                             some control
                         </div>
@@ -57,39 +57,39 @@ function alnumSort(a, b, ascending) {
 const fields = [
     {
         key: 'id',
-        thClassList: 'un-text-right un-px-1 un-w-18',
-        tdClassList: 'un-text-right un-px-1 un-font-mono',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-right px-1 w-18',
+        tdClassList: 'text-right px-1 font-mono',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'first_name',
         label: 'the first name',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'last_name',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'email',
-        thClassList: 'un-text-left un-px-1',
-        tdClassList: 'un-text-left un-px-1 un-w-15',
-        tdTopRowClassList: 'un-text-left un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-left px-1',
+        tdClassList: 'text-left px-1 w-15',
+        tdTopRowClassList: 'text-left px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     },
     {
         key: 'share',
-        thClassList: 'un-text-right un-px-1 un-w-15',
-        tdClassList: 'un-text-right un-px-1 un-font-mono un-w-15',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold',
+        thClassList: 'text-right px-1 w-15',
+        tdClassList: 'text-right px-1 font-mono w-15',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold',
         formatter: number =>
             number
                 ? (parseFloat(number) * 100).toLocaleString(navigator.language, {
@@ -100,10 +100,10 @@ const fields = [
     },
     {
         key: 'ip_address',
-        thClassList: 'un-text-right un-px-1 un-w-45',
-        tdClassList: 'un-text-right un-px-1 un-font-mono',
-        tdTopRowClassList: 'un-text-right un-px-1 un-italic',
-        tdBottomRowClassList: 'un-text-right un-px-1 un-font-semibold'
+        thClassList: 'text-right px-1 w-45',
+        tdClassList: 'text-right px-1 font-mono',
+        tdTopRowClassList: 'text-right px-1 italic',
+        tdBottomRowClassList: 'text-right px-1 font-semibold'
     }
 ]
 

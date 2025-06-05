@@ -1,5 +1,5 @@
 <template>
-    <div class="un-card" :class="classes">
+    <div class="card" :class="classes">
         <slot></slot>
     </div>
 </template>
@@ -10,7 +10,7 @@ export default {
     props: {
         classes: {
             type: String,
-            default: 'dark:un-bg-moon-800 dark:un-border-moon-700'
+            default: 'dark:bg-moon-800 dark:border-moon-700'
         }
     },
     name: 'card-component'

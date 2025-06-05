@@ -1,12 +1,12 @@
 <template>
-    <div class="un-flex un-gap-4 un-flex-wrap un-justify-between un-w-[100%]" data-pagination-component>
+    <div class="flex gap-4 flex-wrap justify-between w-[100%]" data-pagination-component>
         <div class="pagination-label">
             <slot name="pagination-label" :data="{ perPage, currentPage, totalEntries }">
                 {{ paginationLabel }}
             </slot>
         </div>
         <div>
-            <ul class="pagination un-flex un-flex-wrap un-justify-between un-gap-8">
+            <ul class="pagination flex flex-wrap justify-between gap-8">
                 <li class="pagination-item">
                     <button
                         type="button"
@@ -102,15 +102,15 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'un-bg-primary un-text-white dark:un-text-gray-100 un-ring un-ring-primary-200 dark:un-ring-primary-700 un-ring-2 un-rounded-sm un-px-2'
+                'bg-primary text-white dark:text-gray-100 ring ring-primary-200 dark:ring-primary-700 ring-2 rounded-sm px-2'
         },
         inactiveClasses: {
             type: String,
-            default: 'hover:un-text-primary un-transition-colors un-ease'
+            default: 'hover:text-primary transition-colors ease'
         },
         disabledClasses: {
             type: String,
-            default: 'un-text-slate-300 dark:un-text-moon-500'
+            default: 'text-slate-300 dark:text-moon-500'
         }
     },
     data() {

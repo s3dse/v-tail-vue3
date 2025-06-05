@@ -18,14 +18,14 @@ import { getClass as dispatchClass } from '@/utils/css-class-dispatch.js'
 
 const classes = {
     trigger:
-        `un-inline-flex un-items-center un-justify-between un-gap-2 un-min-w-[10rem] 
-        un-bg-white dark:un-bg-moon-900 un-border un-border-gray-200 dark:un-border-moon-700 
-        un-h-[2.375rem] un-rounded un-text-gray-900 dark:un-text-gray-100 un-px-3`,
-    content: `un-bg-white dark:un-bg-moon-800 un-rounded un-min-w-[11.25rem] 
-        un-border un-border-gray-200 dark:un-border-moon-700
-        un-shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] un-z-501`,
-    item: `un-text-gray-900 dark:un-text-gray-100 un-leading-none un-flex un-items-center un-pl-8
-        un-outline-none un-select-none un-py-1 data-[disabled]:un-cursor-not-allowed hover:un-bg-gray-200 dark:hover:un-bg-moon-600`
+        `inline-flex items-center justify-between gap-2 min-w-[10rem] 
+        bg-white dark:bg-moon-900 border border-gray-200 dark:border-moon-700 
+        h-[2.375rem] rounded text-gray-900 dark:text-gray-100 px-3`,
+    content: `bg-white dark:bg-moon-800 rounded min-w-[11.25rem] 
+        border border-gray-200 dark:border-moon-700
+        shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] z-501`,
+    item: `text-gray-900 dark:text-gray-100 leading-none flex items-center pl-8
+        outline-none select-none py-1 data-[disabled]:cursor-not-allowed hover:bg-gray-200 dark:hover:bg-moon-600`
 }
 
 const props = defineProps({
@@ -70,17 +70,17 @@ const selected = computed({
                     <span>{{ selected }}</span>
                 </slot>
             </SelectValue>
-            <span class="i-tabler-chevron-down un-font-light un-text-gray-400 hover:un-text-gray-800 dark:hover:un-text-gray-100 un-text-2xl un-block"></span>
+            <span class="i-tabler-chevron-down font-light text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 text-2xl block"></span>
         </SelectTrigger>
 
         <SelectPortal>
             <SelectContent :class="getClass('content')" :side-offset="5">
-                <SelectScrollUpButton class="un-flex un-items-center un-justify-center">
+                <SelectScrollUpButton class="flex items-center justify-center">
                     <span
-                        class="i-tabler-chevron-up un-block un-text-gray-900 dark:un-text-gray-100"
+                        class="i-tabler-chevron-up block text-gray-900 dark:text-gray-100"
                     ></span>
                 </SelectScrollUpButton>
-                <SelectViewport class="un-p-3">
+                <SelectViewport class="p-3">
                     <SelectGroup>
                         <SelectItem
                             v-for="(option, index) in options"
@@ -89,19 +89,19 @@ const selected = computed({
                             :class="getClass('item')"
                         >
                             <SelectItemIndicator
-                                class="un-absolute un-left-[1rem] un-w-[1rem] un-inline-flex un-items-center un-justify-center"
+                                class="absolute left-[1rem] w-[1rem] inline-flex items-center justify-center"
                             >
                                 <span
-                                    class="i-tabler-check un-block un-text-gray-900 dark:un-text-gray-100"
+                                    class="i-tabler-check block text-gray-900 dark:text-gray-100"
                                 ></span>
                             </SelectItemIndicator>
                             <SelectItemText>{{ getOptionValue(option) }}</SelectItemText>
                         </SelectItem>
                     </SelectGroup>
                 </SelectViewport>
-                <SelectScrollDownButton class="un-flex un-items-center un-justify-center">
+                <SelectScrollDownButton class="flex items-center justify-center">
                     <span
-                        class="i-tabler-chevron-down un-block un-text-gray-900 dark:un-text-gray-100"
+                        class="i-tabler-chevron-down block text-gray-900 dark:text-gray-100"
                     ></span>
                 </SelectScrollDownButton>
             </SelectContent>

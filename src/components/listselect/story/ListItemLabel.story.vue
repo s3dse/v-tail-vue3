@@ -3,7 +3,7 @@
         <Variant title="default" :init-state="initState('default')">
             <template #default="{ state }">
                 <ListItemLabel
-                    class="un-w-50!"
+                    class="w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
@@ -13,7 +13,7 @@
         <Variant title="selected" :init-state="initState('selected')">
             <template #default="{ state }">
                 <ListItemLabel
-                    class="un-w-50!"
+                    class="w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
@@ -23,7 +23,7 @@
         <Variant title="truncated" :init-state="initState('truncated')">
             <template #default="{ state }">
                 <ListItemLabel
-                    class="un-w-50!"
+                    class="w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"
@@ -33,7 +33,7 @@
         <Variant title="truncated and selected" :init-state="initState('truncatedSelected')">
             <template #default="{ state }">
                 <ListItemLabel
-                    class="un-w-50!"
+                    class="w-50!"
                     :label="state.label"
                     :isSelected="state.selected"
                     :truncateLabel="state.truncate"

@@ -3,9 +3,9 @@
         <Variant title="default" :init-state="initState('default')" :meta="{ wrapper: true }">
             <template #default="{ state }">
                 <form>
-                    <div class="un-h-600px un-w-600px">
+                    <div class="h-600px w-600px">
                         <ListSelect
-                            class="un-w-fit"
+                            class="w-fit"
                             :options="state.options"
                             :dropdownClasses="state.dropdownClasses"
                             :multiple="state.multiple"
@@ -21,9 +21,9 @@
         <Variant title="default" :init-state="initState('default')" :meta="{ wrapper: true }">
             <template #default="{ state }">
                 <form>
-                    <div class="un-h-600px un-w-600px">
+                    <div class="h-600px w-600px">
                         <ListSelect
-                            class="un-w-fit"
+                            class="w-fit"
                             :options="state.options"
                             :dropdownClasses="state.dropdownClasses"
                             :multiple="false"
@@ -63,7 +63,7 @@ function initState(variant) {
     const state = {
         default: {
             options: [...new Array(90).keys()].map(k => ({ id: k + 1, name: `option ${k + 1}` })),
-            dropdownClasses: 'un-right-0 un-min-w-50 un-w-fit',
+            dropdownClasses: 'right-0 min-w-50 w-fit',
             multiple: true,
             labelFn: option => option.name,
             truncateItems: false

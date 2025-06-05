@@ -23,13 +23,13 @@ const valWithUnit = v => {
 export default defineConfig({
     rules: [
         [
-            /^un-grid-auto-fill-([[.\d\w\]]+)$/,
+            /^grid-auto-fill-([[.\d\w\]]+)$/,
             ([, d]) => ({
                 'grid-template-columns': `repeat(auto-fill, minmax(${valWithUnit(d)}, 1fr))`
             })
         ],
         [
-            /^un-grid-auto-fit-([[.\d\w\]]+)$/,
+            /^grid-auto-fit-([[.\d\w\]]+)$/,
             ([, d]) => ({
                 'grid-template-columns': `repeat(auto-fit, minmax(${valWithUnit(d)}, 1fr))`
             })
@@ -41,51 +41,51 @@ export default defineConfig({
     shortcuts: [
         [
             /^busy-text-(.*)$/,
-            ([, c]) => `un-relative 
-        un-select-none un-overflow-hidden un-border-rounded 
-        before:un-animate-spin 
-        before:un-border-opacity-90 
-        before:un-border-t-transparent  
-        before:un-border-r-${c} 
-        before:un-border-b-${c} 
-        before:un-border-l-${c} 
-        before:un-border-rounded-full 
-        before:un-border-solid 
-        before:un-border-3 
-        before:un-content-empty 
-        before:un-h-1.5rem 
-        before:un-w-1.5rem 
-        before:un-left-50% 
-        before:un-absolute 
-        before:un-top-50% 
-        before:un-m-t-[-0.75rem] 
-        before:un-m-r-0 
-        before:un-m-b-0 
-        before:un-m-l-[-0.75rem]
-        before:un-z-500 
-        after:un-border-rounded-[3px] 
-        after:un-content-empty 
-        after:un-h-full 
-        after:un-left-0 
-        after:un-absolute 
-        after:un-top-0 
-        after:un-w-full 
-        after:un-z-499`
+            ([, c]) => `relative 
+        select-none overflow-hidden border-rounded 
+        before:animate-spin 
+        before:border-opacity-90 
+        before:border-t-transparent  
+        before:border-r-${c} 
+        before:border-b-${c} 
+        before:border-l-${c} 
+        before:border-rounded-full 
+        before:border-solid 
+        before:border-3 
+        before:content-empty 
+        before:h-1.5rem 
+        before:w-1.5rem 
+        before:left-50% 
+        before:absolute 
+        before:top-50% 
+        before:m-t-[-0.75rem] 
+        before:m-r-0 
+        before:m-b-0 
+        before:m-l-[-0.75rem]
+        before:z-500 
+        after:border-rounded-[3px] 
+        after:content-empty 
+        after:h-full 
+        after:left-0 
+        after:absolute 
+        after:top-0 
+        after:w-full 
+        after:z-499`
         ],
-        [/^busy-bg-(.*)$/, ([, c]) => `after:un-bg-${c}/70`],
+        [/^busy-bg-(.*)$/, ([, c]) => `after:bg-${c}/70`],
         {
-            'un-form-help':
-            'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 dark:un-bg-primary-500 dark:un-ring-1 dark:un-ring-primary-400 un-text-slate-600 dark:un-text-gray-100 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-primary-500 dark:hover:un-bg-primary-600 hover:un-ease-linear',
-                // 'un-inline-flex un-ml-2 un-items-center un-justify-center un-w-5 un-h-5 un-bg-slate-100 un-text-slate-600 un-rounded-full un-cursor-pointer un-transition un-duration-100 hover:un-text-slate-50 hover:un-bg-slate-600 hover:un-ease-linear',
-            'un-page-header': 'un-text-xl un-font-semibold un-my-3',
-            'un-card':
-                'un-border un-border-solid un-border-gray-200 un-bg-white dark:un-bg-moon-800 dark:un-border-moon-700 un-rounded-sm',
-            'un-card-title': 'un-text-base un-text-slate-600 dark:un-text-gray-100 un-font-medium'
+            'form-help':
+            'inline-flex ml-2 items-center justify-center w-5 h-5 bg-slate-100 dark:bg-primary-500 dark:ring-1 dark:ring-primary-400 text-slate-600 dark:text-gray-100 rounded-full cursor-pointer transition duration-100 hover:text-slate-50 hover:bg-primary-500 dark:hover:bg-primary-600 hover:ease-linear',
+                // 'inline-flex ml-2 items-center justify-center w-5 h-5 bg-slate-100 text-slate-600 rounded-full cursor-pointer transition duration-100 hover:text-slate-50 hover:bg-slate-600 hover:ease-linear',
+            'page-header': 'text-xl font-semibold my-3',
+            'card':
+                'border border-solid border-gray-200 bg-white dark:bg-moon-800 dark:border-moon-700 rounded-sm',
+            'card-title': 'text-base text-slate-600 dark:text-gray-100 font-medium'
         }
     ],
     presets: [
-        presetUno({ prefix: 'un-' }),
-        presetScrollbar({ prefix: 'un-' }),
+        presetUno(),
+        presetScrollbar(),
 
         presetVTail({ colors: { primary: colors.navy } })
     ],

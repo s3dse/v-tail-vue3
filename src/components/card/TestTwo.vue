@@ -5,4 +5,4 @@ defineProps({
     }
 })
 </script>
-<template><div class="un-text-gray-900 dark:un-text-gray-100">{{ message }}</div></template>
+<template><div class="text-gray-900 dark:text-gray-100">{{ message }}</div></template>

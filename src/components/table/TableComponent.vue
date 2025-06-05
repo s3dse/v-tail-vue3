@@ -2,19 +2,19 @@
     <div>
         <div
             v-if="title && !hasTitleSlot"
-            class="vt-title-border un-border-b dark:un-border-moon-700 dark:un-bg-moon-800 un-my-3"
+            class="vt-title-border border-b dark:border-moon-700 dark:bg-moon-800 my-3"
         >
-            <div class="vt-title un-card-title un-mx-4 un-my-3">
+            <div class="vt-title card-title mx-4 my-3">
                 {{ title }}
             </div>
         </div>
         <div
             v-if="!title && hasTitleSlot"
-            class="vt-title-border un-border-b dark:un-border-moon-700 un-my-3"
+            class="vt-title-border border-b dark:border-moon-700 my-3"
         >
             <slot name="title" />
         </div>
-        <div class="vt-table-header un-flex un-flex-wrap un-mx-4 un-my-3 un-gap-2 un-justify-start">
+        <div class="vt-table-header flex flex-wrap mx-4 my-3 gap-2 justify-start">
             <input
                 v-if="enableSearch"
                 name="search"
@@ -25,7 +25,7 @@
                 :class="searchInputClassList"
             />
             <dropdown-component
-                class="un-flex"
+                class="flex"
                 v-model="pageSize"
                 :options="pageSizes.filter(e => e > topRows.length)"
                 :default-item="5"
@@ -43,14 +43,14 @@
             ></slot>
         </div>
         <div
-            class="un-mt-2 un-pb-2 un-border-t dark:un-border-moon-700 un-overflow-x-auto un-scrollbar un-scrollbar-rounded un-scrollbar-track-radius-0 un-scrollbar-thumb-radius-2px un-scrollbar-thumb-color-slate-200 dark:un-scrollbar-thumb-color-moon-700 hover:un-scrollbar-thumb-color-slate-300 dark:hover:un-scrollbar-thumb-color-moon-600 un-scrollbar-track-color-inherit dark:un-scrollbar-track-color-inherit"
+            class="mt-2 pb-2 border-t dark:border-moon-700 overflow-x-auto scrollbar scrollbar-rounded scrollbar-track-radius-0 scrollbar-thumb-radius-2px scrollbar-thumb-color-slate-200 dark:scrollbar-thumb-color-moon-700 hover:scrollbar-thumb-color-slate-300 dark:hover:scrollbar-thumb-color-moon-600 scrollbar-track-color-inherit dark:scrollbar-track-color-inherit"
         >
             <table
-                class="un-w-full dark:un-text-gray-100"
-                :class="{ 'un-table-fixed un-whitespace-normal un-break-words': fixed }"
+                class="w-full dark:text-gray-100"
+                :class="{ 'table-fixed whitespace-normal break-words': fixed }"
             >
                 <thead
-                    class="un-bg-slate-100 dark:un-bg-moon-900 un-font-semibold un-text-[0.625rem] un-text-slate-500"
+                    class="bg-slate-100 dark:bg-moon-900 font-semibold text-[0.625rem] text-slate-500"
                     v-if="tableData.length || topRows.length"
                 >
                     <th
@@ -58,13 +58,13 @@
                         :key="index"
                         @click="sortTable(col)"
                         :class="[col.thClassList, leftPadFirstCol(index), rightPadLastCol(index)]"
-                        class="hover:un-cursor-pointer un-p-2 first:un-ps-6 last:un-pe-6 un-uppercase"
+                        class="hover:cursor-pointer p-2 first:ps-6 last:pe-6 uppercase"
                     >
                         <slot :name="`th(${col.key})`" :field="col">
                             <div class="">
                                 {{ underscoresToSpaces(getColumnLabel(col)) }}
                                 <div
-                                    class="un-inline-block"
+                                    class="inline-block"
                                     :class="{
                                         'i-tabler-arrows-sort': col.key !== sortColumnKey,
                                         'i-tabler-sort-ascending':
@@ -87,7 +87,7 @@
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="`top_row_column_${fieldIndex}`"
-                            class="un-p-2 first:un-ps-6 last:un-pe-6"
+                            class="p-2 first:ps-6 last:pe-6"
                             :class="[getTopRowClassList(column)]"
                         >
                             <slot
@@ -106,12 +106,12 @@
                     <tr
                         v-for="(item, rowIndex) in getRows()"
                         :key="rowIndex"
-                        class="un-border-y dark:un-border-moon-700"
+                        class="border-y dark:border-moon-700"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
-                            class="un-p-2 first:un-ps-6 last:un-pe-6"
+                            class="p-2 first:ps-6 last:pe-6"
                             :class="[getClassList(column)]"
                         >
                             <slot
@@ -130,12 +130,12 @@
                     <tr
                         v-for="(item, rowIndex) in getRows(bottomRows, false)"
                         :key="rowIndex"
-                        class="un-border-t dark:un-border-moon-700"
+                        class="border-t dark:border-moon-700"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
                             :key="fieldIndex"
-                            class="un-p-2 first:un-ps-6 last:un-pe-6"
+                            class="p-2 first:ps-6 last:pe-6"
                             :class="[getBottomRowClassList(column)]"
                         >
                             <slot
@@ -152,7 +152,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="vt-table-footer un-flex un-flex-wrap un-gap-2 un-mx-4 un-my-2">
+        <div class="vt-table-footer flex flex-wrap gap-2 mx-4 my-2">
             <pagination-component
                 v-if="paginate"
                 :per-page="itemsPerPage"
@@ -162,7 +162,7 @@
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
                 @page-changed="changePage"
-                class="dark:un-text-gray-400"
+                class="dark:text-gray-400"
             >
                 <template #pagination-label="{ data }">
                     <slot name="pagination-label" v-bind="data"></slot>
@@ -260,39 +260,39 @@ export default {
         },
         pageSizeButtonClassList: {
             type: String,
-            default: joinLines(`un-border
-                                un-border-slate-200
-                                dark:un-border-moon-700
-                                hover:un-border-slate-100
-                                dark:hover:un-border-moon-600
-                                un-bg-slate-50
-                                dark:un-bg-moon-800
-                                hover:un-bg-gray-200
-                                dark:hover:un-bg-moon-700
-                                dark:un-text-gray-100
-                                hover:un-cursor-pointer
-                                un-rounded-sm
-                                un-text-sm
-                                un-px-4
-                                un-h-[100%]
-                                un-inline-flex
-                                un-items-center`)
+            default: joinLines(`border
+                                border-slate-200
+                                dark:border-moon-700
+                                hover:border-slate-100
+                                dark:hover:border-moon-600
+                                bg-slate-50
+                                dark:bg-moon-800
+                                hover:bg-gray-200
+                                dark:hover:bg-moon-700
+                                dark:text-gray-100
+                                hover:cursor-pointer
+                                rounded-sm
+                                text-sm
+                                px-4
+                                h-[100%]
+                                inline-flex
+                                items-center`)
         },
         searchInputClassList: {
             type: String,
-            default: joinLines(`un-border
-                                dark:un-border-moon-700
-                                dark:un-bg-moon-900
-                                dark:un-text-gray-100
-                                un-rounded-sm
-                                dark:focus:un-outline-none
-                                dark:focus:un-ring-1
-                                dark:focus:un-ring-moon-500
-                                dark:focus:un-border-moon-300
-                                un-px-2
-                                un-text-sm
-                                un-flex
-                                un-h-auto`)
+            default: joinLines(`border
+                                dark:border-moon-700
+                                dark:bg-moon-900
+                                dark:text-gray-100
+                                rounded-sm
+                                dark:focus:outline-none
+                                dark:focus:ring-1
+                                dark:focus:ring-moon-500
+                                dark:focus:border-moon-300
+                                px-2
+                                text-sm
+                                flex
+                                h-auto`)
         },
         paginate: {
             type: Boolean,
@@ -508,10 +508,10 @@ export default {
             this.pageSize = size
         },
         leftPadFirstCol(index) {
-            return index === 0 ? 'un-pe-6' : ''
+            return index === 0 ? 'pe-6' : ''
         },
         rightPadLastCol(index) {
-            return index === this.visibleFields.length - 1 ? 'un-pe-6' : ''
+            return index === this.visibleFields.length - 1 ? 'pe-6' : ''
         },
         getColumnLabel(column) {
             return column.label ? column.label : column.key

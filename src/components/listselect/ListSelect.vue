@@ -164,7 +164,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
 
 <template>
     <ListboxRoot
-        class="un-flex un-flex-col un-text-nowrap un-relative"
+        class="flex flex-col text-nowrap relative"
         v-model="selectedOptions"
         :multiple="props.multiple"
         as="div"
@@ -185,11 +185,11 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         </ListboxFilter>
         <div
             v-if="open"
-            class="un-min-w-fit un-absolute un-z-10 un-top-[39px] un-left-0 un-bg-white dark:un-bg-moon-900 un-shadow-lg un-rounded"
+            class="min-w-fit absolute z-10 top-[39px] left-0 bg-white dark:bg-moon-900 shadow-lg rounded"
             :class="props.dropdownClasses"
             :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
         >
-            <ScrollAreaRoot :scrollHideDelay="50" class="un-h-100 un-overflow-hidden">
+            <ScrollAreaRoot :scrollHideDelay="50" class="h-100 overflow-hidden">
                 <slot name="list-excess" v-if="listLengthExceeded">
                     <ListSelectExcessIndicator
                         :listLengthExceeded="listLengthExceeded"
@@ -198,8 +198,8 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     />
                 </slot>
                 <ScrollAreaViewport
-                    class="un-w-full un-border-t un-border-l un-border-r un-border-gray-200 dark:un-border-moon-700 un-rounded-t un-h-full"
-                    :class="{ 'un-border-b un-rounded-b': !showFooter }"
+                    class="w-full border-t border-l border-r border-gray-200 dark:border-moon-700 rounded-t h-full"
+                    :class="{ 'border-b rounded-b': !showFooter }"
                     asChild
                 >
                     <ListboxContent asChild>
@@ -212,7 +212,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                         >
                             <ListboxItem
                                 :value="option"
-                                class="listselect__option un-flex un-items-center un-justify-start un-w-full un-min-h-[38px] un-max-h-[38px] p-0"
+                                class="listselect__option flex items-center justify-start w-full min-h-[38px] max-h-[38px] p-0"
                                 asChild
                             >
                                 <slot name="option" :option="option">
@@ -227,17 +227,17 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     </ListboxContent>
                 </ScrollAreaViewport>
                 <ScrollAreaScrollbar
-                    class="un-flex un-select-none un-touch-none un-p-0.5 un-bg-inherit hover:un-bg-inherit data-[orientation=vertical]:un-w-3 data-[orientation=horizontal]:un-flex-col data-[orientation=horizontal]:un-h-3"
+                    class="flex select-none touch-none p-0.5 bg-inherit hover:bg-inherit data-[orientation=vertical]:w-3 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-3"
                     orientation="vertical"
                 >
                     <ScrollAreaThumb
-                        class="un-flex-1 un-w-full un-bg-slate-200 hover:un-bg-slate-300 dark:un-bg-moon-700 dark:hover:un-bg-moon-600 un-rounded-sm un-relative before:un-content-[''] before:un-absolute before:un-top-1/2 before:un-left-1/2"
+                        class="flex-1 w-full bg-slate-200 hover:bg-slate-300 dark:bg-moon-700 dark:hover:bg-moon-600 rounded-sm relative before:content-[''] before:absolute before:top-1/2 before:left-1/2"
                     />
                 </ScrollAreaScrollbar>
                 <ScrollAreaCorner />
             </ScrollAreaRoot>
             <div
-                class="un-border un-border-gray-200 un-rounded-b dark:un-border-moon-700 un-min-h-25 un-max-h-fit un-p-2"
+                class="border border-gray-200 rounded-b dark:border-moon-700 min-h-25 max-h-fit p-2"
                 v-if="showFooter"
             >
                 <slot name="footer" :selection="{ selectedOptions }">

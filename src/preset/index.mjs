@@ -41,9 +41,6 @@ const presetVTail = definePreset(options => {
     return {
         name: 'v-tail-vue3-preset',
         theme: { colors: mergedColors },
-        shortcuts: {
-            'border-base': 'un-border-border'
-        },
         presets: [
             presetIcons({
                 collections: {

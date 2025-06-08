@@ -1,6 +1,6 @@
 <template>
     <div class="flex gap-4 flex-wrap justify-between w-[100%]" data-pagination-component>
-        <div class="pagination-label">
+        <div class="pagination-label text-muted">
             <slot name="pagination-label" :data="{ perPage, currentPage, totalEntries }">
                 {{ paginationLabel }}
             </slot>
@@ -21,9 +21,9 @@
                 <li v-for="page in pages" :key="page" class="pagination-item">
                     <button
                         type="button"
-                        :disabled="page === currentPage"
+                        :disabled="isPageSelected(page)"
                         @click="onClickPage(page)"
-                        :class="[isPageActive(page) ? activeClasses : inactiveClasses]"
+                        :class="[isPageSelected(page) ? activeClasses : inactiveClasses]"
                     >
                         {{ page > Number.MAX_SAFE_INTEGER ? '...': page }}
                     </button>
@@ -44,8 +44,6 @@
     </div>
 </template>
 <script>
-import '@unocss/reset/tailwind.css'
-import 'virtual:uno.css'
 const PAGE_CHANGED_EVENT = 'page-changed'
 const createIntermediateIndexRange = (currentPage, maxIntermediateButtons, totalPages) => {
     if (totalPages < maxIntermediateButtons) return [...Array(totalPages).keys()].map(i => i + 1)
@@ -102,7 +100,7 @@ export default {
         activeClasses: {
             type: String,
             default:
-                'bg-primary text-white dark:text-gray-100 ring ring-primary-200 dark:ring-primary-700 ring-2 rounded-sm px-2'
+                'bg-primary hover:bg-inherit text-white border-primary border-2 rounded-sm px-2'
         },
         inactiveClasses: {
             type: String,
@@ -110,7 +108,7 @@ export default {
         },
         disabledClasses: {
             type: String,
-            default: 'text-slate-300 dark:text-moon-500'
+            default: 'text-disabled'
         }
     },
     data() {
@@ -158,7 +156,7 @@ export default {
         onClickLastPage() {
             this.$emit(PAGE_CHANGED_EVENT, this.totalPages)
         },
-        isPageActive(page) {
+        isPageSelected(page) {
             return this.currentPage === page
         }
     }

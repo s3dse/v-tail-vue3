@@ -75,19 +75,19 @@ export default defineConfig({
         [/^busy-bg-(.*)$/, ([, c]) => `after:bg-${c}/70`],
         {
             'form-help':
-            'inline-flex ml-2 items-center justify-center w-5 h-5 bg-slate-100 dark:bg-primary-500 dark:ring-1 dark:ring-primary-400 text-slate-600 dark:text-gray-100 rounded-full cursor-pointer transition duration-100 hover:text-slate-50 hover:bg-primary-500 dark:hover:bg-primary-600 hover:ease-linear',
-                // 'inline-flex ml-2 items-center justify-center w-5 h-5 bg-slate-100 text-slate-600 rounded-full cursor-pointer transition duration-100 hover:text-slate-50 hover:bg-slate-600 hover:ease-linear',
+            'inline-flex ml-2 items-center justify-center w-5 h-5 bg-slate-100 dark:bg-primary dark:ring-1 dark:ring-primary  dark:text-gray-100 rounded-full cursor-pointer transition duration-100 hover:text-slate-50 hover:bg-primary hover:ease-linear',
             'page-header': 'text-xl font-semibold my-3',
             'card':
-                'border border-solid border-gray-200 bg-white dark:bg-moon-800 dark:border-moon-700 rounded-sm',
-            'card-title': 'text-base text-slate-600 dark:text-gray-100 font-medium'
+                'bg-surface border border-solid border-border rounded-sm',
+            'card-title': 'text-base text-default font-medium'
         }
     ],
     presets: [
         presetUno(),
         presetScrollbar(),
 
-        presetVTail({ colors: { primary: colors.navy } })
+        presetVTail()
     ],
     transformers: [transformerVariantGroup(), transformerDirectives() ],
+    autocomplete: ['text-subtle', 'text-muted', 'text-default', 'text-inverted', 'text-disabled', 'card-title'],
 })

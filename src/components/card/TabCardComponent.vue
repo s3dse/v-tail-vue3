@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="pt-3 dark:bg-moon-900 bg-gray-50">
+        <div class="pt-3 bg-background">
             <tabs-component @update:current-tab-index="selectTab" :tabs="tabs">
             </tabs-component>
         </div>

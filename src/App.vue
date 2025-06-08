@@ -196,7 +196,34 @@ const isToggleChecked = ref(false)
                 <div class="i-tabler-menu-2"></div>
             </template>
         </action-dropdown-component>
+
+           <dropdown-component :options="['a', 'b']" class="w-fit">
+            <template #toggle-label>
+                <div>select</div>
+            </template>
+        </dropdown-component>
     </div>
+    <dialog-component
+            title="Testing Dialog"
+            description="A dialog..."
+            @cancel="test"
+            :pre-confirm="validateAndSubmit"
+            :confirm-disabled="true"
+        >
+            <template #content>
+                <div
+                    class="flex gap-4 flex-col text-gray-900 dark:text-gray-100 px-4 pt-3 pb-5"
+                >
+                    <span>test</span>
+                    <span>another test</span>
+                    <span>and another test</span>
+                </div>
+                <select class="custom-select">
+                    <option>a</option>
+                    <option>b</option>
+                </select>
+            </template>
+        </dialog-component>
     <!-- <div class="p-5">
         <dialog-component
             title="Testing Dialog"
@@ -270,7 +297,11 @@ const isToggleChecked = ref(false)
             </loading-overlay>
         </card-component>
     </div>  -->
-    <div class="py-12 text-gray-900 dark:text-gray-100">give me some space...</div>
+    <div class="py-1 dark:bg-background text-default">give me some space...</div>
+    <div class="py-1 text-subtle">Subtle...</div>
+    <div class="py-1 text-muted">Muted...</div>
+    <div class="py-1 text-disabled">Disabled...</div>
+
     <div class="p-3">
         <tab-card-component :tabs="tabs" :current-tab-index="0"></tab-card-component>
     </div>
@@ -281,7 +312,7 @@ const isToggleChecked = ref(false)
                 :fields="fields"
                 :top-rows="topRows"
                 title="Test"
-                class="w-[100%] dark:bg-moon-800"
+                class="w-[100%] bg-surface text-inverted"
             >
                 <template #table-top-controls>
                     <div

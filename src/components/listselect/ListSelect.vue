@@ -185,7 +185,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
         </ListboxFilter>
         <div
             v-if="open"
-            class="min-w-fit absolute z-10 top-[39px] left-0 bg-white dark:bg-moon-900 shadow-lg rounded"
+            class="min-w-fit absolute z-10 top-[39px] left-0 bg-surface shadow-lg rounded"
             :class="props.dropdownClasses"
             :style="{ 'z-index': props.dropDownZIndex, width: props.dropDownWidth }"
         >
@@ -198,7 +198,7 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     />
                 </slot>
                 <ScrollAreaViewport
-                    class="w-full border-t border-l border-r border-gray-200 dark:border-moon-700 rounded-t h-full"
+                    class="w-full border-t border-l border-r border-border rounded-t h-full"
                     :class="{ 'border-b rounded-b': !showFooter }"
                     asChild
                 >
@@ -231,13 +231,13 @@ const showFooter = computed(() => props.multiple && open.value && selectedOption
                     orientation="vertical"
                 >
                     <ScrollAreaThumb
-                        class="flex-1 w-full bg-slate-200 hover:bg-slate-300 dark:bg-moon-700 dark:hover:bg-moon-600 rounded-sm relative before:content-[''] before:absolute before:top-1/2 before:left-1/2"
+                        class="flex-1 w-full bg-scrollbar-thumb hover:bg-scrollbar-thumb-hover rounded-sm relative before:content-[''] before:absolute before:top-1/2 before:left-1/2"
                     />
                 </ScrollAreaScrollbar>
                 <ScrollAreaCorner />
             </ScrollAreaRoot>
             <div
-                class="border border-gray-200 rounded-b dark:border-moon-700 min-h-25 max-h-fit p-2"
+                class="border border-border rounded-b min-h-25 max-h-fit p-2"
                 v-if="showFooter"
             >
                 <slot name="footer" :selection="{ selectedOptions }">

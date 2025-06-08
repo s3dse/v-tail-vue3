@@ -1,6 +1,7 @@
 import { definePreset, presetIcons, presetUno } from 'unocss'
 import { colors } from './colors.js'
 import { icons } from './icons.js'
+import { theme as t } from './theme.js'
 import presetTheme from 'unocss-preset-theme'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
 
@@ -35,12 +36,14 @@ const presetVTail = definePreset(options => {
                 inputfield: Theme.colors.white,
                 thead: Theme.colors.slate[100]
             }
-        }
+        },
+        ...t
     }
 
     return {
         name: 'v-tail-vue3-preset',
-        theme: { colors: mergedColors },
+        theme: { colors: theme.light.colors, fontFamily: { sans: '"Inter", system-ui, sans-serif'} },
+        shortcuts: theme.light.shortcuts,
         presets: [
             presetIcons({
                 collections: {

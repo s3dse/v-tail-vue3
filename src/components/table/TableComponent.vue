@@ -2,7 +2,7 @@
     <div>
         <div
             v-if="title && !hasTitleSlot"
-            class="vt-title-border border-b dark:border-moon-700 dark:bg-moon-800 my-3"
+            class="vt-title-border border-b border-border bg-surface my-3"
         >
             <div class="vt-title card-title mx-4 my-3">
                 {{ title }}
@@ -10,7 +10,7 @@
         </div>
         <div
             v-if="!title && hasTitleSlot"
-            class="vt-title-border border-b dark:border-moon-700 my-3"
+            class="vt-title-border border-b border-border my-3"
         >
             <slot name="title" />
         </div>
@@ -43,14 +43,14 @@
             ></slot>
         </div>
         <div
-            class="mt-2 pb-2 border-t dark:border-moon-700 overflow-x-auto scrollbar scrollbar-rounded scrollbar-track-radius-0 scrollbar-thumb-radius-2px scrollbar-thumb-color-slate-200 dark:scrollbar-thumb-color-moon-700 hover:scrollbar-thumb-color-slate-300 dark:hover:scrollbar-thumb-color-moon-600 scrollbar-track-color-inherit dark:scrollbar-track-color-inherit"
+            class="mt-2 pb-2 border-t border-border overflow-x-auto with-scrollbar"
         >
             <table
-                class="w-full dark:text-gray-100"
+                class="w-full text-default"
                 :class="{ 'table-fixed whitespace-normal break-words': fixed }"
             >
                 <thead
-                    class="bg-slate-100 dark:bg-moon-900 font-semibold text-[0.625rem] text-slate-500"
+                    class="bg-thead-background font-semibold text-[0.625rem] text-thead-text"
                     v-if="tableData.length || topRows.length"
                 >
                     <th
@@ -106,7 +106,7 @@
                     <tr
                         v-for="(item, rowIndex) in getRows()"
                         :key="rowIndex"
-                        class="border-y dark:border-moon-700"
+                        class="border-y border-border"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
@@ -130,7 +130,7 @@
                     <tr
                         v-for="(item, rowIndex) in getRows(bottomRows, false)"
                         :key="rowIndex"
-                        class="border-t dark:border-moon-700"
+                        class="border-t border-border"
                     >
                         <td
                             v-for="(column, fieldIndex) in visibleFields"
@@ -162,7 +162,7 @@
                 :previous-label="paginationPreviousLabel"
                 :next-label="paginationNextLabel"
                 @page-changed="changePage"
-                class="dark:text-gray-400"
+                class="text-default"
             >
                 <template #pagination-label="{ data }">
                     <slot name="pagination-label" v-bind="data"></slot>

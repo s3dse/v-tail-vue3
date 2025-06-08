@@ -2,7 +2,7 @@
     <div v-click-outside="closeDropdown" class="dropdown-component relative">
         <div
             @click="toggleDropdown"
-            :class="['dropdown-button', buttonClassList ? buttonClassList : 'bg-slate-50 dark:bg-moon-800 hover:bg-slate-100 dark:hover:bg-moon-700 hover:cursor-pointer rounded-sm border border-slate-500 dark:border-moon-700 dark:hover:border-moon-600 text-sm dark:text-gray-100 px-4 py-1 text-center inline-flex items-center w-full']"
+            :class="['dropdown-button', buttonClassList ? buttonClassList : 'bg-surface hover:bg-surface-hover hover:cursor-pointer rounded-sm border border-border text-sm text-default px-4 py-1 text-center inline-flex items-center w-full']"
             type="button"
         >
             <slot name="toggle-label" v-bind="{ currentItem }">
@@ -12,13 +12,13 @@
         </div>
         <div
             v-show="show"
-            :class="['dropdown-container absolute top-[100%] z-10', dropdownContainerClassList ? dropdownContainerClassList : 'absolute top-[100%] w-fit z-10 bg-white dark:bg-moon-700 divide-y divide-gray-100 dark:divide-moon-600 rounded-sm shadow w-44']"
+            :class="['dropdown-container absolute top-[100%] z-10', dropdownContainerClassList ? dropdownContainerClassList : 'absolute top-[100%] w-fit z-10 bg-surface divide-y divide-border rounded-sm shadow w-44']"
         >
             <ul :class="[ulClassList ? ulClassList : 'text-sm text-gray-700 dark:text-gray-100']">
                 <li
                     v-for="(item, index) in options"
                     :key="index"
-                    :class="[liClassList ? liClassList : 'block py-2 text-right hover:cursor-pointer dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-moon-600 hover:bg-opacity-50']"
+                    :class="[liClassList ? liClassList : 'block py-2 text-right hover:cursor-pointer text-default bg-surface hover:bg-surface-hover']"
                     @click="setCurrentItem(item)"
                 >
                 <slot name="itemlabel" v-bind="{ item, index, isSelected, getActiveClassList }">
@@ -62,11 +62,11 @@ export default {
         },
         upIcon: {
             type: String,
-            default: 'i-custom-chevron-up dark:text-gray-100'
+            default: 'i-custom-chevron-up text-default'
         },
         downIcon: {
             type: String,
-            default: 'i-custom-chevron-down dark:text-gray-100'
+            default: 'i-custom-chevron-down text-default'
         },
         activeClassList: {
             type: String,

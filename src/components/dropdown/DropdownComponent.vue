@@ -14,11 +14,11 @@
             v-show="show"
             :class="['dropdown-container absolute top-[100%] z-10', dropdownContainerClassList ? dropdownContainerClassList : 'absolute top-[100%] w-fit z-10 bg-white dark:bg-moon-700 divide-y divide-gray-100 dark:divide-moon-600 rounded-sm shadow w-44']"
         >
-            <ul class="text-sm text-gray-700 dark:text-gray-100">
+            <ul :class="[ulClassList ? ulClassList : 'text-sm text-gray-700 dark:text-gray-100']">
                 <li
                     v-for="(item, index) in options"
                     :key="index"
-                    class="block py-2 text-right hover:cursor-pointer dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-moon-600 hover:bg-opacity-50"
+                    :class="[liClassList ? liClassList : 'block py-2 text-right hover:cursor-pointer dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-moon-600 hover:bg-opacity-50']"
                     @click="setCurrentItem(item)"
                 >
                     <p
@@ -71,6 +71,14 @@ export default {
             default: 'font-bold'
         },
         dropdownContainerClassList: {
+            type: String,
+            default: ''
+        },
+        ulClassList: {
+            type: String,
+            default: ''
+        },
+        liClassList: {
             type: String,
             default: ''
         }

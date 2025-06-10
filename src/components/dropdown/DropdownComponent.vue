@@ -19,11 +19,11 @@
                     v-for="(item, index) in options"
                     :key="index"
                     class="block py-2 text-right hover:cursor-pointer dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-moon-600 hover:bg-opacity-50"
+                    @click="setCurrentItem(item)"
                 >
                     <p
                         class="block w-[100%] px-8 text-right hover:cursor-pointer"
                         :class="getActiveClassList(item)"
-                        @click="setCurrentItem(item)"
                     >
                         {{ item }}
                     </p>

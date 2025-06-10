@@ -14,6 +14,7 @@ import ListSelect from './components/listselect/ListSelect.vue'
 import { joinLines } from './utils/string-join-lines'
 import SingleSelect from './components/select/SingleSelect.vue'
 import MultiSelect from './components/select/MultiSelect.vue'
+import ToggleComponent from './components/toggle/ToggleComponent.vue'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -159,6 +160,8 @@ const multiSelectOptions = [
     { name: 'All Records', value: 'all' }
 ]
 const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
+
+const isToggleChecked = ref(false)
 </script>
 
 <template>
@@ -344,5 +347,14 @@ const multiSelectValue = ref([multiSelectOptions[0], multiSelectOptions[1]])
         :placeholder-function="v => v.length === 1 ? v[0].name : v.length + ' are selected'"
         class="w-[200px] mb-2"
         ></multi-select>
+
+    <div class="p-4">
+        <ToggleComponent
+            class="justify-around w-80"
+            left-label="Left"
+            right-label="Right"
+            v-model="isToggleChecked"
+        ></ToggleComponent>
+    </div>
 
 </template>

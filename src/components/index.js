@@ -7,6 +7,7 @@ import { LoadingOverlay } from './loading-overlay'
 import { DialogComponent } from './dialog'
 import { SingleSelect, MultiSelect } from './select'
 import { ListSelect, ListSelectPreview } from './listselect'
+import { ToggleComponent } from './toggle'
 
 export {
     TableComponent,
@@ -21,5 +22,6 @@ export {
     MultiSelect,
     TabsComponent,
     ListSelect,
-    ListSelectPreview
+    ListSelectPreview,
+    ToggleComponent
 }

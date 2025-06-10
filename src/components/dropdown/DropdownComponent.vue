@@ -21,12 +21,14 @@
                     :class="[liClassList ? liClassList : 'block py-2 text-right hover:cursor-pointer dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-moon-600 hover:bg-opacity-50']"
                     @click="setCurrentItem(item)"
                 >
+                <slot name="itemlabel" v-bind="{ item, index, isSelected, getActiveClassList }">
                     <p
                         class="block w-[100%] px-8 text-right hover:cursor-pointer"
                         :class="getActiveClassList(item)"
                     >
                         {{ item }}
                     </p>
+                </slot>
                 </li>
             </ul>
         </div>
@@ -108,6 +110,9 @@ export default {
         setCurrentItem(item) {
             this.$emit('update:modelValue', item)
             this.$emit('input', item)
+        },
+        isSelected(item) {
+            return this.currentItem === item
         },
         getActiveClassList(item) {
             return this.currentItem === item ? this.activeClassList : ''

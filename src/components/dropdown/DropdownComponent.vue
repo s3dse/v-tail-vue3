@@ -12,7 +12,7 @@
         </div>
         <div
             v-show="show"
-            class="absolute top-[100%] w-fit z-10 bg-white dark:bg-moon-700 divide-y divide-gray-100 dark:divide-moon-600 rounded-sm shadow w-44"
+            :class="['dropdown-container absolute top-[100%] z-10', dropdownContainerClassList ? dropdownContainerClassList : 'absolute top-[100%] w-fit z-10 bg-white dark:bg-moon-700 divide-y divide-gray-100 dark:divide-moon-600 rounded-sm shadow w-44']"
         >
             <ul class="text-sm text-gray-700 dark:text-gray-100">
                 <li
@@ -65,6 +65,14 @@ export default {
         downIcon: {
             type: String,
             default: 'i-custom-chevron-down dark:text-gray-100'
+        },
+        activeClassList: {
+            type: String,
+            default: 'font-bold'
+        },
+        dropdownContainerClassList: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -94,7 +102,7 @@ export default {
             this.$emit('input', item)
         },
         getActiveClassList(item) {
-            return this.currentItem === item ? 'font-bold' : ''
+            return this.currentItem === item ? this.activeClassList : ''
         }
     }
 }

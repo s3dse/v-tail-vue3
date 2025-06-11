@@ -10,7 +10,7 @@
         >
             <input type="checkbox" class="sr-only" v-model="isChecked" />
             <div
-                class="w-10 h-6 bg-gray-200 dark:bg-moon-900 dark:border dark:border-moon-700 rounded-full shadow-inner data-[checked=true]:bg-primary-500 transition duration-200 ease-in-out"
+                class="w-10 h-6 bg-gray-200 dark:bg-moon-900 dark:border dark:border-moon-700 rounded-full shadow-inner data-[checked=true]:bg-primary-500 dark:data-[checked=true]:bg-primary-500 transition duration-200 ease-in-out"
                 :data-checked="isChecked"
             ></div>
             <div
